@@ -1,9 +1,10 @@
 // tutte le strutture e i programmi per utilizzarle
 
-typedef struct Event {
+typedef struct Event{
   unsigned int id; //per lettura da file
+  char type; //da unire con ID
+  char choice_text[64];
   char text[1024];
-  unsigned short choices;
-  char choice_text[3][64];
-  struct Event* out; //da cambiare in unsigned int (id)
+  unsigned int range;
+  struct Event* Next;
 } Event_t;
