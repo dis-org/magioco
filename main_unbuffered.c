@@ -6,9 +6,9 @@
 Event_t Fine={ 111, 'e', "", "fine prova"};
 
 Event_t Prova3={ 13, 't', "no, questo no", "ecco l'hai rotto", 1, &Fine};
-Event_t Prova2={ 12, 't',"oppure questo", "bravissimo", 2, &Prova3};
-Event_t Prova1={ 11, 't',"fai questo", "bravo", 3, &Prova2};
-Event_t Prova={ 10, 'c',"se leggi questo c'è un errore", "Questa è una prova", 3, &Prova1};
+Event_t Prova2={ 12, 't', "oppure questo", "bravissimo", 2, &Prova3};
+Event_t Prova1={ 11, 't', "fai questo", "bravo", 3, &Prova2};
+Event_t Prova={ 10, 'c', "se leggi questo c'è un errore", "Questa è una prova", 3, &Prova1};
 
 //---
 
@@ -21,8 +21,8 @@ int main()
   Event_t Previous;
   Event_t* Temp;
   
-  Event_t QuitY={ 2, 'e', "Yep","Bye", 1, &Previous};
-  Event_t QuitN={ 1, 'b', "Nope","riprendi", 2, &QuitY};
+  Event_t QuitY={ 2, 'e', "Yep", "Bye", 1, &Previous};
+  Event_t QuitN={ 1, 'b', "Nope", "riprendi", 2, &QuitY};
   Event_t Quit={ 0, 'c', "errore", "Uscire dal gioco?", 2, &QuitN};
   //inventory enabler
 

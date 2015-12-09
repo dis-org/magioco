@@ -1,0 +1,5 @@
+\Boccuto:
+					inizia uno studio di funzione.r2,                                                   
+					applica il teorema dell' Ospital.r3,
+					TRUCCO!.m4,
+					scatena un evento con probabilità inferiore al 10%.r6
