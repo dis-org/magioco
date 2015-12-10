@@ -16,9 +16,9 @@ typedef struct Action{
 } Action_t;
 
 typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
-  char name[64];
+  char name[64]; //con un nome
   Action_t* First;
-  Action_t* Last;
+  Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
   struct Enemy* Next;
 } Enemy_t;
 
