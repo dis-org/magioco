@@ -1,13 +1,17 @@
 // tutte le strutture e i programmi per utilizzarle
 
 typedef struct Event{
-  unsigned int id; //per lettura da file
-  char type; //da unire con ID
-  char choice_text[64];
-  char text[1024];
-  unsigned int range;
+  char name[64]; //per lettura da file
+  char text[128];
+  char type;
+  char 
   struct Event* Next;
 } Event_t;
+
+typedef struct{ //evento scelta come lista dinamica di eventi
+  Event_t* First;
+  Event_t* Last;
+} Event_Choice;
 
 typedef struct Action{
   char text[256];

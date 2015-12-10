@@ -1,0 +1,9 @@
+\Devi sceglere tra queste cose:
+-Apri la cassa>Hai trovato un sasso inutile:
+i.sasso,
+c.next
+-Aspetta>Non succede niente:
+c.Devi scegliere tra queste cose
+-Pensa a Boccuto>Boccuto compare dal nulla! E ha già riempito tre lavagne!:
+b.Boccuto
+c.next
