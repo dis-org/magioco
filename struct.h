@@ -35,7 +35,7 @@ typedef struct Item{
     char type; //unitario 'u' o pluritario 'p' cambia la scritta tra durata e quantità
     int usevalue; //sia su nemici che su se stessi
     unsigned short trowvalue; //i danni che fa al nemico se scagliata su di esso
-    unsigned short defvalue;
+    unsigned short defvalue; //magari indica anche quanta durata consuma
     int uses; //viene modificato in modo diverso a seconda del tipo
   };
   struct Item* Next;

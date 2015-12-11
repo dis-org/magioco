@@ -1,0 +1,2 @@
+//variabili universali
+char state;
