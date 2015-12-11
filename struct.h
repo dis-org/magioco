@@ -1,17 +1,13 @@
-// tutte le strutture e i programmi per utilizzarle
-
-typedef struct Event{
-  char name[64]; //per lettura da file
-  char text[128];
-  char type;
-  char 
-  struct Event* Next;
+typedef struct Choice{ //possibili opzioni
+  char text[128];//convertire tutto a stringa di testo
+  struct Choice* Next;
 } Event_t;
 
-typedef struct{ //evento scelta come lista dinamica di eventi
-  Event_t* First;
-  Event_t* Last;
-} Event_Choice;
+typedef struct{ //ogni scelta è una lista di opzioni
+  char text[256];
+  Choice_t* First;
+  Choice_t* Last;
+} Choice_List;
 
 typedef struct Action{
   char text[256];
@@ -21,6 +17,8 @@ typedef struct Action{
 
 typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
   char name[64]; //con un nome
+  short health;
+  short defence;
   Action_t* First;
   Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
   struct Enemy* Next;
@@ -34,9 +32,11 @@ typedef struct{
 typedef struct Item{
   struct Info{
     char name[64];
-    char type; //cosa fa
-    short value; //come lo fa
-    short uses; //utilizzi
+    short mvalue;
+    short rvalue;
+    short dvalue;
+    int uses;
+    int //da rivedere 
   };
   struct Item* Next;
 } Item_t;

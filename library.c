@@ -1,1 +1,0 @@
-//funzioni utili in generale
