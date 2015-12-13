@@ -7,6 +7,7 @@ int main(int argc, char* argv[])
   
   state='t';
   _Bool on= 1;
+  chosed= 1;
   while(on)
     {
       switch(state)
@@ -18,7 +19,6 @@ int main(int argc, char* argv[])
           press_a();
           continue;
         case'c':
-          chosed= 1;
           if(choice(chosed,events))
             {
               select(Choice_list);
