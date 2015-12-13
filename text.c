@@ -1,17 +1,29 @@
 #include"text.h"
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
-void readevent(void){
-int x='#';
-char *id;
+void readevent(char *ID){
+int x;
 FILE *pf;
 pf = fopen("test.txt","r");
 if (pf==NULL){ 
               printf("errore");
               exit(EXIT_FAILURE);
               }; 
-  control(pf);            
+  controle(pf,ID);
+  printtext(pf);
+do{
+   move('>',pf);
+   x=getc(pf);
+   if (x=='i'){
+   
+              }
+   if (x=='e'){
+   
+              } 
+  }while(x!='#');
+  x=getc();           
   fclose(pf);
 }            
 
@@ -23,7 +35,7 @@ while(c != a){
               }
 }
 
-void read(FILE*pf){
+void printtext(FILE*pf){
 int a;
 do{
    a=getc(pf);
@@ -35,28 +47,27 @@ do{
   }while(a != EOF);
 }
 
-char* sstring(FILE *pf){
-int c='/',a;
+char* sstring(FILE *pf){// rimanda una stringa..finito.
+int c='/',a,i=0;
 char *x=malloc(128*sizeof(char));
 do{
    a=getc(pf);
    if(a==c){
             return x;
            }
-   *x=c;
-  }while(c!=EOF);
+   *(x+i)=a;
+   i++;
+  }while(a!=EOF);
 }
 
-void controle(char*x;FILE* pf){
+void controle(FILE* pf, char* id){// controlla 2 stringhe.. finito.
+ char *temp;
 do{
-  move('^',text);
-  
-
-
-
-
+   move('^',pf);
+   temp = sstring(pf);
+  }while (strcmp(temp,id)!=0);
+free(temp);
 }
-
 
 
 
