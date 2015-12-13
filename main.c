@@ -6,9 +6,7 @@ int main(int argc, char* argv[])
   //inizilizzazione
   
   state='t';
-  char id[128];
   _Bool on= 1;
-  short chosed;
   while(on)
     {
       switch(state)
