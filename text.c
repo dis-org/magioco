@@ -27,7 +27,7 @@ do{
   fclose(pf);
 }            
 
-void move(int a,FILE* pf){
+void move(int a,FILE* pf){//muove il puntatore fino al simbolo...finito.
 int c;
 while(c != a){
                c=getc(pf);
@@ -35,7 +35,7 @@ while(c != a){
               }
 }
 
-void printtext(FILE*pf){
+void printtext(FILE*pf){// stampa il testo fino al simbolo...finito.
 int a;
 do{
    a=getc(pf);
@@ -68,31 +68,3 @@ do{
   }while (strcmp(temp,id)!=0);
 free(temp);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
