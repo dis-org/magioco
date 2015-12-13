@@ -1,1 +1,2 @@
-void select(short chosed, Choice_List* List);
+#include "var.h"
+void select(short chosen, Choice_List* List);

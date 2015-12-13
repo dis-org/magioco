@@ -4,23 +4,26 @@
 void press_a(void) 
 {
   if(buffered)
-  {
-    char in;
-    system ("/bin/stty raw");
-    while(1) //loop infinito
-      {
-        in= getchar();
-        printf("\r        \r");
-        if(in=='a')
-          break; //esce dal loop se digito 'a'
-        if(in=='q')
-          {
-            state='q'; //anche se digito q ma prima cambia lo stato
-            break;
-          }
-      }
-    system("/bin/stty cooked");
-  }
+    {
+    }
+  else
+    {
+      char in;
+      system ("/bin/stty raw");
+      while(1) //loop infinito
+        {
+          in= getchar();
+          printf("\r        \r");
+          if(in=='a')
+            break; //esce dal loop se digito 'a'
+          if(in=='q')
+            {
+              state='q'; //anche se digito q ma prima cambia lo stato
+              break;
+            }
+        }
+      system("/bin/stty cooked");
+    }
 }
 //dovrebbe essere l'ultima funzione chiamata prima di rivalutare il loop
 

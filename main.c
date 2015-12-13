@@ -7,25 +7,23 @@ int main(int argc, char* argv[])
   
   state='t';
   _Bool on= 1;
-  chosed= 1;
+  event_chosed= 1;
   while(on)
     {
       switch(state)
         {
         case't':
-          read_event(id);
+          read_event(id); //da migliorare---> programma unico??
           if(state=='c')
             read_choice(id);
           press_a();
           continue;
         case'c':
-          if(choice(chosed,events))
+          if(choice(&event_chosed, Events.choices))
             {
-              select(Choice_list);
+              select(event_chosed, Events);
             }
           continue;
-        case'q':
-        case'b':
         }
     }
 }
