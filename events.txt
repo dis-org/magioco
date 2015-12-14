@@ -1,4 +1,4 @@
-<Devi sceglere tra queste cose:
+^Devi sceglere tra queste cose:
 	/Apri la cassa:
 		"Hai trovato un sasso completamente inutile"
 		-i.sasso
@@ -10,13 +10,13 @@
 		"Boccuto compare dal nulla! E ha già riempito tre lavagne!"
 		-e.Boccuto
 		-c.next
->
+*
 
-<Usa le frecce per muoverti nel menù:
+^Usa le frecce per muoverti nel menù:
 	/Continua:
 	/Nuova partita:
 	/Impostazioni grafiche:
 		"HAHAHAHAAHAH"
 		-c.Usa le frecce per muoverti nel menù
->
+*
 

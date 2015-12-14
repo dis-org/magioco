@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "var.h"
 
 void press_a(void) 
@@ -9,7 +10,7 @@ void press_a(void)
   else
     {
       char in;
-      system ("/bin/stty raw");
+      system("/bin/stty raw");
       while(1) //loop infinito
         {
           in= getchar();
@@ -37,7 +38,7 @@ _Bool choice(short* chosen, short choices)
     {
       _Bool ret;
       char in;
-      system ("/bin/stty raw");
+      system("/bin/stty raw");
       while(1)
         {
           in= getchar();
@@ -61,7 +62,7 @@ _Bool choice(short* chosen, short choices)
               break;
             }
         }
-      system ("/bin/stty cooked");
+      system("/bin/stty cooked");
       ret= in=='a'? 1: 0;
       return ret;
     }

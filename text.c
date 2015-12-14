@@ -6,11 +6,11 @@
 void readevent(char *ID){
 int x;
 FILE *pf;
-pf = fopen("test.txt","r");
+pf = fopen("events.txt","r");
 if (pf==NULL){ 
-              printf("errore");
+              fprintf(stderr,"errore\n");
               exit(EXIT_FAILURE);
-              }; 
+              }
   controle(pf,ID);
   printtext(pf);
 do{
@@ -21,9 +21,9 @@ do{
               }
    if (x=='e'){
    
-              } 
+              }
   }while(x!='#');
-  x=getc();           
+  x=getc(pf);
   fclose(pf);
 }            
 
