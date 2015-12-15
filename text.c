@@ -1,6 +1,6 @@
 #include"text.h"
 #include"event.h"
-#include<stdio.h>
+#include<stdio.h>	
 #include<stdlib.h>
 #include<string.h>
 
@@ -99,7 +99,8 @@ strcpy(Events.text,id);
 do{
    move('/',pf);
    strcpy(id,sstring(pf,'\n'));
-   if (strcmp(id,"#"))return;
+   if (!strcmp(id,"#"))
+       return;
    addEvent();
   }while(1);
 }

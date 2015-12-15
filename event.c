@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "event.h"
 
+
 void select(short chosen, Choice_List* List)
 {
   Choice_t* p= List->First;
@@ -32,6 +33,6 @@ void addEvent(void)
   {
     Events.Last->Next= Event;
     Events.Last= Event;
-    Events.choices++;
-  }
+   }
+ Events.choices++;
 }
