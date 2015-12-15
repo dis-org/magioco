@@ -12,6 +12,9 @@ int main()
   _Bool on= 1;
   event_chosen= 1;
   strcpy(id,"Intro");
+  enemy_chosen= 0;
+  item_chosen= 1;
+  phase='i';
 
   while(on)
     {
@@ -19,26 +22,32 @@ int main()
       //vita
 
       if(Battle.enemies)
-      	state= 'b';
+        state= 'b';
 
       switch(state)
         {
         case't':
           readevent();
-	  puts("lol");
+          puts("lol");
           press_a();
           continue;
         case'c':
-	  print_Events();
+          print_Events();
           if(choice(&event_chosen, Events.choices))
-	    select(event_chosen, &Events);
-	  else
-	    continue;
-	/* case'b': */
-	/*   print_Enemies(); */
-	/*   switch(phase); */
-
-	}
+            select(event_chosen, &Events);
+          continue;
+        case'b':
+          print_Enemies();
+          print_Stat();
+          switch(phase)
+            {
+            case'i':
+              print_Items();
+              if(choice(&item_chosen, Bag.items))
+                phase= 'u';
+              continue;
+            }
+          return 0;
+        }
     }
-  return 0;
 }

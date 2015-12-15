@@ -19,13 +19,17 @@ void deleteEvents(void)
       Events.First= Events.First->Next;
       free(temp);
     }
+  Events.Last= NULL;
 }
 
 void addEvent(void)
 {
-  Choice_t* Event= calloc(1,sizeof(Choice_t));
+  Choice_t* Event= calloc(1,sizeof(Choice_t)); //controllo allocazione
   strcpy(Event->text, id);
-  Events.Last->Next= Event;
+  if(Events.Last==NULL)
+    Events.Last= Events.First= Event;
+  else
+    Events.Last->Next= Event;
   Events.Last= Event;
   Events.choices++;
 }
