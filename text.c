@@ -93,7 +93,6 @@ free(temp);
 
 void readchoices(FILE* pf){
 char c;
-char *x;
 deleteEvents();
 controle(pf,'+');
 strcpy(Events.text,id);

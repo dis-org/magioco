@@ -29,7 +29,9 @@ void addEvent(void)
   if(Events.Last==NULL)
     Events.Last= Events.First= Event;
   else
+  {
     Events.Last->Next= Event;
-  Events.Last= Event;
-  Events.choices++;
+    Events.Last= Event;
+    Events.choices++;
+  }
 }

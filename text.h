@@ -1,3 +1,5 @@
+#include<stdio.h>
+
 void readevent();
 void printtext(FILE*);
 void move(char,FILE*);

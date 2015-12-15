@@ -25,7 +25,7 @@ void print_Events()
   Choice_t* Temp= Events.First; 
   for(int x= 1; x <= Events.choices; x++)
     {
-      printf("%c %s\n", x== event_chosen? '>' : ' ', Temp->text);
+      printf("%c %s\n", x==event_chosen? '>' : ' ', Temp->text);
       Temp= Temp->Next;
     }
 }

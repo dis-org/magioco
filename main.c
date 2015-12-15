@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "input.h"
 #include "text.h"
 #include "event.h"
@@ -20,6 +21,7 @@ int main()
     {
       //Controllo
       //vita
+      system("clear");
 
       if(Battle.enemies)
         state= 'b';
@@ -38,7 +40,7 @@ int main()
           continue;
         case'b':
           print_Enemies();
-          print_Stat();
+         // print_Stat();
           switch(phase)
             {
             case'i':
