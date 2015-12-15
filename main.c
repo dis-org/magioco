@@ -2,19 +2,16 @@
 #include "input.h"
 #include "text.h"
 #include "event.h"
+#include "output.h"
 
-#include <stdio.h> //temp
-
-int main(int argc, char* argv[])
+int main()
 {
   //Inizilizzazione
   
   state='t';
   _Bool on= 1;
   event_chosen= 1;
-  strcpy(id,"Devi sceglere tra queste cose");
-
-  printf("%s\n", id);// temp
+  strcpy(id,"Intro");
 
   while(on)
     {
@@ -22,31 +19,26 @@ int main(int argc, char* argv[])
       //vita
 
       if(Battle.enemies)
-	state= 'b';
+      	state= 'b';
 
       switch(state)
         {
         case't':
           readevent();
+	  puts("lol");
           press_a();
           continue;
         case'c':
-	  print_Choices();
+	  print_Events();
           if(choice(&event_chosen, Events.choices))
-              select(event_chosen, &Events);
+	    select(event_chosen, &Events);
 	  else
 	    continue;
-	case'b':
-	  print_Enemies();
-	  switch(phase)
-	    {
-	    
+	/* case'b': */
+	/*   print_Enemies(); */
+	/*   switch(phase); */
 
-	  if()
-	    print_Items;
-	  else
-	    
-	case
-        }
+	}
     }
+  return 0;
 }

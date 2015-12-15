@@ -27,6 +27,7 @@ typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
 } Enemy_t;
 
 typedef struct{
+  unsigned short enemies;
   Enemy_t* First;
   Enemy_t* Last;
 } Enemy_List; //doppiamente dinamica
@@ -42,6 +43,7 @@ typedef struct Item{
 } Item_t;
 
 typedef struct{
+  unsigned short items;
   Item_t* First;
   Item_t* Last;
 } Item_List;

@@ -5,15 +5,15 @@
 #include<string.h>
 
 void readevent(){
-int x;
+char x;
 FILE *pf;
 pf = fopen("events.txt","r");
 if (pf==NULL){ 
               fprintf(stderr,"errore\n");
               exit(EXIT_FAILURE);
               }
-  controle(pf,'/');
-  printtext(pf);
+controle(pf,'/');
+printtext(pf);
 do{
    move('-',pf);
    x=getc(pf);
@@ -28,20 +28,20 @@ do{
   }while(x!='*' || x!='>');
   if (x=='*'){
               state='c';
-              id=sstring(pf,'\n');
+              strcpy(id,sstring(pf,'\n'));
               fseek(pf,0L,SEEK_SET);
               readchoices(pf);
              }
   if (x=='>'){
               state='t';
-              id=sstring(pf,'\n');
+              strcpy(id,sstring(pf,'\n'));
              }
   
   fclose(pf);
 }            
 
-void move(int a,FILE* pf){//muove il puntatore fino al simbolo...finito.
-int c;
+void move(char a,FILE* pf){//muove il puntatore fino al simbolo...finito.
+char c;
 while(c != a){
                c=getc(pf);
               if (c==EOF) break;
@@ -49,7 +49,7 @@ while(c != a){
 }
 
 void printtext(FILE*pf){// stampa il testo fino al simbolo...finito.
-int a;
+char a;
 do{
    a=getc(pf);
    if (a=='*'){ 
@@ -60,11 +60,11 @@ do{
   }while(a != EOF);
 }
 
-char* sstring(FILE *pf,int m){// rimanda una stringa..finito.
-int a,i=0;
+char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
+char a;
 char *x=malloc(128*sizeof(char));
 do{
-   a=getc(pf);
+  a=getc(pf);
    if(a==m){
             return x;
            }
@@ -73,23 +73,24 @@ do{
   }while(a!=EOF);
 }
 
-void controle(FILE* pf,int f){// controlla 2 stringhe.. finito.
- char *temp;
+void controle(FILE* pf,char f){ // controlla 2 stringhe.. finito.
+char *temp;
 do{
    move(f,pf);
    temp = sstring(pf,'\n');
-  }while (strcmp(temp,id)!=0);
+  }while (!strcmp(temp,id));
 free(temp);
 }
+
 void readchoices(FILE* pf){
-int c;
-//deleteEvent();
+char c;
+deleteEvents();
 controle(pf,'+');
-Events.text=id;
+strcpy(Events.text,id);
 do{
    move('/',pf);
-   id=sstring(pf);
+   strcpy(id,sstring(pf,'\n'));
    if (strcmp(id,"#"))return;
-   //addEvent();
+   addEvent();
   }while(1);
 }

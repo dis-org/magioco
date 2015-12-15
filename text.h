@@ -3,8 +3,8 @@
 
 void readevent();
 void printtext(FILE*);
-void move(int,FILE*);
-char *sstring(FILE*,int);
-void controle(FILE*,int);
+void move(char,FILE*);
+char *sstring(FILE*,char);
+void controle(FILE*,char);
 void readchoices(FILE*);
 

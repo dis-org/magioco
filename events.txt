@@ -1,22 +1,33 @@
-^Devi sceglere tra queste cose
-	/Apri la cassa
-		"Hai trovato un sasso completamente inutile"
-		-i.sasso
-		-c.next
-	/Aspetta
-		"Non succede niente"
-		-c.Devi scegliere tra queste cose
-	/Pensa a Boccuto:
-		"Boccuto compare dal nulla! E ha già riempito tre lavagne!"
-		-e.Boccuto
-		-c.next
-*
+/Intro
+  Premere 'a' per continuare*
+  -*Menù
 
-^Usa le frecce per muoverti nel menù
-	/Continua
-	/Nuova partita
-	/Impostazioni grafiche
-		"HAHAHAHAAHAH"
-		-c.Usa le frecce per muoverti nel menù
-*
++Menù
+  Usa le frecce per muoverti nel menù*
+  /Continua
+    Non ci sono salvataggi*
+    -*Menù
+  /Nuova partita
+    Start*
+    -*Devi sceglier tra queste cose
+  /Impostazioni grafiche
+    HAHAHAHAAHAH*
+    -*Menù
+#
 
++Devi scegliere tra queste cose
+  /Apri la cassa
+    Hai trovato un sasso completamente inutile*
+    ->Questo è un evento lineare
+  /Aspetta
+    Non succede niente*
+    -*Devi scegliere tra queste cose
+#
+
+/Questo è un evento lineare
+  continua*
+  ->Anche questo
+
+/Anche questo
+  indietro*
+  -*Devi scegliere tra queste cose

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include "event.h"
 
 void select(short chosen, Choice_List* List)
@@ -14,17 +15,17 @@ void deleteEvents(void)
   Choice_t* temp;
   while(Events.First!=NULL)
     {
-      temp= Event.First;
-      Event.First= Event.First->Next;
+      temp= Events.First;
+      Events.First= Events.First->Next;
       free(temp);
     }
 }
 
 void addEvent(void)
 {
-  Choice_t Event= calloc(1,sizeof(Choice_t));
-  strcpy(Event.text, id);
-  Events.Last->Next= &Event;
-  Event.Last= &Event;
+  Choice_t* Event= calloc(1,sizeof(Choice_t));
+  strcpy(Event->text, id);
+  Events.Last->Next= Event;
+  Events.Last= Event;
   Events.choices++;
 }
