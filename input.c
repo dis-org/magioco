@@ -52,12 +52,12 @@ _Bool choice(short* chosen, short choices)
             break;
           if(in=='A' && *chosen>1)
             {
-              *chosen--;
+              *chosen-= 1;
               break;
             }
           if(in=='B' && *chosen<choices)
             {
-              *chosen++;
+              *chosen+= 1;
               break;
             }
         }

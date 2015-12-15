@@ -21,7 +21,7 @@ int main()
     {
       //Controllo
       //vita
-      system("clear");
+      system("clear"); //da spostare su una funzione di output
 
       if(Battle.enemies)
         state= 'b';
@@ -30,7 +30,6 @@ int main()
         {
         case't':
           readevent();
-          puts("lol");
           press_a();
           continue;
         case'c':

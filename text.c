@@ -85,7 +85,7 @@ do{
 void controle(FILE* pf,char f){ // controlla 2 stringhe.. finito.
 char *temp;
 do{
-   /* move(f,pf); */
+   move(f,pf);
    temp = sstring(pf,'\n');
   }while (strcmp(temp,id));
 free(temp);

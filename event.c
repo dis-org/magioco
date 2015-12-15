@@ -9,6 +9,7 @@ void select(short chosen, Choice_List* List)
   for(int x= 1; x < chosen; x++)
     p= p->Next;
   strcpy(id, p->text);
+  state='t';
 }
 
 void deleteEvents(void)
