@@ -1,19 +1,18 @@
-+Menù
-  Usa le frecce per muoverti nel menù*
++Usa le frecce per muoverti nel menù
   /Continua
     Non ci sono salvataggi*
-    -*Menù
+    -*Usa le frecce per muoverti nel menù
   /Nuova partita
     Start*
     -*Devi sceglier tra queste cose
   /Impostazioni grafiche
     HAHAHAHAAHAH*
-    -*Menù
+    -*Usa le frecce per muoverti nel menù
   /#
 
 /Intro
   Premere 'a' per continuare*
-  -*Menù
+  -*Usa le frecce per muoverti nel menù
 
 
 
