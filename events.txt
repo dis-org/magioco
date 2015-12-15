@@ -17,14 +17,14 @@ Premere 'a' per continuare*
 /C'era una volta...
 C'era una volta in un paese in collina, un ragazzo seduto nella penombra della sua casetta a programmare.
 Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core dumped)" quando finalmente...*
-  -*Il ragazzo decide di:
+  -*Il ragazzo decise di:
   
 +Il ragazzo decise di:
 /Tirare il computer dalla finestra
-Era il suo unico computer e non aveva soldi per comprarne altri*
+Era il suo unico computer e non aveva soldi per comprarne altri.*
   ->Game over
 /Sostituire "*chosen++" con "*chosen+= 1;"
-Compila tutto e...
+Compilò tutto e...*
   ->Incredibile
 /Cambiare il nome a tutte le variabili
 Stranamente ciò non lo portò da nessuna parte.*
@@ -34,16 +34,19 @@ Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non er
   -*Il ragazzo decise di:
 /Andare a dormire
 Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
-Buonanotte*
+
+												Buonanotte*
   ->Game over
 /#
 
 /Incredibile
-Incredibile! ora il programma funziona e il ragazzo può andare a dormire soddisfatto*
+Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*
   ->Game over
   
 /Game over
-					Game Over
-premere 'a' per tornare al menù inziale
-premere 'q' per uscire dal gioco*
-  ->Usa le frecce per muoverti nel menù
+
+            Game Over
+            
+premere 'a' per tornare al menù iniziale
+  premere 'q' per uscire dal gioco*
+  -*Usa le frecce per muoverti nel menù
