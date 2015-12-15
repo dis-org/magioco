@@ -12,7 +12,7 @@ if (pf==NULL){
               fprintf(stderr,"errore\n");
               exit(EXIT_FAILURE);
               }
-//controle(pf,'/');
+controle(pf,'/');
 printtext(pf);
 do{
    move('-',pf);
@@ -80,7 +80,7 @@ char *temp;
 do{
    move(f,pf);
    temp = sstring(pf,'\n');
-  }while (!strcmp(temp,id));
+  }while (strcmp(temp,id));
 free(temp);
 }
 
