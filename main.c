@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-  //inizilizzazione
+  //Inizilizzazione
   
   state='t';
   _Bool on= 1;
@@ -18,20 +18,35 @@ int main(int argc, char* argv[])
 
   while(on)
     {
+      //Controllo
+      //vita
+
+      if(Battle.enemies)
+	state= 'b';
+
       switch(state)
         {
         case't':
-          readevent(id); //da rivedere---> programma unico??
-          /* if(state=='c') */
-          /*   read_choice(id); */
+          readevent();
           press_a();
           continue;
         case'c':
+	  print_Choices();
           if(choice(&event_chosen, Events.choices))
-            {
               select(event_chosen, &Events);
-            }
-          continue;
+	  else
+	    continue;
+	case'b':
+	  print_Enemies();
+	  switch(phase)
+	    {
+	    
+
+	  if()
+	    print_Items;
+	  else
+	    
+	case
         }
     }
 }
