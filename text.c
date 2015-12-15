@@ -12,7 +12,7 @@ if (pf==NULL){
               fprintf(stderr,"errore\n");
               exit(EXIT_FAILURE);
               }
-controle(pf,'/');
+//controle(pf,'/');
 printtext(pf);
 do{
    move('-',pf);
@@ -53,6 +53,7 @@ char a;
 do{
    a=getc(pf);
    if (a=='*'){ 
+               putc('\n',stdout);
                return;
               }
    putc(a,stdout);

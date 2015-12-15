@@ -1,5 +1,5 @@
 /Intro
-  Premere 'a' per continuare*
+Premere 'a' per continuare*
   -*Menù
 
 +Menù
