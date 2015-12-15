@@ -22,6 +22,7 @@ void deleteEvents(void)
       free(temp);
     }
   Events.Last= NULL;
+  Events.choices= 0;
 }
 
 void addEvent(void)

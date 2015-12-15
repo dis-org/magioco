@@ -35,8 +35,11 @@ int main()
         case'c':
           print_Events();
           if(choice(&event_chosen, Events.choices))
-            select(event_chosen, &Events);
-          continue;
+	    {
+	      select(event_chosen, &Events);
+	      event_chosen= 1;
+	    }
+	  continue;
         case'b':
           print_Enemies();
          // print_Stat();

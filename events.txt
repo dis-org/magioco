@@ -1,34 +1,16 @@
 +Usa le frecce per muoverti nel menù
-  /Continua
-    Non ci sono salvataggi*
-    -*Usa le frecce per muoverti nel menù
-  /Nuova partita
-    Start*
-    -*Devi sceglier tra queste cose
-  /Impostazioni grafiche
-    HAHAHAHAAHAH*
-    -*Usa le frecce per muoverti nel menù
-  /#
+/Continua
+Non ci sono salvataggi*
+  -*Usa le frecce per muoverti nel menù
+/Nuova partita
+Start*
+  -*Devi sceglier tra queste cose
+/Impostazioni grafiche
+HAHAHAHAAHAH*
+  -*Usa le frecce per muoverti nel menù
+/#
 
 /Intro
-  Premere 'a' per continuare*
-  -*Usa le frecce per muoverti nel menù
+Premere 'a' per continuare*
+-*Usa le frecce per muoverti nel menù
 
-
-
-+Devi scegliere tra queste cose
-  /Apri la cassa
-    Hai trovato un sasso completamente inutile*
-    ->Questo è un evento lineare
-  /Aspetta
-    Non succede niente*
-    -*Devi scegliere tra queste cose
-  /#
-
-/Questo è un evento lineare
-  continua*
-  ->Anche questo
-
-/Anche questo
-  indietro*
-  -*Devi scegliere tra queste cose
