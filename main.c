@@ -42,7 +42,7 @@ int main()
 	  continue;
         case'b':
           print_Enemies();
-         // print_Stat();
+	  // print_Stat();
           switch(phase)
             {
             case'i':
@@ -51,7 +51,9 @@ int main()
                 phase= 'u';
               continue;
             }
-          return 0;
-        }
+        case'q':
+	  on=0;
+	}
     }
+  return 0;
 }

@@ -3,8 +3,8 @@
 Non ci sono salvataggi*
   -*Usa le frecce per muoverti nel menù
 /Nuova partita
-Start*
-  -*Devi sceglier tra queste cose
+La storia di Claudio*
+  ->C'era una volta...
 /Impostazioni grafiche
 HAHAHAHAAHAH*
   -*Usa le frecce per muoverti nel menù
@@ -14,3 +14,36 @@ HAHAHAHAAHAH*
 Premere 'a' per continuare*
 -*Usa le frecce per muoverti nel menù
 
+/C'era una volta...
+C'era una volta in un paese in collina, un ragazzo seduto nella penombra della sua casetta a programmare.
+Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core dumped)" quando finalmente...*
+  -*Il ragazzo decide di:
+  
++Il ragazzo decise di:
+/Tirare il computer dalla finestra
+Era il suo unico computer e non aveva soldi per comprarne altri*
+  ->Game over
+/Sostituire "*chosen++" con "*chosen+= 1;"
+Compila tutto e...
+  ->Incredibile
+/Cambiare il nome a tutte le variabili
+Stranamente ciò non lo portò da nessuna parte.*
+  -*Il ragazzo decise di:
+/Eliminare cose inutili
+Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non erano affatto inutili e dovette riscrivere tutto.*
+  -*Il ragazzo decise di:
+/Andare a dormire
+Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
+Buonanotte*
+  ->Game over
+/#
+
+/Incredibile
+Incredibile! ora il programma funziona e il ragazzo può andare a dormire soddisfatto*
+  ->Game over
+  
+/Game over
+					Game Over
+premere 'a' per tornare al menù inziale
+premere 'q' per uscire dal gioco*
+  ->Usa le frecce per muoverti nel menù
