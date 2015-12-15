@@ -13,7 +13,7 @@
   /Impostazioni grafiche
     HAHAHAHAAHAH*
     -*Menù
-#
+  /#
 
 +Devi scegliere tra queste cose
   /Apri la cassa
@@ -22,7 +22,7 @@
   /Aspetta
     Non succede niente*
     -*Devi scegliere tra queste cose
-#
+  /#
 
 /Questo è un evento lineare
   continua*

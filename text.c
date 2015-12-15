@@ -1,5 +1,5 @@
 #include"text.h"
-#include"var.h"
+#include"event.h"
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -62,6 +62,7 @@ do{
 
 char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
 char a;
+int i= 0;
 char *x=malloc(128*sizeof(char));
 do{
   a=getc(pf);
