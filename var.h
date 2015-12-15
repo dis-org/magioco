@@ -1,5 +1,6 @@
 //variabili universali
 #include "struct.h"
+
 char state;	
 char phase; //tipo state, ma per il combattimento
 _Bool buffered;

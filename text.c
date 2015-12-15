@@ -1,15 +1,15 @@
-#include"text.h"
-#include"event.h"
-#include<stdio.h>	
-#include<stdlib.h>
-#include<string.h>
+#include "text.h"
+#include "event.h"
+#include <stdio.h>	
+#include <stdlib.h>
+#include <string.h>
 
 void readevent(){
 char x;
 FILE *pf;
 pf = fopen("events.txt","r");
 if (pf==NULL){ 
-              fprintf(stderr,"errore\n");
+              fprintf(stderr,"Errore: impossibile aprire events.txt\n");
               exit(EXIT_FAILURE);
               }
 controle(pf,'/');
@@ -68,8 +68,8 @@ char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
 char a;
 int i= 0;
 char *x=calloc(128,sizeof(char));
-if (x==NULL){ 
-              fprintf(stderr,"errore\n");
+if (x==NULL){
+              fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n");
               exit(EXIT_FAILURE);
               }
 do{
@@ -85,7 +85,7 @@ do{
 void controle(FILE* pf,char f){ // controlla 2 stringhe.. finito.
 char *temp;
 do{
-   move(f,pf);
+   /* move(f,pf); */
    temp = sstring(pf,'\n');
   }while (strcmp(temp,id));
 free(temp);

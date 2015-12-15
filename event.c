@@ -1,7 +1,7 @@
 #include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "event.h"
-
 
 void select(short chosen, Choice_List* List)
 {
@@ -26,6 +26,11 @@ void deleteEvents(void)
 void addEvent(void)
 {
   Choice_t* Event= calloc(1,sizeof(Choice_t)); //controllo allocazione
+  if(Event==NULL)
+    {
+      fprintf(stderr,"Errore: allocazione non riuscita (addEvent)\n");
+      exit(EXIT_FAILURE);
+    }
   strcpy(Event->text, id);
   if(Events.Last==NULL)
     Events.Last= Events.First= Event;

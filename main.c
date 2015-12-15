@@ -11,7 +11,7 @@ int main()
   
   state='t';
   _Bool on= 1;
-  event_chosen=1;
+  event_chosen= 1;
   strcpy(id,"Intro");
   enemy_chosen= 0;
   item_chosen= 1;
