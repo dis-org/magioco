@@ -16,7 +16,10 @@ controle(pf,'/');
 printtext(pf);
 do{
    move('-',pf);
+   
    x=getc(pf);
+   if (x=='*') break;
+   if ( x== '>') break;
    if (x=='i'){
                getc(pf);
                //iserch();
@@ -25,7 +28,7 @@ do{
                getc(pf);
               // eserch();
               }
-  }while(x!='*' || x!='>');
+  }while(x!=EOF);
   if (x=='*'){
               state='c';
               strcpy(id,sstring(pf,'\n'));
@@ -42,10 +45,10 @@ do{
 
 void move(char a,FILE* pf){//muove il puntatore fino al simbolo...finito.
 char c;
-while(c != a){
-               c=getc(pf);
-              if (c==EOF) break;
-              }
+do{
+   c=getc(pf);
+   if (c==EOF) break;
+  }while(c != a);
 }
 
 void printtext(FILE*pf){// stampa il testo fino al simbolo...finito.
@@ -64,7 +67,11 @@ do{
 char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
 char a;
 int i= 0;
-char *x=malloc(128*sizeof(char));
+char *x=calloc(128,sizeof(char));
+if (x==NULL){ 
+              fprintf(stderr,"errore\n");
+              exit(EXIT_FAILURE);
+              }
 do{
   a=getc(pf);
    if(a==m){
@@ -86,6 +93,7 @@ free(temp);
 
 void readchoices(FILE* pf){
 char c;
+char *x;
 deleteEvents();
 controle(pf,'+');
 strcpy(Events.text,id);
