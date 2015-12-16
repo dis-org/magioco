@@ -32,6 +32,7 @@ _Bool choice(short* chosen, short choices)
 {
   if(buffered)
     {
+      return 0;
     }
   else
     {

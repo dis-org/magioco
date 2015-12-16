@@ -3,4 +3,5 @@
 !*.h
 !*.md
 !*.txt
+!makefile
 prova.c

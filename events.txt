@@ -6,7 +6,7 @@ Non ci sono salvataggi*
 La storia di Claudio*
   ->C'era una volta...
 /Impostazioni grafiche
-HAHAHAHAAHAH*
+HAHAHAHAAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA*
   -*Usa le frecce per muoverti nel menù
 /#
 
@@ -23,7 +23,7 @@ Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core du
 /Tirare il computer dalla finestra
 Era il suo unico computer e non aveva soldi per comprarne altri.*
   ->Game over
-/Sostituire "*chosen++" con "*chosen+= 1;"
+/Sostituire "*chosen++" con "*chosen+= 1"
 Compilò tutto e...*
   ->Incredibile
 /Cambiare il nome a tutte le variabili
@@ -35,7 +35,7 @@ Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non er
 /Andare a dormire
 Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
 
-												Buonanotte*
+											    	Buonanotte*
   ->Game over
 /#
 

@@ -51,7 +51,7 @@ int main()
                 phase= 'u';
               continue;
             }
-        case'q':
+	case'q':
 	  on=0;
 	}
     }
