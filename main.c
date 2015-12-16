@@ -7,7 +7,7 @@ _Bool buffered;
 
 int main()
 {
-  //Inizilizzazione
+  //Inizializzazione
   
   _Bool on= 1;
   strcpy(Local.id,"Intro");
@@ -42,7 +42,7 @@ int main()
           continue;
         case'b':
           print_Enemies();
-          // print_Stat();
+          print_Stat();
           switch(Local.phase)
             {
             case'i':
