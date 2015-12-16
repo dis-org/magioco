@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 void readevent(){
 char x,*f;
 FILE *pf;
@@ -126,7 +127,24 @@ if (pf==NULL){
               exit(EXIT_FAILURE);
               }
 controle(pf,'/','.');
-//select(sstring(pf,'.'),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')));
+char *type=sstring(pf,'.');
+int usev=atoi(sstring(pf,'.'));
+int trwv=atoi(sstring(pf,'.'));
+int defv=atoi(sstring(pf,'.'));
+int uses=atoi(sstring(pf,'.'));
+Item_t* temp;
+switch(*type){
+case'p':
+temp= searchItem();
+if (temp!=NULL){
+temp->uses+=uses;
+break;
 }
+case'u':
+addItem(Bag, id, *type, usev, trwv, defv, uses);
+break;
+}
+}               
+
 
 
