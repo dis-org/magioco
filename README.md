@@ -4,7 +4,7 @@ Gioco testuale RPG con storia, nemici e oggetti letti da file di testo modificab
 Divisione compiti:
 
     Kappanneo: 
-main.c event.c input.c struct.h unic.h
+main.c event.c input.c struct.h universal.h
 
     Shizen39:
 battle.c
