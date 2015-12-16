@@ -1,4 +1,5 @@
 #include "text.h"
+#include "management.h"
 #include "event.h"
 #include <stdio.h>	
 #include <stdlib.h>
@@ -133,13 +134,14 @@ char a='n';
 item_t *temp;
 temp=bag.first;
 if (type=='p'){
-               temp=serch();
+               temp=search();
+               a='s';
               }
 if (a=='s'){
             temp->uses=temp->uses+n;
            }
 else{
-     additem(type,u,l,d,n);
+     //additem(type,u,l,d,n);
     }
 }
 }
