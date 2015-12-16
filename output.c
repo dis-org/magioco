@@ -40,9 +40,10 @@ void print_Events()
 
 void print_Stat ()
 {
-	printf("%s\t", name);
+	printf("Player: %s\tHp: ", name);
 	for (int x=0; x<health; x++)
-        printf("*");
-    for(int y=0; y<defence; y++)
-        printf(")");
+    	printf("*");
+	for(int y=0; y<defence; y++)
+    	printf(")");
+	puts("");
 }
