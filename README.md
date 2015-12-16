@@ -4,14 +4,14 @@ Gioco testuale RPG con storia, nemici e oggetti letti da file di testo modificab
 Divisione compiti:
 
     Kappanneo: 
-main.c event.c event.h input.c input.h
+main.c event.c input.c struct.h unic.h
 
     Shizen39:
-battle.c battle.h
+battle.c
 
     Santiasd:
-management.c management.h
+management.c
 
     FilMar:
-text.c text.h
+text.c
 

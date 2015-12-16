@@ -1,28 +1,29 @@
-#include <string.h>
-#include <stdio.h>
+#include "union.h"
 #include <stdlib.h>
-#include "event.h"
+#include <string.h>
+
+extern Data_t Local;
 
 void select(short chosen, Choice_List* List)
 {
   Choice_t* p= List->First;
   for(int x= 1; x < chosen; x++)
     p= p->Next;
-  strcpy(id, p->text);
-  state='t';
+  strcpy(Local.id, p->text);
+  Local.state='t';
 }
 
 void deleteEvents(void)
 {
   Choice_t* temp;
-  while(Events.First!=NULL)
+  while(Local.Events.First!=NULL)
     {
-      temp= Events.First;
-      Events.First= Events.First->Next;
+      temp= Local.Events.First;
+      Local.Events.First= Local.Events.First->Next;
       free(temp);
     }
-  Events.Last= NULL;
-  Events.choices= 0;
+  Local.Events.Last= NULL;
+  Local.Events.choices= 0;
 }
 
 void addEvent(void)
@@ -33,13 +34,13 @@ void addEvent(void)
       fprintf(stderr,"Errore: allocazione non riuscita (addEvent)\n");
       exit(EXIT_FAILURE);
     }
-  strcpy(Event->text, id);
-  if(Events.Last==NULL)
-    Events.Last= Events.First= Event;
+  strcpy(Event->text, Local.id);
+  if(Local.Events.Last==NULL)
+    Local.Events.Last= Local.Events.First= Event;
   else
   {
-    Events.Last->Next= Event;
-    Events.Last= Event;
+    Local.Events.Last->Next= Event;
+    Local.Events.Last= Event;
    }
- Events.choices++;
+ Local.Events.choices++;
 }

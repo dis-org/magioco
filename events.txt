@@ -35,7 +35,7 @@ Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non er
 /Andare a dormire
 Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
 
-											    	Buonanotte*
+                            Buonanotte*
   ->Game over
 /#
 

@@ -1,21 +1,21 @@
+#include "union.h"
 #include <string.h>
 #include <stdlib.h>
-#include "input.h"
-#include "text.h"
-#include "event.h"
-#include "output.h"
+
+Data_t Local;
+_Bool buffered;
 
 int main()
 {
   //Inizilizzazione
   
-  state='t';
   _Bool on= 1;
-  event_chosen= 1;
-  strcpy(id,"Intro");
-  enemy_chosen= 0;
-  item_chosen= 1;
-  phase='i';
+  strcpy(Local.id,"Intro");
+  Local.state='t';
+  Local.event_chosen= 1;
+  Local.enemy_chosen= 0;
+  Local.item_chosen= 1;
+  Local.phase='i';
 
   while(on)
     {
@@ -23,10 +23,10 @@ int main()
       //vita
       system("clear"); //da spostare su una funzione di output
 
-      if(Battle.enemies)
-        state= 'b';
+      if(Local.Battle.enemies)
+        Local.state= 'b';
 
-      switch(state)
+      switch(Local.state)
         {
         case't':
           readevent();
@@ -34,26 +34,26 @@ int main()
           continue;
         case'c':
           print_Events();
-          if(choice(&event_chosen, Events.choices))
-	    {
-	      select(event_chosen, &Events);
-	      event_chosen= 1;
-	    }
-	  continue;
+          if(choice(&Local.event_chosen, Local.Events.choices))
+            {
+              select(Local.event_chosen, &Local.Events);
+              Local.event_chosen= 1;
+            }
+          continue;
         case'b':
           print_Enemies();
-	  // print_Stat();
-          switch(phase)
+          // print_Stat();
+          switch(Local.phase)
             {
             case'i':
               print_Items();
-              if(choice(&item_chosen, Bag.items))
-                phase= 'u';
+              if(choice(&Local.item_chosen, Local.Bag.items))
+                Local.phase= 'u';
               continue;
             }
-	case'q':
-	  on=0;
-	}
+        case'q':
+          on=0;
+        }
     }
   return 0;
 }

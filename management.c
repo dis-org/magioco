@@ -1,7 +1,7 @@
+#include "union.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "management.h"
 
 Item_t* searchItem(char* id, Item_List* List)
 {

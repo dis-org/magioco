@@ -1,6 +1,9 @@
+#include "union.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "var.h"
+
+extern Data_t Local;
+extern char buffered;
 
 void press_a(void) 
 {
@@ -19,7 +22,7 @@ void press_a(void)
             break; //esce dal loop se digito 'a'
           if(in=='q')
             {
-              state='q'; //anche se digito q ma prima cambia lo stato
+              Local.state='q'; //anche se digito q ma prima cambia lo stato
               break;
             }
         }
@@ -45,7 +48,7 @@ _Bool choice(short* chosen, short choices)
           printf("\r        \r");
           if(in=='q')
             {
-              state='q';
+              Local.state='q';
               *chosen= 1;
               break;
             }
