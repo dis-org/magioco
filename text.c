@@ -90,6 +90,7 @@ do{
    *(x+i)=a;
    i++;
   }while(a!=EOF);
+ return NULL;
 }
 
 void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
@@ -102,7 +103,6 @@ free(temp);
 }
 
 void readchoices(FILE* pf){
-char c;
 char *x;
 deleteEvents();
 controle(pf,'+','\n');
