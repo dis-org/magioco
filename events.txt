@@ -1,20 +1,4 @@
-+Usa le frecce per muoverti nel menù
-/Continua
-Non ci sono salvataggi*
-  -*Usa le frecce per muoverti nel menù
-/Nuova partita
-La storia di Claudio*
-  ->C'era una volta...
-/Impostazioni grafiche
-HAHAHAHAAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA*
-  -*Usa le frecce per muoverti nel menù
-/#
-
-/Intro
-Premere 'a' per continuare*
--*Usa le frecce per muoverti nel menù
-
-/C'era una volta...
+/Start
 C'era una volta in un paese in collina, un ragazzo seduto nella penombra della sua casetta a programmare.
 Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core dumped)" quando finalmente...*
   -*Il ragazzo decise di:
@@ -49,4 +33,4 @@ Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*
             
 premere 'a' per tornare al menù iniziale
   premere 'q' per uscire dal gioco*
-  -*Usa le frecce per muoverti nel menù
+  ->Start

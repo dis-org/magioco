@@ -1,8 +1,46 @@
 #include "union.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 extern Data_t Local;
+extern _Bool buffered;
 
+void next_page()
+{
+  if(buffered)
+    {
+    }
+  else
+    system("clear");
+}
+
+void print_intro()
+{
+  printf(
+         "                           Magioco\n\n"
+         "                  Premere 'a' per continuare.\n"
+         );
+}
+
+void print_menu()
+{
+  printf(
+         "                            Menù\n\n"
+         "                 Usare le frecce direzionali\n"
+         "                       per muoversi.\n\n"
+         "                        %cContinua%c\n"
+         "                      %cNuova partita%c\n"
+         "                      %cImp. grafiche%c\n",
+         Local.chosen==1?'[':' ',Local.chosen==1?']':' ',
+         Local.chosen==2?'[':' ',Local.chosen==2?']':' ',
+         Local.chosen==3?'[':' ',Local.chosen==3?']':' '
+         );
+}
+
+void print_ahah()
+{
+  puts(  "                 AHAHAHAHAHAHAHHAHAHAHAHAHAH");
+}
 void print_Enemies()
 { 
   for (int x=0; x<Local.Battle.enemies; x++)
@@ -33,7 +71,7 @@ void print_Events()
   Choice_t* Temp= Local.Events.First; 
   for(int x= 1; x <= Local.Events.choices; x++)
     {
-      printf("%c %s\n", x==Local.event_chosen? '>' : ' ', Temp->text);
+      printf("%c %s\n", x==Local.chosen? '>' : ' ', Temp->text);
       Temp= Temp->Next;
     }
 }

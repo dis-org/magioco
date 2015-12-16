@@ -53,7 +53,7 @@ typedef struct Data{
   char phase; //tipo state, ma per il combattimento
   _Bool buffered;
   char id[128];
-  short event_chosen;
+  short chosen;
   short enemy_chosen;
   short item_chosen;
   short use_chosen;

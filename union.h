@@ -19,16 +19,22 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
 Item_t* searchItem(char* id, Item_List* List);
 
 //output
-void print_Enemies();
-void print_Items();
+void next_page(); //divide graficamente le varie schermate
+void print_intro(); //stampa l'intro del gioco
+void print_menu(); //stampa il menù
+void print_ahah(); //stampa derisione
+void print_Enemies(); //stampa lista nemici con vita e difesa
+void print_Items(); //stampa la lista degli oggetti con durata/quantità
 void print_Events(); //choice_t e choice_list
 void print_Stats(); //Nome vita e difesa giocatore 
 
 //text
-void readevent();
+void readevent(); //aggiungere evento di uscita
 void printtext(FILE*);
 void move(char,FILE*);
 char* sstring(FILE*,char);
 void controle(FILE*,char,char);
 void readchoices(FILE*);
 void isearch();
+void save(); // salva Date_t Local su file save.bin
+void load(); // carica i salvataggi (se esistono) e stampa relativo messaggio

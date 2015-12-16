@@ -145,3 +145,11 @@ void isearch(){
     break;
   }
 }
+
+void save(){
+  
+}
+
+void load(){
+  
+}
