@@ -118,7 +118,7 @@ do{
   }while(1);
 }
 
-void iserch(){
+void isearch(){
 FILE* pf;
 pf=fopen("items.txt","r");
 if (pf==NULL){ 
