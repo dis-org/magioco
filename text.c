@@ -5,14 +5,14 @@
 #include <string.h>
 
 void readevent(){
-char x;
+char x,*f;
 FILE *pf;
 pf = fopen("events.txt","r");
 if (pf==NULL){ 
               fprintf(stderr,"Errore: impossibile aprire events.txt\n");
               exit(EXIT_FAILURE);
               }
-controle(pf,'/');
+controle(pf,'/','\n');
 printtext(pf);
 do{
    move('-',pf);
@@ -22,22 +22,32 @@ do{
    if ( x== '>') break;
    if (x=='i'){
                getc(pf);
+               f=sstring(pf,'\n');
+               strcpy(id,f);
+               free(f);
                //iserch();
               }
    if (x=='e'){
                getc(pf);
+               f=sstring(pf,'\n');
+               strcpy(id,f);
+               free(f);
               // eserch();
               }
   }while(x!=EOF);
   if (x=='*'){
               state='c';
-              strcpy(id,sstring(pf,'\n'));
+              f=sstring(pf,'\n');
+              strcpy(id,f);
+              free(f);
               fseek(pf,0L,SEEK_SET);
               readchoices(pf);
              }
   if (x=='>'){
               state='t';
-              strcpy(id,sstring(pf,'\n'));
+              f=sstring(pf,'\n');
+              strcpy(id,f);
+              free(f);
              }
   
   fclose(pf);
@@ -82,25 +92,56 @@ do{
   }while(a!=EOF);
 }
 
-void controle(FILE* pf,char f){ // controlla 2 stringhe.. finito.
+void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
 char *temp;
 do{
    move(f,pf);
-   temp = sstring(pf,'\n');
+   temp = sstring(pf,x);
   }while (strcmp(temp,id));
 free(temp);
 }
 
 void readchoices(FILE* pf){
 char c;
+char *x;
 deleteEvents();
-controle(pf,'+');
+controle(pf,'+','\n');
 strcpy(Events.text,id);
 do{
    move('/',pf);
-   strcpy(id,sstring(pf,'\n'));
+   x=sstring(pf,'\n');
+   strcpy(id,x);
+   free(x);
    if (!strcmp(id,"#"))
        return;
    addEvent();
   }while(1);
 }
+
+void iserch(){
+FILE* pf;
+pf=fopen("items.txt","r");
+if (pf==NULL){ 
+              fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+              exit(EXIT_FAILURE);
+              }
+controle(pf,'/','.');
+select(sstring(pf,'.'),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')));
+}
+select(char*type,int u,int l,int d,int n){
+char a='n';
+item_t *temp;
+temp=bag.first;
+if (type=='p'){
+               temp=serch();
+              }
+if (a=='s'){
+            temp->uses=temp->uses+n;
+           }
+else{
+     additem(type,u,l,d,n);
+    }
+}
+}
+
+
