@@ -7,4 +7,4 @@ char* sstring(FILE*,char);
 void controle(FILE*,char,char);
 void readchoices(FILE*);
 void iseach();
-void select(char*,int,int,int,int);
+//void select(char*,int,int,int,int);

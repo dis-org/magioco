@@ -1,5 +1,4 @@
 #include "text.h"
-#include "management.h"
 #include "event.h"
 #include <stdio.h>	
 #include <stdlib.h>
@@ -127,23 +126,7 @@ if (pf==NULL){
               exit(EXIT_FAILURE);
               }
 controle(pf,'/','.');
-select(sstring(pf,'.'),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')));
-}
-select(char*type,int u,int l,int d,int n){
-char a='n';
-item_t *temp;
-temp=bag.first;
-if (type=='p'){
-               temp=search();
-               a='s';
-              }
-if (a=='s'){
-            temp->uses=temp->uses+n;
-           }
-else{
-     //additem(type,u,l,d,n);
-    }
-}
+//select(sstring(pf,'.'),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')),atoi(sstring(pf,'.')));
 }
 
 
