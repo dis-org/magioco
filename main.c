@@ -68,7 +68,8 @@ int main()
           print_Events();
           if(choice(&Local.chosen, Local.Events.choices))
             {
-              select(Local.chosen, &Local.Events);
+              select(Local.id, Local.chosen, &Local.Events);
+              Local.state='t';
               Local.chosen= 1;
             }
           continue;

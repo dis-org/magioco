@@ -5,7 +5,7 @@
 void battle(void);
 
 //event
-void select(short chosen, Choice_List* List); //ritorna il testo scelto
+void select(char* text, short chosen, Choice_List* List); //ritorna il testo scelto
 void deleteChoices(Choice_List* List); //svuota una Choice_List
 void addChoice(char* text, Choice_List* List); //aggiunge una scelta ad una Choice_List
 

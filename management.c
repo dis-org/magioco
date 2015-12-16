@@ -39,5 +39,5 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
   List->Last->Next = Item;
   List->Last = Item;
  }
- List.items++;
+ List->items++;
 }

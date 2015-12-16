@@ -2,15 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern Data_t Local;
-
-void select(short chosen, Choice_List* List)
+void select(char* text, short chosen, Choice_List* List)
 {
   Choice_t* p= List->First;
   for(int x= 1; x < chosen; x++)
     p= p->Next;
-  strcpy(Local.id, p->text);
-  Local.state='t';
+  strcpy(text, p->text);
 }
 
 void deleteChoices(Choice_List* List)
