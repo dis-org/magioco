@@ -4,9 +4,9 @@
 //battle
 
 //event
-void select(short chosen, Choice_List* List);
-void deleteEvents(void);
-void addEvent(void);
+void select(short chosen, Choice_List* List); //ritorna il testo scelto
+void deleteChoices(Choice_List* List); //svuota una Choice_List
+void addChoice(char* text, Choice_List* List); //aggiunge una scelta ad una Choice_List
 
 //input
 void press_a(void); //ferma il programma fino a che non si preme 'a'
@@ -22,7 +22,7 @@ Item_t* searchItem(char* id, Item_List* List);
 void print_Enemies();
 void print_Items();
 void print_Events(); //choice_t e choice_list
-void print_Stat (); //Nome vita e difesa giocatore 
+void print_Stats(); //Nome vita e difesa giocatore 
 
 //text
 void readevent();

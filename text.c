@@ -9,7 +9,7 @@ void readevent(){
   char x,*f;
   FILE *pf;
   pf = fopen("events.txt","r");
-  if (pf==NULL){ 
+  if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire events.txt\n");
     exit(EXIT_FAILURE);
   }
@@ -79,7 +79,7 @@ char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
   char a;
   int i= 0;
   char *x=calloc(128,sizeof(char));
-  if (x==NULL){
+  if (!x){
     fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n");
     exit(EXIT_FAILURE);
   }
@@ -105,7 +105,7 @@ void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
 
 void readchoices(FILE* pf){
   char *x;
-  deleteEvents();
+  deleteChoices(&Local.Events);
   controle(pf,'+','\n');
   strcpy(Local.Events.text,Local.id);
   do{
@@ -115,14 +115,14 @@ void readchoices(FILE* pf){
     free(x);
     if (!strcmp(Local.id,"#"))
       return;
-    addEvent();
+    addChoice(Local.id, &Local.Events);
   }while(1);
 }
 
 void isearch(){
   FILE* pf;
   pf=fopen("items.txt","r");
-  if (pf==NULL){ 
+  if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire items.txt\n");
     exit(EXIT_FAILURE);
   }
@@ -136,12 +136,12 @@ void isearch(){
   switch(*type){
   case'p':
     temp= searchItem(Local.id, &Local.Bag);
-    if (temp!=NULL){
+    if (temp){
       temp->uses+=uses;
       break;
     }
   case'u':
-    /* addItem(&Local.Bag, Local.id, *type, usev, trwv, defv, uses); */
+    addItem(&Local.Bag, Local.id, *type, usev, trwv, defv, uses);
     break;
   }
 }

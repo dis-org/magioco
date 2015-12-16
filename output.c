@@ -9,9 +9,9 @@ void print_Enemies()
     {
       printf("%c %s\nHp: ",x==Local.enemy_chosen? '[':' ', Local.Battle.First->name);
       for (int y=0; y<Local.Battle.First->health; y++)
-      	  printf("*");
+        printf("*");
       for (int z=0; z<Local.Battle.First->defence; z++)
-          printf(")");
+        printf(")");
       printf("%c\n", x==Local.enemy_chosen? ']':' ');
     }
 }
@@ -38,12 +38,12 @@ void print_Events()
     }
 }
 
-void print_Stat ()
+void print_Stats()
 {
-	printf("Player: %s\tHp: ", Local.name);
-	for (int x=0; x<Local.health; x++)
-    	printf("*");
-	for(int y=0; y<Local.defence; y++)
-    	printf(")");
-	puts("");
+  printf("%s:\tHp: ", Local.name);
+  for (int x=0; x<Local.health; x++)
+    printf("*");
+  for(int y=0; y<Local.defence; y++)
+    printf(")");
+  puts("");
 }

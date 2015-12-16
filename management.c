@@ -9,8 +9,12 @@ Item_t* searchItem(char* id, Item_List* List)
   while(Ret!=NULL)
     {
       if(!strcmp(Ret->name, id))
-	break;
+        break;
       Ret= Ret->Next;
     }
   return Ret;
+}
+
+void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses)
+{
 }

@@ -24,7 +24,7 @@ int main()
       system("clear"); //da spostare su una funzione di output
 
       if(Local.Battle.enemies)
-        Local.state= 'b';
+        Local.state='b';
 
       switch(Local.state)
         {
@@ -42,7 +42,7 @@ int main()
           continue;
         case'b':
           print_Enemies();
-          print_Stat();
+          print_Stats();
           switch(Local.phase)
             {
             case'i':

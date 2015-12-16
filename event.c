@@ -13,34 +13,34 @@ void select(short chosen, Choice_List* List)
   Local.state='t';
 }
 
-void deleteEvents(void)
+void deleteChoices(Choice_List* List)
 {
   Choice_t* temp;
-  while(Local.Events.First!=NULL)
+  while(List->First!=NULL)
     {
-      temp= Local.Events.First;
-      Local.Events.First= Local.Events.First->Next;
+      temp= List->First;
+      List->First= List->First->Next;
       free(temp);
     }
-  Local.Events.Last= NULL;
-  Local.Events.choices= 0;
+  List->Last=NULL;
+  List->choices= 0;
 }
 
-void addEvent(void)
+void addChoice(char* text, Choice_List* List)
 {
-  Choice_t* Event= calloc(1,sizeof(Choice_t)); //controllo allocazione
-  if(Event==NULL)
+  Choice_t* C= calloc(1,sizeof(Choice_t)); //controllo allocazione
+  if(!C)
     {
-      fprintf(stderr,"Errore: allocazione non riuscita (addEvent)\n");
+      fprintf(stderr,"Errore: allocazione non riuscita (addChoice)\n");
       exit(EXIT_FAILURE);
     }
-  strcpy(Event->text, Local.id);
-  if(Local.Events.Last==NULL)
-    Local.Events.Last= Local.Events.First= Event;
+  strcpy(C->text, text);
+  if(!List->Last)
+    List->Last= List->First= C;
   else
-  {
-    Local.Events.Last->Next= Event;
-    Local.Events.Last= Event;
-   }
- Local.Events.choices++;
+    {
+      List->Last->Next= C;
+      List->Last= C;
+    }
+  List->choices++;
 }
