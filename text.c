@@ -50,6 +50,9 @@ void readevent(){
     strcpy(Local.id,f);
     free(f);
   }
+  if (x=='#')
+           Local.state='g';
+
   
   fclose(pf);
 }            
