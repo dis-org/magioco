@@ -78,5 +78,5 @@ _Bool choice(short* chosen, short choices)
 
 _Bool new_name()
 {
-  if(
+  return 0;
 }

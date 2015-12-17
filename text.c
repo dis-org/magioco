@@ -162,7 +162,7 @@ life=atoi(temp);
 free(temp);
 addEnemy(Local.id,life);
 while(1){
- move(pf,'-');
+  move('-', pf);
  temp=sstring(pf,'/');
  if (!strcmp(temp,"#")){ 
    free(temp);
@@ -176,7 +176,7 @@ while(1){
  temp=sstring(pf,'\n');
  life=atoi(temp);
  free(temp);
- addAction(Local.Battle.Last,Local.id,x,life);
+ addEnemy(Local.Battle.Last,Local.id,x,life);
  }
 
 }
