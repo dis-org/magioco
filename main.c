@@ -80,6 +80,8 @@ int main()
 	  press_a();
 	  if(Local.state=='q')
 	    on=0;
+	  else
+	    Local.state='m';
 	  continue;
         case'q': //aggiungere menù salvataggio e schermata game over
 	  print_quit();
