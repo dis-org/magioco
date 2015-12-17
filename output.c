@@ -41,6 +41,30 @@ void print_ahah()
 {
   puts(  "                 AHAHAHAHAHAHAHHAHAHAHAHAHAH");
 }
+
+void print_quit()
+{
+  printf(
+         "                            Quit\n\n"
+         "                  Premere 'q' per continuare.\n"
+         "                           %cSalva%c\n"
+         "                           %cMenù%c\n"
+         "                           %cEsci%c\n",
+         Local.chosen==1?'[':' ',Local.chosen==1?']':' ',
+         Local.chosen==2?'[':' ',Local.chosen==2?']':' ',
+         Local.chosen==3?'[':' ',Local.chosen==3?']':' '
+         );
+}
+
+void print_gameover()
+{
+  printf(
+         "                          Game Over\n\n"
+         "                    Premere 'q' per uscire.\n"
+         "                 Premere 'a' per tornare al menù.\n"
+         );
+}
+
 void print_Enemies()
 { 
   for (int x=0; x<Local.Battle.enemies; x++)

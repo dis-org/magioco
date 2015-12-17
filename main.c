@@ -9,8 +9,9 @@ int main()
 {
   _Bool on= 1;
 
-  Local.state='i';
+  Local.state='m';
   Local.chosen= 1;
+  Local.health= 3;
 
   next_page();
   print_intro();
@@ -18,16 +19,18 @@ int main()
 
   while(on)
     {
-      //Controllo
-      //vita
       next_page();
+
+      //Controllo
+      if(!Local.health)
+	Local.state='g';
 
       if(Local.Battle.enemies)
         Local.state='b';
 
       switch(Local.state)
         {
-        case'i':
+        case'm':
           print_menu();
           if(choice(&Local.chosen, 3))
             switch(Local.chosen)
@@ -35,6 +38,7 @@ int main()
               case 1:
                 next_page();
                 load();
+		Local.chosen= 1;
                 press_a();
                 continue;
               case 2:
@@ -42,12 +46,14 @@ int main()
                 strcpy(Local.id,"Start");
                 Local.enemy_chosen= 0;
                 Local.item_chosen= 1;
+		Local.chosen= 1;
                 Local.phase='i';
                 Local.state='t';
                 continue;
               case 3:
                 next_page();
                 print_ahah();
+		Local.chosen= 1;
                 press_a();
                 continue;
               }
@@ -67,9 +73,31 @@ int main()
           continue;
         case'b':
 	  battle();
-	  continue;            
+	  continue;
+	case'g':
+	  print_gameover();
+	  press_a();
+	  if(Local.state=='q')
+	    on=0;
+	  continue;
         case'q': //aggiungere menù salvataggio e schermata game over
-          on=0;
+	  print_quit();
+	  if(choice(&Local.chosen, 3))
+	    switch(Local.chosen)
+	      {
+	      case 1:
+		save();//da decidere
+		Local.chosen= 1;
+                press_a();
+		continue;
+	      case 2:
+		Local.state= 'm';
+		Local.chosen= 1;
+		continue;
+	      case 3:
+		on= 0;
+		continue;
+	      }
         }
     }
   return 0;
