@@ -1,4 +1,4 @@
-#include "union.h"
+#include "universal.h"
 #include <stdio.h>	
 #include <stdlib.h>
 #include <string.h>
@@ -99,7 +99,7 @@ void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
   do{
     move(f,pf);
     temp = sstring(pf,x);
-  }while (strcmp(temp,Local.id));
+  }while (strcmp(temp,Local.id));// da aggiungere parametro 
   free(temp);
 }
 

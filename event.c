@@ -1,4 +1,4 @@
-#include "union.h"
+#include "universal.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -16,7 +16,7 @@ void select(short chosen, Choice_List* List)
 void deleteChoices(Choice_List* List)
 {
   Choice_t* temp;
-  while(List->First!=NULL)
+  while(List->First)
     {
       temp= List->First;
       List->First= List->First->Next;

@@ -1,4 +1,4 @@
-#include "union.h"
+#include "universal.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,11 +26,11 @@ void print_menu()
 {
   printf(
          "                            Menù\n\n"
-         "                 Usare le frecce direzionali\n"
-         "                       per muoversi.\n\n"
-         "                        %cContinua%c\n"
-         "                      %cNuova partita%c\n"
-         "                      %cImp. grafiche%c\n",
+         "                  Usare le frecce direzionali\n"
+         "                        per muoversi.\n\n"
+         "                         %cContinua%c\n"
+         "                       %cNuova partita%c\n"
+         "                       %cImp. grafiche%c\n",
          Local.chosen==1?'[':' ',Local.chosen==1?']':' ',
          Local.chosen==2?'[':' ',Local.chosen==2?']':' ',
          Local.chosen==3?'[':' ',Local.chosen==3?']':' '

@@ -1,4 +1,4 @@
-#include "union.h"
+#include "universal.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -66,16 +66,8 @@ int main()
             }
           continue;
         case'b':
-          print_Enemies();
-          print_Stats();
-          switch(Local.phase)
-            {
-            case'i':
-              print_Items();
-              if(choice(&Local.item_chosen, Local.Bag.items))
-                Local.phase= 'u';
-              continue;
-            }
+	  battle();
+	  continue;            
         case'q': //aggiungere menù salvataggio e schermata game over
           on=0;
         }
