@@ -46,7 +46,7 @@ void print_quit()
 {
   printf(
          "                            Quit\n\n"
-         "                  Premere 'q' per continuare.\n"
+         "                  Premere 'q' per continuare.\n\n"
          "                           %cSalva%c\n"
          "                           %cMenù%c\n"
          "                           %cEsci%c\n",

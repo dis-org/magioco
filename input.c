@@ -22,7 +22,9 @@ void press_a(void)
             break; //esce dal loop se digito 'a'
           if(in=='q')
             {
-              Local.state='q'; //anche se digito q ma prima cambia lo stato
+	      char temp= Local.state;
+              Local.state= Local.previus;
+	      Local.previus= temp;
               break;
             }
         }
@@ -48,7 +50,9 @@ _Bool choice(short* chosen, short choices)
           printf("\r        \r");
           if(in=='q')
             {
-              Local.state='q';
+	      char temp= Local.state;
+              Local.state= Local.previus;
+	      Local.previus= temp;
               *chosen= 1;
               break;
             }

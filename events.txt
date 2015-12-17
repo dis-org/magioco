@@ -6,7 +6,7 @@ Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core du
 +Il ragazzo decise di:
 /Tirare il computer dalla finestra
 Era il suo unico computer e non aveva soldi per comprarne altri.*
-  -#Game over
+  -#
 /Sostituire "*chosen++" con "*chosen+= 1"
 Compilò tutto e...*
   ->Incredibile
@@ -20,12 +20,10 @@ Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non er
 Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
 
                             Buonanotte*
-  -#Game over
+  -#
 /#
 
 /Incredibile
 Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*
-  ->Game over
+  -#
   
-/Game over
-

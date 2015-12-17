@@ -10,6 +10,7 @@ int main()
   _Bool on= 1;
 
   Local.state='m';
+  Local.previus='q';
   Local.chosen= 1;
   Local.health= 3;
 
@@ -87,12 +88,12 @@ int main()
 	      {
 	      case 1:
 		save();//da decidere
-		Local.chosen= 1;
+		Local.chosen= 1; //rivedili tutti
                 press_a();
 		continue;
-	      case 2:
-		Local.state= 'm';
-		Local.chosen= 1;
+	      case 2:;
+		Local.state='m';
+		Local.previus='q';
 		continue;
 	      case 3:
 		on= 0;
@@ -100,5 +101,6 @@ int main()
 	      }
         }
     }
+  next_page();
   return 0;
 }

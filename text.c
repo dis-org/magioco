@@ -19,8 +19,7 @@ void readevent(){
     move('-',pf);
    
     x=getc(pf);
-    if (x=='*') break;
-    if ( x== '>') break;
+    if (x=='*'|| x=='>'|| x=='#') break;
     if (x=='i'){
       getc(pf);
       f=sstring(pf,'\n');
@@ -51,8 +50,7 @@ void readevent(){
     free(f);
   }
   if (x=='#')
-           Local.state='g';
-
+    Local.state='g';
   
   fclose(pf);
 }            
