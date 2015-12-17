@@ -193,7 +193,7 @@ void load(){
   FILE *pf;
   char a[100]="saves/";
   strcat(a,Local.name);
-  pf=fopen(a,"r");
+  pf=fopen(a,"rb");
   if (!pf){ 
     fprintf(stderr,"nessun salvataggio\n");
     Local.state='m';
