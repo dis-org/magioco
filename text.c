@@ -162,7 +162,11 @@ life=atoi(temp);
 free(temp);
 //addEnemy(Local.id,life);
 while(1){
+<<<<<<< HEAD
+  move('-', pf);
+=======
  move(pf, '-' );
+>>>>>>> ea221406eb0fec08ec5a93f75883f58b4788935e
  temp=sstring(pf,'/');
  if (!strcmp(temp,"#")){ 
    free(temp);
@@ -176,7 +180,11 @@ while(1){
  temp=sstring(pf,'\n');
  life=atoi(temp);
  free(temp);
+<<<<<<< HEAD
+ addEnemy(Local.Battle.Last,Local.id,x,life);
+=======
  //addAction(Local.Battle.Last,Local.id,x,life);
+>>>>>>> ea221406eb0fec08ec5a93f75883f58b4788935e
  }
 
 }
