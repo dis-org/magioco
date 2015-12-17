@@ -55,7 +55,7 @@ void readevent(){
   fclose(pf);
 }            
 
-void move(char a,FILE* pf){//muove il puntatore fino al simbolo...finito.
+void move( char a, FILE* pf){ //muove il puntatore fino al simbolo...finito.
   char c;
   do{
     c=getc(pf);
@@ -122,7 +122,7 @@ void readchoices(FILE* pf){
 
 void isearch(){
   FILE* pf;
-  pf=fopen("items.txt","r");
+  pf=fopen("custom/items.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire items.txt\n");
     exit(EXIT_FAILURE);
@@ -149,7 +149,7 @@ void isearch(){
 }
 void esearch(){
 FILE* pf;
-pf=fopen("enemies.txt","r");
+pf=fopen("custom/enemies.txt","r");
 if (!pf){ 
  fprintf(stderr,"Errore: impossibile aprire items.txt\n");
  exit(EXIT_FAILURE);
@@ -160,9 +160,9 @@ controle(pf,'/','.');
 temp=sstring(pf,'\n');
 life=atoi(temp);
 free(temp);
-addEnemy(Local.id,life);
+//addEnemy(Local.id,life);
 while(1){
- move(pf,'-');
+ move(pf, '-' );
  temp=sstring(pf,'/');
  if (!strcmp(temp,"#")){ 
    free(temp);
@@ -176,15 +176,27 @@ while(1){
  temp=sstring(pf,'\n');
  life=atoi(temp);
  free(temp);
- addAction(Local.Battle.Last,Local.id,x,life);
+ //addAction(Local.Battle.Last,Local.id,x,life);
  }
 
 }
 
 void save(){
-  
-}
+  FILE *pf;
+  char a[100]="saves/";
+  strcat(a,Local.name);
+  pf=fopen(a,"wb");
+  fwrite(&Local,sizeof(Data_t),1,pf);
+  }
 
 void load(){
-  
-}
+  FILE *pf;
+  char a[100]="saves/";
+  strcat(a,Local.name);
+  pf=fopen(a,"r");
+  if (!pf){ 
+    fprintf(stderr,"nessun salvataggio\n");
+    Local.state='m';
+    }
+  fread(&Local,sizeof(Data_t),1,pf);
+};
