@@ -78,5 +78,34 @@ _Bool choice(short* chosen, short choices)
 
 _Bool new_name()
 {
-  return 0;
+  _Bool existent= 0;
+  char* txt;
+  FILE* pf;
+  printf(
+	 "                             Nome\n\n"
+         "                        "
+	 );
+  scanf("%s", Local.name);
+  pf= fopen("saves/saves.txt","w+");
+  if(!pf)
+    {
+      fprintf(stderr,"Errore: impossibile aprire saves.txt (new_name)\n");
+      exit(EXIT_FAILURE);
+    }
+  while(getc(pf)!=EOF)
+    {
+      txt= sstring(pf,'\n');
+      if(!strcmp(txt, Local.name))
+	{
+	  existent= 1;
+	  break;
+	}
+    }
+  if(existent)
+    {
+      printf("                        già utilizzato.\n");
+      return 0;
+    }
+  fprintf(pf, "#%s\n", Local.name);
+  return 1;
 }

@@ -3,6 +3,5 @@
 !*.h
 !*.md
 !*.txt
-!*.bin
 !*/
 !makefile

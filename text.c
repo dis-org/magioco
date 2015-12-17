@@ -8,9 +8,9 @@ extern Data_t Local;
 void readevent(){
   char x,*f;
   FILE *pf;
-  pf = fopen("Custom/events.txt","r");
+  pf = fopen("custom/events.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire events.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
     exit(EXIT_FAILURE);
   }
   controle(pf,'/','\n');
@@ -154,19 +154,15 @@ if (!pf){
  fprintf(stderr,"Errore: impossibile aprire items.txt\n");
  exit(EXIT_FAILURE);
 }
-short life;
+short y;
 char x,*temp;
 controle(pf,'/','.');
 temp=sstring(pf,'\n');
-life=atoi(temp);
+y=atoi(temp);
 free(temp);
-//addEnemy(Local.id,life);
+//addEnemy(Local.id,y);
 while(1){
-<<<<<<< HEAD
   move('-', pf);
-=======
- move(pf, '-' );
->>>>>>> ea221406eb0fec08ec5a93f75883f58b4788935e
  temp=sstring(pf,'/');
  if (!strcmp(temp,"#")){ 
    free(temp);
@@ -178,32 +174,27 @@ while(1){
  x=*temp;
  free(temp);
  temp=sstring(pf,'\n');
- life=atoi(temp);
+ y=atoi(temp);
  free(temp);
-<<<<<<< HEAD
- addEnemy(Local.Battle.Last,Local.id,x,life);
-=======
- //addAction(Local.Battle.Last,Local.id,x,life);
->>>>>>> ea221406eb0fec08ec5a93f75883f58b4788935e
+ //addAction(Local.Battle.Last,Local.id,x,y);
  }
-
 }
 
 void save(){
   FILE *pf;
-  char a[100]="saves/";
+  char a[6]="saves/";
   strcat(a,Local.name);
-  pf=fopen(a,"wb");
+  pf=fopen(a,"wb"); //controllo
   fwrite(&Local,sizeof(Data_t),1,pf);
   }
 
 void load(){
   FILE *pf;
-  char a[100]="saves/";
+  char a[6]="saves/";
   strcat(a,Local.name);
   pf=fopen(a,"rb");
   if (!pf){ 
-    fprintf(stderr,"nessun salvataggio\n");
+    fprintf(stderr,"Errore: caricamento fallito.\n");
     Local.state='m';
     }
   fread(&Local,sizeof(Data_t),1,pf);

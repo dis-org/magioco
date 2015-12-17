@@ -22,7 +22,6 @@ int main()
     {
       next_page();
 
-      //Controllo
       if(!Local.health)
 	Local.state='g';
 
@@ -43,7 +42,7 @@ int main()
                 press_a();
                 continue;
               case 2:
-                // inizzializzazione nuova partita
+		next_page();
 		if(new_name())
 		  {
 		    strcpy(Local.id,"Start");
@@ -53,6 +52,8 @@ int main()
 		    Local.phase='i';
 		    Local.state='t';
 		  }
+		else
+		  press_a();
                 continue;
               case 3:
                 next_page();
