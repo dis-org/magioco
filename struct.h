@@ -50,7 +50,7 @@ typedef struct{
 
 typedef struct Data{
   char state;
-  char previus;
+  char previous;
   char phase; //tipo state, ma per il combattimento
   _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)
   _Bool buffered;

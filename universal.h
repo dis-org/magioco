@@ -12,6 +12,7 @@ void deleteChoices(Choice_List* List); //svuota una Choice_List
 //input
 void press_a(void); //ferma il programma fino a che non si preme 'a'
 _Bool choice(short* chosen, short choices); // rende 1 se viene premuto 'a' se effettua un cambiamento al valore chosed o allo stato rende 0
+_Bool new_name(); //salva il nome del giocatore controllando che non sia già presente
 
 //management
 void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses);

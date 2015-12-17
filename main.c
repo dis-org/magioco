@@ -10,7 +10,7 @@ int main()
   _Bool on= 1;
 
   Local.state='m';
-  Local.previus='q';
+  Local.previous='q';
   Local.chosen= 1;
   Local.health= 3;
 
@@ -44,12 +44,15 @@ int main()
                 continue;
               case 2:
                 // inizzializzazione nuova partita
-                strcpy(Local.id,"Start");
-                Local.enemy_chosen= 0;
-                Local.item_chosen= 1;
-		Local.chosen= 1;
-                Local.phase='i';
-                Local.state='t';
+		if(new_name())
+		  {
+		    strcpy(Local.id,"Start");
+		    Local.enemy_chosen= 0;
+		    Local.item_chosen= 1;
+		    Local.chosen= 1;
+		    Local.phase='i';
+		    Local.state='t';
+		  }
                 continue;
               case 3:
                 next_page();
@@ -96,7 +99,7 @@ int main()
 		continue;
 	      case 2:;
 		Local.state='m';
-		Local.previus='q';
+		Local.previous='q';
 		continue;
 	      case 3:
 		on= 0;

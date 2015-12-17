@@ -1,6 +1,7 @@
 #include "universal.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 extern Data_t Local;
 extern char buffered;
@@ -23,8 +24,8 @@ void press_a(void)
           if(in=='q')
             {
 	      char temp= Local.state;
-              Local.state= Local.previus;
-	      Local.previus= temp;
+              Local.state= Local.previous;
+	      Local.previous= temp;
               break;
             }
         }
@@ -51,8 +52,8 @@ _Bool choice(short* chosen, short choices)
           if(in=='q')
             {
 	      char temp= Local.state;
-              Local.state= Local.previus;
-	      Local.previus= temp;
+              Local.state= Local.previous;
+	      Local.previous= temp;
               *chosen= 1;
               break;
             }
@@ -73,4 +74,9 @@ _Bool choice(short* chosen, short choices)
       ret= in=='a'? 1: 0;
       return ret;
     }
+}
+
+_Bool new_name()
+{
+  if(
 }
