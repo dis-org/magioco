@@ -33,6 +33,7 @@ void print_Enemies(); //stampa lista nemici con vita e difesa
 void print_Items(); //stampa la lista degli oggetti con durata/quantità
 void print_Events(); //choice_t e choice_list
 void print_Stats(); //Nome vita e difesa giocatore
+void print_Uses();
 
 //text
 void readevent(); //aggiungere evento di uscita

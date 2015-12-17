@@ -109,3 +109,20 @@ void print_Stats()
     printf(")");
   puts("");
 }
+
+void print_Uses()
+{
+	printf(
+         "%s\n\n"
+         "%cUsa su %s%c\n"
+         "%cUsa sul nemico%c\n"
+         "%cScaglia contro il nemico%c\n"
+         "%cDifenditi%c\n"
+         "%cTorna all'inventario%c\n",
+         Local.Bag.First->name,
+         Local.chosen==1?'[':' ', Local.name ,Local.chosen==1?']':' ',
+         Local.chosen==2?'[':' ', Local.chosen==2?']':' ',
+         Local.chosen==3?'[':' ', Local.chosen==3?']':' ',
+         Local.chosen==4?'[':' ', Local.chosen==4?']':' ',
+         Local.chosen==5?'[':' ', Local.chosen==5?']':' ');
+}
