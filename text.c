@@ -8,7 +8,7 @@ extern Data_t Local;
 void readevent(){
   char x,*f;
   FILE *pf;
-  pf = fopen("events.txt","r");
+  pf = fopen("Custom/events.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire events.txt\n");
     exit(EXIT_FAILURE);
@@ -145,6 +145,40 @@ void isearch(){
     addItem(&Local.Bag, Local.id, *type, usev, trwv, defv, uses);
     break;
   }
+  fclose(pf);
+}
+void esearch(){
+FILE* pf;
+pf=fopen("enemies.txt","r");
+if (!pf){ 
+ fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+ exit(EXIT_FAILURE);
+}
+short life;
+char x,*temp;
+controle(pf,'/','.');
+temp=sstring(pf,'\n');
+life=atoi(temp);
+free(temp);
+addEnemy(Local.id,life);
+while(1){
+ move(pf,'-');
+ temp=sstring(pf,'/');
+ if (!strcmp(temp,"#")){ 
+   free(temp);
+   break;
+  }
+ strcpy(Local.id,temp);
+ free(temp);
+ temp=sstring(pf,'.');
+ x=*temp;
+ free(temp);
+ temp=sstring(pf,'\n');
+ life=atoi(temp);
+ free(temp);
+ addAction(Local.Battle.Last,Local.id,x,life);
+ }
+
 }
 
 void save(){
