@@ -19,8 +19,8 @@ typedef struct Action{
 
 typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
   char name[64]; //con un nome
-  short health;
-  short defence;
+  unsigned short health;
+  unsigned short defence;
   Action_t* First;
   Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
   struct Enemy* Next;
@@ -60,8 +60,8 @@ typedef struct Data{
   short item_chosen;
   short use_chosen;
   char name[64];
-  short health;
-  short defence;
+  unsigned short health;
+  unsigned short defence;
   Choice_List Events;
   Item_List Bag;
   Enemy_List Battle;

@@ -120,9 +120,9 @@ void print_Uses()
          "%cDifenditi%c\n"
          "%cTorna all'inventario%c\n",
          Local.Bag.First->name,
-         Local.chosen==1?'[':' ', Local.name ,Local.chosen==1?']':' ',
-         Local.chosen==2?'[':' ', Local.chosen==2?']':' ',
-         Local.chosen==3?'[':' ', Local.chosen==3?']':' ',
-         Local.chosen==4?'[':' ', Local.chosen==4?']':' ',
-         Local.chosen==5?'[':' ', Local.chosen==5?']':' ');
+         Local.use_chosen==1?'[':' ', Local.name ,Local.use_chosen==1?']':' ',
+         Local.use_chosen==2?'[':' ', Local.use_chosen==2?']':' ',
+         Local.use_chosen==3?'[':' ', Local.use_chosen==3?']':' ',
+         Local.use_chosen==4?'[':' ', Local.use_chosen==4?']':' ',
+         Local.use_chosen==5?'[':' ', Local.use_chosen==5?']':' ');
 }
