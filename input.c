@@ -6,6 +6,13 @@
 extern Data_t Local;
 extern char buffered;
 
+void switch_state()
+{
+  char temp= Local.state;
+  Local.state= Local.previous;
+  Local.previous= temp;
+}
+
 void press_a(void) 
 {
   if(buffered)
@@ -23,9 +30,7 @@ void press_a(void)
             break; //esce dal loop se digito 'a'
           if(in=='q')
             {
-              char temp= Local.state;
-              Local.state= Local.previous;
-              Local.previous= temp;
+	      switch_state();
               break;
             }
         }
@@ -51,9 +56,7 @@ _Bool choice(short* chosen, short choices)
           printf("\r        \r");
           if(in=='q')
             {
-              char temp= Local.state;
-              Local.state= Local.previous;
-              Local.previous= temp;
+	      switch_state();
               *chosen= 1;
               break;
             }
@@ -78,22 +81,44 @@ _Bool choice(short* chosen, short choices)
 
 _Bool new_name()
 {
-
   _Bool existent= 0;
   char* txt;
   FILE* pf;
-  printf(
-	 "                             Nome\n\n"
-	 "                           "
-	 );
   if(buffered)
     {
     }
   else
     {
-      system("/bin/stty raw");
-      scanf("%s", Local.name);
-      system("/bin/stty cooked");
+      char* name= calloc(32,sizeof(char));
+      int n= 0;
+      char c;
+      while(1)
+	{
+	  system("clear");
+	  printf("                             Nome\n\n               ");
+	  for(int x= 16-(n)/2; x>0; --x)
+	    printf(" ");
+	  printf("%s\n\n"
+                 "                  premere '.' per confermare\n"
+                 "                  premere '-' per cancellare\n"
+		 , name);
+	  system("/bin/stty raw");
+	  while((c=getchar()))
+	    {
+	      if(((c <='z' && c>='a')||(c<='Z' && c>='A'))&& n<32)
+		name[n++]= c;
+	      if(c=='-' && n)
+		n--;
+	      break;
+	    }
+	  name[n]='\0';
+	  system("/bin/stty cooked");
+	  if(c=='.' && n)
+	    break;
+	  continue;
+	}
+      strcpy(Local.name,name);
+      free(name);
     }
   next_page();
   pf= fopen("saves/saves.txt","a+");
@@ -114,7 +139,7 @@ _Bool new_name()
     }
   if(existent || Local.name[0]==' ')
     {
-      printf("\n                        già utilizzato.\n");
+      puts("Nome già utilizzato.");
       return 0;
     }
   fprintf(pf, "#%s\n", Local.name);

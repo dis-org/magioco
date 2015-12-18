@@ -59,7 +59,7 @@ typedef struct Data{
   short enemy_chosen;
   short item_chosen;
   short use_chosen;
-  char name[64];
+  char name[32];
   unsigned short health;
   unsigned short defence;
   Choice_List Events;

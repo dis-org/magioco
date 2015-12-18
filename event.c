@@ -41,3 +41,4 @@ void deleteChoices(Choice_List* List)
   List->Last=NULL;
   List->choices= 0;
 }
+
