@@ -37,11 +37,11 @@ int main()
               {
               case 1:
 		readsaves();
-		do{
+		do{ //non so se mi piace
 		  next_page();
 		  print_Choices(Local.chosen, &Local.Events);
-		}while(!choice(&Local.chosen, Local.Events.choices));
-		if(Local.Events.choices)
+		}while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
+		if(Local.Events.choices && Local.state!='q')
 		  {
 		    select(Local.name, Local.chosen, &Local.Events);
 		    load();
@@ -50,7 +50,7 @@ int main()
 		continue;
               case 2:
                 next_page();
-                if(new_name())
+                if(new_name())//da rivedere
                   {
                     strcpy(Local.id,"Start");
                     Local.enemy_chosen= 0;
@@ -95,13 +95,13 @@ int main()
           else
             Local.state='m';
           continue;
-        case'q': //aggiungere menù salvataggio e schermata game over
+        case'q':
           print_quit();
           if(choice(&Local.chosen, 3))
             switch(Local.chosen)
               {
               case 1:
-                save();//da decidere
+
                 Local.chosen= 1; //rivedili tutti
 		press_a();
                 continue;

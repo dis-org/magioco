@@ -78,14 +78,24 @@ _Bool choice(short* chosen, short choices)
 
 _Bool new_name()
 {
+
   _Bool existent= 0;
   char* txt;
   FILE* pf;
   printf(
-         "                             Nome\n\n"
-         "                           "
-         );
-  scanf("%s", Local.name);
+	 "                             Nome\n\n"
+	 "                           "
+	 );
+  if(buffered)
+    {
+    }
+  else
+    {
+      system("/bin/stty raw");
+      scanf("%s", Local.name);
+      system("/bin/stty cooked");
+    }
+  next_page();
   pf= fopen("saves/saves.txt","a+");
   if(!pf)
     {
@@ -96,10 +106,10 @@ _Bool new_name()
     {
       txt= sstring(pf,'\n');
       if(!strcmp(txt, Local.name))
-        {
-          existent= 1;
-          break;
-        }
+	{
+	  existent= 1;
+	  break;
+	}
       free(txt);
     }
   if(existent || Local.name[0]==' ')

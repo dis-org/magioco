@@ -41,7 +41,7 @@ void readevent(){
     f=sstring(pf,'\n');
     strcpy(Local.id,f);
     free(f);
-    fseek(pf,0L,SEEK_SET);
+    rewind(pf);
     readchoices(pf);
   }
   if (x=='>'){
@@ -214,12 +214,13 @@ void readsaves()
 {
   FILE* pf;
   char* name;
-  pf=fopen("saves/saves.txt","r");
+  pf=fopen("saves/saves.txt","a+");
   if(!pf)
     {
       fprintf(stderr,"Errore: caricamento fallito (readsaves).\n");
       exit(EXIT_FAILURE);
     }
+  rewind(pf);
   deleteChoices(&Local.Events);
   while(getc(pf)=='#')
     {
