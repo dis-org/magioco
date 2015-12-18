@@ -36,31 +36,31 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-                next_page();
-                readsaves();
-		print_Choices(Local.chosen, &Local.Events);
-		if(choice(&Local.chosen, Local.Events.choices))
-		  if(Local.Events.choices)
-		    {
-		      select(Local.name, Local.chosen, &Local.Events);
-		      load();
-		      Local.chosen= 1;
-		    }
-                continue;
+		readsaves();
+		do{
+		  next_page();
+		  print_Choices(Local.chosen, &Local.Events);
+		}while(!choice(&Local.chosen, Local.Events.choices));
+		if(Local.Events.choices)
+		  {
+		    select(Local.name, Local.chosen, &Local.Events);
+		    load();
+		  }
+		Local.chosen= 1;
+		continue;
               case 2:
                 next_page();
                 if(new_name())
                   {
-		    save();
                     strcpy(Local.id,"Start");
                     Local.enemy_chosen= 0;
                     Local.item_chosen= 1;
                     Local.chosen= 1;
                     Local.phase='i';
                     Local.state='t';
+		    save();
                   }
-                else
-                  press_a();
+		press_a();
                 continue;
               case 3:
                 next_page();
@@ -103,7 +103,7 @@ int main()
               case 1:
                 save();//da decidere
                 Local.chosen= 1; //rivedili tutti
-                press_a();
+		press_a();
                 continue;
               case 2:;
                 Local.state='m';

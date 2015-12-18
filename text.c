@@ -23,16 +23,17 @@ void readevent(){
     if (x=='i'){
       getc(pf);
       f=sstring(pf,'\n');
+      int uses=atoi(sstring(pf,'.'));
       strcpy(Local.id,f);
       free(f);
-      //iserch();
+      isearch(uses);
     }
     if (x=='e'){
       getc(pf);
       f=sstring(pf,'\n');
       strcpy(Local.id,f);
       free(f);
-      // eserch();
+      esearch();
     }
   }while(x!=EOF);
   if (x=='*'){
@@ -120,7 +121,7 @@ void readchoices(FILE* pf){
   }while(1);
 }
 
-void isearch(){
+void isearch(short uses){
   FILE* pf;
   pf=fopen("custom/items.txt","r");
   if (!pf){ 
@@ -132,7 +133,6 @@ void isearch(){
   int usev=atoi(sstring(pf,'.'));
   int trwv=atoi(sstring(pf,'.'));
   int defv=atoi(sstring(pf,'.'));
-  int uses=atoi(sstring(pf,'.'));
   Item_t* temp;
   switch(*type){
   case'p':
@@ -142,7 +142,7 @@ void isearch(){
       break;
     }
   case'u':
-    addItem(&Local.Bag, Local.id, *type, usev, trwv, defv, uses);
+    addItem(&Local.Bag, Local.id, *type, usev, trwv, defv);
     break;
   }
   fclose(pf);
@@ -192,6 +192,7 @@ void save(){
       exit(EXIT_FAILURE);
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
+  puts("Partita salvata.");
 }
 
 void load(){

@@ -15,7 +15,7 @@ Item_t* searchItem(char* id, Item_List* List)
   return Ret;
 }
 
-void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses)
+void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv)
 {
  Item_t *Item = calloc(1, sizeof(Item_t));
 
@@ -30,7 +30,6 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
  Item->usevalue= usev;
  Item->trowvalue= trwv;
  Item->defvalue= defv;
- Item->uses= uses;
  
  if(!List->First)
    List->First = List->Last = Item;

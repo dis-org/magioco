@@ -15,7 +15,7 @@ _Bool choice(short* chosen, short choices); // rende 1 se viene premuto 'a' se e
 _Bool new_name(); //salva il nome del giocatore controllando che non sia già presente
 
 //management
-void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses);
+void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv);
 Item_t* searchItem(char* id, Item_List* List);
 void addEnemy(char* name, short health);
 void addAction(Enemy_t* Enemy, char* text, char type, short value);
@@ -42,7 +42,7 @@ void move(char,FILE*);
 char* sstring(FILE*,char);
 void controle(FILE*,char,char);
 void readchoices(FILE*);
-void isearch();
+void isearch(short uses);
 void esearch();
 void save(); // salva Date_t Local su file save.bin
 void load(); // carica i salvataggi (se esistono) e stampa relativo messaggio
