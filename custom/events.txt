@@ -23,8 +23,11 @@ Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto
   -#
 /Prendersi un caffè
 Espresso lungo senza zucchero, il suo preferito.*
-	-i.Caffè.1
+	-i.caffè.1
+  -*Il ragazzo decise di:
 /#
+
+
 
 /Incredibile
 Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*

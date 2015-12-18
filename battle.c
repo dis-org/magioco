@@ -12,13 +12,13 @@ void battle(void)
     case'i':
       print_Items();
       if(choice(&Local.item_chosen, Local.Bag.items))
-	Local.phase='u';
+        Local.phase='u';
     case 'u':
       print_Uses();
       if (choice(&Local.use_chosen, 5)) //percepisco che è sbagliata, 
-	switch(Local.use_chosen)
-	  {
-	  case 1: //usa su di te
+        switch(Local.use_chosen)
+          {
+          case 1: //usa su di te
             Local.health += Local.Bag.First->usevalue;
             break;
           case 2: //usa su nemico
@@ -35,7 +35,7 @@ void battle(void)
             break;
           case 5: //inventario
             break;  
-	  }
+          }
       Local.phase= Local.use_chosen==5 ? 'i':'a';
     case 'a':
       break;
@@ -45,7 +45,7 @@ void battle(void)
 
 void enemy_Use()
 {
-	
+        
 }
 
 void Trow()

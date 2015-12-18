@@ -129,12 +129,13 @@ void isearch(short uses){
     exit(EXIT_FAILURE);
   }
   controle(pf,'/','.');
-  char *type=sstring(pf,'.');
-  int usev=atoi(sstring(pf,'.'));
+  char type=getc(pf);
+  getc(pf);
+  int usev=atoi(sstring(pf,'.')); //da correggere (free)
   int trwv=atoi(sstring(pf,'.'));
   int defv=atoi(sstring(pf,'\n'));
   Item_t* temp;
-  switch(*type){
+  switch(type){
   case'p':
     temp= searchItem(Local.id, &Local.Bag);
     if (temp){
@@ -142,42 +143,43 @@ void isearch(short uses){
       break;
     }
   case'u':
-    addItem(&Local.Bag, Local.id, *type, usev, trwv, defv);
+    addItem(&Local.Bag, Local.id, type, usev, trwv, defv, uses);
     break;
   }
+  print_Items();
   fclose(pf);
 }
 void esearch(){
-FILE* pf;
-pf=fopen("custom/enemies.txt","r");
-if (!pf){ 
- fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
- exit(EXIT_FAILURE);
-}
-short y;
-char x,*temp;
-controle(pf,'/','.');
-temp=sstring(pf,'\n');
-y=atoi(temp);
-free(temp);
-//addEnemy(Local.id,y);
-while(1){
-  move('-', pf);
- temp=sstring(pf,'/');
- if (!strcmp(temp,"#")){ 
-   free(temp);
-   break;
+  FILE* pf;
+  pf=fopen("custom/enemies.txt","r");
+  if (!pf){ 
+    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
+    exit(EXIT_FAILURE);
   }
- strcpy(Local.id,temp);
- free(temp);
- temp=sstring(pf,'.');
- x=*temp;
- free(temp);
- temp=sstring(pf,'\n');
- y=atoi(temp);
- free(temp);
- //addAction(Local.Battle.Last,Local.id,x,y);
- }
+  short y;
+  char x,*temp;
+  controle(pf,'/','.');
+  temp=sstring(pf,'\n');
+  y=atoi(temp);
+  free(temp);
+  //addEnemy(Local.id,y);
+  while(1){
+    move('-', pf);
+    temp=sstring(pf,'/');
+    if (!strcmp(temp,"#")){ 
+      free(temp);
+      break;
+    }
+    strcpy(Local.id,temp);
+    free(temp);
+    temp=sstring(pf,'.');
+    x=*temp;
+    free(temp);
+    temp=sstring(pf,'\n');
+    y=atoi(temp);
+    free(temp);
+    //addAction(Local.Battle.Last,Local.id,x,y);
+  }
 }
 
 void save(){
@@ -221,13 +223,13 @@ void readsaves()
   deleteChoices(&Local.Events);
   while(getc(pf)=='#')
     {
-      name= sstring(pf, '\n');
+      name= sstring(pf,'\n');
       addChoice(name, &Local.Events);
       free(name);
     }
-    if(Local.Events.choices)
-      strcpy(Local.Events.text,"Selezionare salvataggio:");
-    else
-      strcpy(Local.Events.text,"Nessun salvataggio presente.");
+  if(Local.Events.choices)
+    strcpy(Local.Events.text,"Selezionare salvataggio:");
+  else
+    strcpy(Local.Events.text,"Nessun salvataggio presente.");
   fclose(pf);
 }

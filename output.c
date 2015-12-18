@@ -84,7 +84,7 @@ void print_Items()      //solo nome
   Item_t* Tmp= Local.Bag.First; 
   for(int x= 1; x <= Local.Bag.items; x++)
     {
-      printf("%c %s (%s: %d)\n", 
+      printf("%c %s %s x%d\n", 
         x==Local.item_chosen? '>' : ' ',  
         Tmp->name, 
         Local.Bag.First->type=='u' ? "res" : "qnt", 
@@ -117,7 +117,7 @@ void print_Stats()
 void print_Uses()
 {
   printf(
-         "%s (%s: %d)\n\n"
+         "%s %s x%d\n\n"
          "%cUsa su %s%c\n"
          "%cUsa sul nemico%c\n"
          "%cScaglia contro il nemico%c\n"

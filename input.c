@@ -86,7 +86,7 @@ _Bool new_name()
          "                           "
          );
   scanf("%s", Local.name);
-  pf= fopen("saves/saves.txt","r+");
+  pf= fopen("saves/saves.txt","a+");
   if(!pf)
     {
       fprintf(stderr,"Errore: impossibile aprire saves.txt (new_name)\n");
