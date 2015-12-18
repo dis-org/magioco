@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 //battle
-void battle(void);
+void battle();
 
 //event
 void addChoice(char* text, Choice_List* List); //aggiunge una scelta ad una Choice_List
@@ -31,7 +31,7 @@ void print_quit(); //stampa menù quit
 void print_gameover(); //stampa messaggio Game Over
 void print_Enemies(); //stampa lista nemici con vita e difesa
 void print_Items(); //stampa la lista degli oggetti con durata/quantità
-void print_Events(); //choice_t e choice_list
+void print_Choices(short chosen, Choice_List* List);
 void print_Stats(); //Nome vita e difesa giocatore
 void print_Uses();
 
@@ -46,3 +46,4 @@ void isearch();
 void esearch();
 void save(); // salva Date_t Local su file save.bin
 void load(); // carica i salvataggi (se esistono) e stampa relativo messaggio
+void readsaves();

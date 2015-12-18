@@ -8,16 +8,16 @@ extern Data_t Local;
 void readevent(){
   char x,*f;
   FILE *pf;
-  pf = fopen("Custom/events.txt","r");
+  pf = fopen("custom/events.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire events.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
     exit(EXIT_FAILURE);
   }
   controle(pf,'/','\n');
   printtext(pf);
   do{
     move('-',pf);
-   
+
     x=getc(pf);
     if (x=='*'|| x=='>'|| x=='#') break;
     if (x=='i'){
@@ -53,7 +53,7 @@ void readevent(){
     Local.state='g';
   
   fclose(pf);
-}            
+}
 
 void move( char a, FILE* pf){ //muove il puntatore fino al simbolo...finito.
   char c;
@@ -151,22 +151,18 @@ void esearch(){
 FILE* pf;
 pf=fopen("custom/enemies.txt","r");
 if (!pf){ 
- fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+ fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
  exit(EXIT_FAILURE);
 }
-short life;
+short y;
 char x,*temp;
 controle(pf,'/','.');
 temp=sstring(pf,'\n');
-life=atoi(temp);
+y=atoi(temp);
 free(temp);
-//addEnemy(Local.id,life);
+//addEnemy(Local.id,y);
 while(1){
-<<<<<<< HEAD
   move('-', pf);
-=======
- move(pf, '-' );
->>>>>>> ea221406eb0fec08ec5a93f75883f58b4788935e
  temp=sstring(pf,'/');
  if (!strcmp(temp,"#")){ 
    free(temp);
@@ -178,33 +174,59 @@ while(1){
  x=*temp;
  free(temp);
  temp=sstring(pf,'\n');
- life=atoi(temp);
+ y=atoi(temp);
  free(temp);
-<<<<<<< HEAD
- addEnemy(Local.Battle.Last,Local.id,x,life);
-=======
- //addAction(Local.Battle.Last,Local.id,x,life);
->>>>>>> ea221406eb0fec08ec5a93f75883f58b4788935e
+ //addAction(Local.Battle.Last,Local.id,x,y);
  }
-
 }
 
 void save(){
   FILE *pf;
-  char a[100]="saves/";
+  char a[64]="saves/";
   strcat(a,Local.name);
+  strcat(a,".bin");
   pf=fopen(a,"wb");
+  if(!pf)
+    {
+      fprintf(stderr,"Errore: salvataggio fallito (save)");
+      exit(EXIT_FAILURE);
+    }
   fwrite(&Local,sizeof(Data_t),1,pf);
-  }
+}
 
 void load(){
   FILE *pf;
-  char a[100]="saves/";
+  char a[64]="saves/";
   strcat(a,Local.name);
+  strcat(a,".bin");
   pf=fopen(a,"rb");
   if (!pf){ 
-    fprintf(stderr,"nessun salvataggio\n");
-    Local.state='m';
-    }
+    fprintf(stderr,"Errore: caricamento fallito (load).\n");
+    exit(EXIT_FAILURE);
+  }
   fread(&Local,sizeof(Data_t),1,pf);
-};
+}
+
+void readsaves()
+{
+  FILE* pf;
+  char* name;
+  pf=fopen("saves/saves.txt","r");
+  if(!pf)
+    {
+      fprintf(stderr,"Errore: caricamento fallito (readsaves).\n");
+      exit(EXIT_FAILURE);
+    }
+  deleteChoices(&Local.Events);
+  while(getc(pf)=='#')
+    {
+      name= sstring(pf, '\n');
+      addChoice(name, &Local.Events);
+      free(name);
+    }
+    if(Local.Events.choices)
+      strcpy(Local.Events.text,"Selezionare salvataggio:");
+    else
+      strcpy(Local.Events.text,"Nessun salvataggio presente.");
+  fclose(pf);
+}

@@ -33,7 +33,7 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
  Item->uses= uses;
  
  if(!List->First)
-	 List->First = List->Last = Item;
+   List->First = List->Last = Item;
  else
  {
   List->Last->Next = Item;

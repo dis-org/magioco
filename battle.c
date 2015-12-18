@@ -12,6 +12,6 @@ void battle(void)
     case'i':
       print_Items();
       if(choice(&Local.item_chosen, Local.Bag.items))
-	Local.phase= 'u';
+        Local.phase= 'u';
     }
 }
