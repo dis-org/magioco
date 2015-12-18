@@ -89,13 +89,13 @@ void print_Items()      //solo nome
     }
 }
 
-void print_Events()
+void print_Choices(short chosen, Choice_List* List)
 {
-  printf("%s\n", Local.Events.text);
-  Choice_t* Temp= Local.Events.First; 
-  for(int x= 1; x <= Local.Events.choices; x++)
+  printf("%s\n", List->text);
+  Choice_t* Temp= List->First; 
+  for(int x= 1; x <= List->choices; x++)
     {
-      printf("%c %s\n", x==Local.chosen? '>' : ' ', Temp->text);
+      printf("%c %s\n", x==chosen? '>' : ' ', Temp->text);
       Temp= Temp->Next;
     }
 }
@@ -112,7 +112,7 @@ void print_Stats()
 
 void print_Uses()
 {
-	printf(
+  printf(
          "%s\n\n"
          "%cUsa su %s%c\n"
          "%cUsa sul nemico%c\n"

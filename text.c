@@ -17,7 +17,7 @@ void readevent(){
   printtext(pf);
   do{
     move('-',pf);
-   
+
     x=getc(pf);
     if (x=='*'|| x=='>'|| x=='#') break;
     if (x=='i'){
@@ -53,7 +53,7 @@ void readevent(){
     Local.state='g';
   
   fclose(pf);
-}            
+}
 
 void move( char a, FILE* pf){ //muove il puntatore fino al simbolo...finito.
   char c;
@@ -151,7 +151,7 @@ void esearch(){
 FILE* pf;
 pf=fopen("custom/enemies.txt","r");
 if (!pf){ 
- fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+ fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
  exit(EXIT_FAILURE);
 }
 short y;
@@ -182,20 +182,51 @@ while(1){
 
 void save(){
   FILE *pf;
-  char a[6]="saves/";
+  char a[64]="saves/";
   strcat(a,Local.name);
-  pf=fopen(a,"wb"); //controllo
+  strcat(a,".bin");
+  pf=fopen(a,"wb");
+  if(!pf)
+    {
+      fprintf(stderr,"Errore: salvataggio fallito (save)");
+      exit(EXIT_FAILURE);
+    }
   fwrite(&Local,sizeof(Data_t),1,pf);
-  }
+}
 
 void load(){
   FILE *pf;
-  char a[6]="saves/";
+  char a[64]="saves/";
   strcat(a,Local.name);
+  strcat(a,".bin");
   pf=fopen(a,"rb");
   if (!pf){ 
-    fprintf(stderr,"Errore: caricamento fallito.\n");
-    Local.state='m';
-    }
+    fprintf(stderr,"Errore: caricamento fallito (load).\n");
+    exit(EXIT_FAILURE);
+  }
   fread(&Local,sizeof(Data_t),1,pf);
-};
+}
+
+void readsaves()
+{
+  FILE* pf;
+  char* name;
+  pf=fopen("saves/saves.txt","r");
+  if(!pf)
+    {
+      fprintf(stderr,"Errore: caricamento fallito (readsaves).\n");
+      exit(EXIT_FAILURE);
+    }
+  deleteChoices(&Local.Events);
+  while(getc(pf)=='#')
+    {
+      name= sstring(pf, '\n');
+      addChoice(name, &Local.Events);
+      free(name);
+    }
+    if(Local.Events.choices)
+      strcpy(Local.Events.text,"Selezionare salvataggio:");
+    else
+      strcpy(Local.Events.text,"Nessun salvataggio presente.");
+  fclose(pf);
+}

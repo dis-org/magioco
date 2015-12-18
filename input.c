@@ -23,9 +23,9 @@ void press_a(void)
             break; //esce dal loop se digito 'a'
           if(in=='q')
             {
-	      char temp= Local.state;
+              char temp= Local.state;
               Local.state= Local.previous;
-	      Local.previous= temp;
+              Local.previous= temp;
               break;
             }
         }
@@ -51,9 +51,9 @@ _Bool choice(short* chosen, short choices)
           printf("\r        \r");
           if(in=='q')
             {
-	      char temp= Local.state;
+              char temp= Local.state;
               Local.state= Local.previous;
-	      Local.previous= temp;
+              Local.previous= temp;
               *chosen= 1;
               break;
             }
@@ -82,11 +82,11 @@ _Bool new_name()
   char* txt;
   FILE* pf;
   printf(
-	 "                             Nome\n\n"
-         "                        "
-	 );
+         "                             Nome\n\n"
+         "                           "
+         );
   scanf("%s", Local.name);
-  pf= fopen("saves/saves.txt","w+");
+  pf= fopen("saves/saves.txt","r+");
   if(!pf)
     {
       fprintf(stderr,"Errore: impossibile aprire saves.txt (new_name)\n");
@@ -96,16 +96,18 @@ _Bool new_name()
     {
       txt= sstring(pf,'\n');
       if(!strcmp(txt, Local.name))
-	{
-	  existent= 1;
-	  break;
-	}
+        {
+          existent= 1;
+          break;
+        }
+      free(txt);
     }
   if(existent)
     {
-      printf("                        già utilizzato.\n");
+      printf("\n                        già utilizzato.\n");
       return 0;
     }
   fprintf(pf, "#%s\n", Local.name);
+  fclose(pf);
   return 1;
 }

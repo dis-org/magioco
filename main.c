@@ -23,7 +23,7 @@ int main()
       next_page();
 
       if(!Local.health)
-	Local.state='g';
+        Local.state='g';
 
       if(Local.Battle.enemies)
         Local.state='b';
@@ -37,28 +37,35 @@ int main()
               {
               case 1:
                 next_page();
-                load();
-		Local.chosen= 1;
-                press_a();
+                readsaves();
+		print_Choices(Local.chosen, &Local.Events);
+		if(choice(&Local.chosen, Local.Events.choices))
+		  if(Local.Events.choices)
+		    {
+		      select(Local.name, Local.chosen, &Local.Events);
+		      load();
+		      Local.chosen= 1;
+		    }
                 continue;
               case 2:
-		next_page();
-		if(new_name())
-		  {
-		    strcpy(Local.id,"Start");
-		    Local.enemy_chosen= 0;
-		    Local.item_chosen= 1;
-		    Local.chosen= 1;
-		    Local.phase='i';
-		    Local.state='t';
-		  }
-		else
-		  press_a();
+                next_page();
+                if(new_name())
+                  {
+		    save();
+                    strcpy(Local.id,"Start");
+                    Local.enemy_chosen= 0;
+                    Local.item_chosen= 1;
+                    Local.chosen= 1;
+                    Local.phase='i';
+                    Local.state='t';
+                  }
+                else
+                  press_a();
                 continue;
               case 3:
                 next_page();
                 print_ahah();
-		Local.chosen= 1;
+                Local.chosen= 1;
                 press_a();
                 continue;
               }
@@ -69,7 +76,7 @@ int main()
           press_a();
           continue;
         case'c':
-          print_Events();
+          print_Choices(Local.chosen, &Local.Events);
           if(choice(&Local.chosen, Local.Events.choices))
             {
               select(Local.id, Local.chosen, &Local.Events);
@@ -78,34 +85,34 @@ int main()
             }
           continue;
         case'b':
-	  battle();
-	  continue;
-	case'g':
-	  print_gameover();
-	  press_a();
-	  if(Local.state=='q')
-	    on=0;
-	  else
-	    Local.state='m';
-	  continue;
+          battle();
+          continue;
+        case'g':
+          print_gameover();
+          press_a();
+          if(Local.state=='q')
+            on=0;
+          else
+            Local.state='m';
+          continue;
         case'q': //aggiungere menù salvataggio e schermata game over
-	  print_quit();
-	  if(choice(&Local.chosen, 3))
-	    switch(Local.chosen)
-	      {
-	      case 1:
-		save();//da decidere
-		Local.chosen= 1; //rivedili tutti
+          print_quit();
+          if(choice(&Local.chosen, 3))
+            switch(Local.chosen)
+              {
+              case 1:
+                save();//da decidere
+                Local.chosen= 1; //rivedili tutti
                 press_a();
-		continue;
-	      case 2:;
-		Local.state='m';
-		Local.previous='q';
-		continue;
-	      case 3:
-		on= 0;
-		continue;
-	      }
+                continue;
+              case 2:;
+                Local.state='m';
+                Local.previous='q';
+                continue;
+              case 3:
+                on= 0;
+                continue;
+              }
         }
     }
   next_page();
