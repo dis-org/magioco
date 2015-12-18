@@ -3,6 +3,9 @@
 
 //battle
 void battle();
+void enemy_Use();
+void Trow();
+void Defend();
 
 //event
 void addChoice(char* text, Choice_List* List); //aggiunge una scelta ad una Choice_List

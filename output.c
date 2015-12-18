@@ -88,7 +88,7 @@ void print_Items()      //solo nome
         x==Local.item_chosen? '>' : ' ',  
         Tmp->name, 
         Local.Bag.First->type=='u' ? "res" : "qnt", 
-        Loca.Bag.First->uses);
+        Local.Bag.First->uses);
       Tmp= Tmp->Next;
     }
 }
@@ -123,7 +123,7 @@ void print_Uses()
          "%cScaglia contro il nemico%c\n"
          "%cDifenditi%c\n"
          "%cTorna all'inventario%c\n",
-         Local.Bag.First->name, Local.Bag.First->type=='u' ? "res" : "qnt", Loca.Bag.First->uses,
+         Local.Bag.First->name, Local.Bag.First->type=='u' ? "res" : "qnt", Local.Bag.First->uses,
          Local.use_chosen==1?'[':' ', Local.name ,Local.use_chosen==1?']':' ',
          Local.use_chosen==2?'[':' ', Local.use_chosen==2?']':' ',
          Local.use_chosen==3?'[':' ', Local.use_chosen==3?']':' ',
