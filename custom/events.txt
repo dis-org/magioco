@@ -21,6 +21,9 @@ Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto
 
                             Buonanotte*
   -#
+/Prendersi un caffè
+Espresso lungo senza zucchero, il suo preferito.*
+	-i.Caffè.1
 /#
 
 /Incredibile

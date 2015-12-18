@@ -24,7 +24,7 @@ void deleteEnemy(Enemy_t* Enemy);
 
 //output
 void next_page(); //divide graficamente le varie schermate
-void print_intro(); //stampa l'intro del gioco
+void print_intro(); //stampa l'intro del gioco *********
 void print_menu(); //stampa il menù
 void print_ahah(); //stampa derisione
 void print_quit(); //stampa menù quit

@@ -102,7 +102,7 @@ _Bool new_name()
         }
       free(txt);
     }
-  if(existent)
+  if(existent || Local.name[0]==' ')
     {
       printf("\n                        già utilizzato.\n");
       return 0;

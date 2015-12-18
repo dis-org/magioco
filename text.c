@@ -22,8 +22,8 @@ void readevent(){
     if (x=='*'|| x=='>'|| x=='#') break;
     if (x=='i'){
       getc(pf);
-      f=sstring(pf,'\n');
-      int uses=atoi(sstring(pf,'.'));
+      f=sstring(pf,'.');
+      int uses=atoi(sstring(pf,'\n'));
       strcpy(Local.id,f);
       free(f);
       isearch(uses);
@@ -132,7 +132,7 @@ void isearch(short uses){
   char *type=sstring(pf,'.');
   int usev=atoi(sstring(pf,'.'));
   int trwv=atoi(sstring(pf,'.'));
-  int defv=atoi(sstring(pf,'.'));
+  int defv=atoi(sstring(pf,'\n'));
   Item_t* temp;
   switch(*type){
   case'p':
