@@ -180,6 +180,7 @@ void esearch(){
     free(temp);
     //addAction(Local.Battle.Last,Local.id,x,y);
   }
+  fclose(pf);
 }
 
 void save(){
@@ -195,6 +196,7 @@ void save(){
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
   puts("Partita salvata.");
+  fclose(pf);
 }
 
 void load(){
@@ -208,6 +210,7 @@ void load(){
     exit(EXIT_FAILURE);
   }
   fread(&Local,sizeof(Data_t),1,pf);
+  fclose(pf);
 }
 
 void readsaves()

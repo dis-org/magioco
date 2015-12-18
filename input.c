@@ -84,43 +84,42 @@ _Bool new_name()
   _Bool existent= 0;
   char* txt;
   FILE* pf;
-  if(buffered)
+  char* name= calloc(32,sizeof(char));
+  int n= 0;
+  char c;
+  while(!buffered)
     {
-    }
-  else
-    {
-      char* name= calloc(32,sizeof(char));
-      int n= 0;
-      char c;
-      while(1)
+      system("clear");
+      printf("                             Nome\n\n               ");
+      for(int x= 16-(n)/2; x>0; --x)
+	printf(" ");
+      printf("%s\n\n"
+	     "                  premere '.' per confermare\n"
+	     "                  premere '-' per cancellare\n"
+	     , name);
+      system("/bin/stty raw");
+      while((c=getchar()))
 	{
-	  system("clear");
-	  printf("                             Nome\n\n               ");
-	  for(int x= 16-(n)/2; x>0; --x)
-	    printf(" ");
-	  printf("%s\n\n"
-                 "                  premere '.' per confermare\n"
-                 "                  premere '-' per cancellare\n"
-		 , name);
-	  system("/bin/stty raw");
-	  while((c=getchar()))
-	    {
-	      if(((c <='z' && c>='a')||(c<='Z' && c>='A'))&& n<32)
-		name[n++]= c;
-	      if(c=='-' && n)
-		n--;
-	      break;
-	    }
-	  name[n]='\0';
-	  system("/bin/stty cooked");
-	  if(c=='.' && n)
-	    break;
-	  continue;
+	  if(((c <='z' && c>='a')||(c<='Z' && c>='A'))&& n<32)
+	    name[n++]= c;
+	  if(c=='-' && n)
+	    n--;
+	  break;
 	}
-      strcpy(Local.name,name);
-      free(name);
+      name[n]='\0';
+      system("/bin/stty cooked");
+      if(c=='.')
+	break;
+      continue;
     }
   next_page();
+  if(!n && buffered)
+    {
+      puts("Annullato.");
+      return 0;
+    }
+  strcpy(Local.name,name);
+  free(name);
   pf= fopen("saves/saves.txt","a+");
   if(!pf)
     {

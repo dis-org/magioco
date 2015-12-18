@@ -4,5 +4,5 @@
 !*.md
 !*.txt
 !*.bin
-!*/
+!custom/
 !makefile

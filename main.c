@@ -37,27 +37,33 @@ int main()
               {
               case 1:
 		readsaves();
-		do{ //non so se mi piace
+		do{
 		  next_page();
 		  print_Choices(Local.chosen, &Local.Events);
 		}while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
 		if(Local.Events.choices && Local.state!='q')
 		  {
 		    select(Local.name, Local.chosen, &Local.Events);
-		    load();
+		    //deallocazione strutture precedenti
+		    load();//fosse così facile...
 		  }
 		Local.chosen= 1;
 		continue;
+		puts("seleggiquestoc'èunerrorebruttissimo");
               case 2:
                 next_page();
-                if(new_name())//da rivedere
+                if(new_name())
                   {
+                    Local.state='t';
+                    Local.phase='i';
                     strcpy(Local.id,"Start");
+                    Local.chosen= 1;
                     Local.enemy_chosen= 0;
                     Local.item_chosen= 1;
-                    Local.chosen= 1;
-                    Local.phase='i';
-                    Local.state='t';
+		    Local.use_chosen= 1;
+		    Local.health= 3;
+		    deleteChoices(&Local.Events);
+		    //deleteEnemies();
 		    save();
                   }
 		press_a();
@@ -101,11 +107,13 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-
-                Local.chosen= 1; //rivedili tutti
+		//save(); 
+                Local.chosen= 1; //rivedili tutti*
 		press_a();
                 continue;
-              case 2:;
+              case 2:
+		;//deleteEnemies();
+		Local.chosen= 1; //* 
                 Local.state='m';
                 Local.previous='q';
                 continue;

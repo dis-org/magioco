@@ -52,7 +52,6 @@ typedef struct Data{
   char state;
   char previous;
   char phase; //tipo state, ma per il combattimento
-  _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)
   _Bool buffered;
   char id[128];
   short chosen;
@@ -61,8 +60,10 @@ typedef struct Data{
   short use_chosen;
   char name[32];
   unsigned short health;
-  unsigned short defence;
+  unsigned short defence; //difesa (solo in combattimento)*
+  _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)*
   Choice_List Events;
   Item_List Bag;
   Enemy_List Battle;
 } Data_t;
+//* queste variabili non sono inizializzate nel main e potrebbero riportare valori precedenti, da inizializzare in battle()

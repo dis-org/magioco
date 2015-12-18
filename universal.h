@@ -21,23 +21,25 @@ _Bool new_name(); //salva il nome del giocatore controllando che non sia già pr
 void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses);
 Item_t* searchItem(char* id, Item_List* List);
 void deleteItem(char* id, Item_List* List);
+void deleteIems(Item_List* List);
 void addEnemy(char* name, short health);
 void addAction(Enemy_t* Enemy, char* text, char type, short value);
 Enemy_t* searchEnemy(char* id, Enemy_List* List);
 void deleteEnemy(Enemy_t* Enemy);
+void deleteEnemies();
 
 //output
 void next_page(); //divide graficamente le varie schermate
 void print_intro(); //stampa l'intro del gioco *********
 void print_menu(); //stampa il menù
-void print_ahah(); //stampa derisione
+void print_ahah(); //stampa derisione **********
 void print_quit(); //stampa menù quit
 void print_gameover(); //stampa messaggio Game Over
 void print_Enemies(); //stampa lista nemici con vita e difesa
 void print_Items(); //stampa la lista degli oggetti con durata/quantità
 void print_Choices(short chosen, Choice_List* List);
 void print_Stats(); //Nome vita e difesa giocatore
-void print_Uses();
+void print_Uses(); //Possibili utilizzi degli oggetti
 
 //text
 void readevent(); //aggiungere evento di uscita
