@@ -41,6 +41,7 @@ void deleteChoices(Choice_List* List)
   List->Last=NULL;
   List->choices= 0;
 }
+
 Item_t* searchItem(char* id, Item_List* List)
 {
   Item_t* Ret= List->First;
@@ -78,4 +79,78 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
   List->Last = Item;
  }
  List->items++;
+}
+
+void addEnemy(char* name, short health)
+{
+ Enemy_t* Enemy = calloc(1, sizeof(Enemy_t));
+
+ Enemy_List* List;
+
+ if(!Enemy)
+ {
+  fprintf(stderr,"Errore: allocazione non riuscita (addEnemy)\n");
+  exit(EXIT_FAILURE); 
+ }
+
+ strcpy(Enemy->name, name);
+ Enemy->health = health;
+
+ if(!List->First)
+   List->First = List->Last = Enemy;
+ else
+ {
+   List->Last->Next = Enemy;
+   List->Last = Enemy;
+ }
+ List->enemies++;
+}
+
+void addAction(Enemy_t* Enemy, char* text, char type, short value)
+{
+ Action_t* Action = calloc(1, sizeof(Action_t));
+
+ if(!Action)
+ {
+  fprintf(stderr,"Errore: allocazione non riuscita (addAction)\n");
+  exit(EXIT_FAILURE);
+ }
+
+ strcpy(Action->name, text);
+ Action->type = type;
+ Action->value = value;
+
+ if(!Enemy->First)
+   Enemy->First = Enemy->Last = Action;
+ else
+ {
+  Enemy->Last->Next = Action;
+  Enemy->Last = Action;
+ }
+ Enemy->enemies++;
+}
+
+Enemy_t* searchEnemy(char* id, Enemy_List* List)
+{
+  Enemy_t* Ret = List->First;
+  while(Ret)
+  {
+    if(!strcmp(Ret->name, id))
+      break;
+    Ret = Ret->Next;
+  }
+  return Ret;
+}
+
+void deleteEnemy(Enemy_t* Enemy)
+{
+  Enemy_List* List;
+  while(List->First)
+  {
+    Enemy = List->First;
+    List->First = List->First->Next;
+    free(Enemy);
+  }
+  List->Last = NULL;
+  List->enemies = 0;
 }
