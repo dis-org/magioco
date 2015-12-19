@@ -113,7 +113,7 @@ _Bool new_name()
       continue;
     }
   next_page();
-  if(!n && buffered)
+  if(!n && !buffered)
     {
       puts("Annullato.");
       return 0;
