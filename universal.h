@@ -5,7 +5,8 @@
 void battle();
 void enemy_Use();
 void Trow();
-void Defend();
+Enemy_t* enemy_sel();  //trova l'enemy_chosen
+Item_t* item_sel(); 	//trova l'item_chosen
 
 //input
 void switch_state();
