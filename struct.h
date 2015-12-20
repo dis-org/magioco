@@ -8,20 +8,28 @@ typedef struct{ //ogni scelta è una lista di opzioni
   unsigned short choices;
   Choice_t* First;
   Choice_t* Last;
-} Choice_List;
+} Choice_List_t;
 
-typedef struct Action{
+typedef struct{
   char text[256];
   char type;
   short value;
+} Action_Data_t;
+
+typedef struct Action{
+  Action_Data_t Info;
   struct Action* Next;
 } Action_t;
 
-typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
+typedef struct{
   char name[64]; //con un nome
   unsigned short health;
   unsigned short defence;
   unsigned short actions;
+} Enemy_Data_t;
+
+typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
+  Enemy_Data_t Info;
   Action_t* First;
   Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
   struct Enemy* Next;
@@ -31,15 +39,19 @@ typedef struct{
   unsigned short enemies;
   Enemy_t* First;
   Enemy_t* Last;
-} Enemy_List; //doppiamente dinamica
+} Enemy_List_t; //doppiamente dinamica
 
-typedef struct Item{
+typedef struct{
   char name[64];
   char type; //unitario 'u' o pluritario 'p' cambia la scritta tra durata e quantità
   int usevalue; //sia su nemici che su se stessi
   unsigned short trowvalue; //i danni che fa al nemico se scagliata su di esso
   unsigned short defvalue; //magari indica anche quanta durata consuma
   int uses; //viene modificato in modo diverso a seconda del tipo
+} Item_Data_t;
+
+typedef struct Item{
+  Item_Data_t Info;
   struct Item* Next;
 } Item_t;
 
@@ -47,7 +59,7 @@ typedef struct{
   unsigned short items;
   Item_t* First;
   Item_t* Last;
-} Item_List;
+} Item_List_t;
 
 typedef struct Data{
   char state;
@@ -63,8 +75,8 @@ typedef struct Data{
   unsigned short health;
   unsigned short defence; //difesa (solo in combattimento)*
   _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)*
-  Choice_List Events;
-  Item_List Bag;
-  Enemy_List Battle;
+  Choice_List_t Events;
+  Item_List_t Bag;
+  Enemy_List_t Battle;
 } Data_t;
 //* queste variabili non sono inizializzate nel main e potrebbero riportare valori precedenti, da inizializzare in battle()

@@ -44,7 +44,6 @@ int main()
 		if(Local.Events.choices && Local.state!='q')
 		  {
 		    select(Local.name, Local.chosen, &Local.Events);
-		    //deallocazione strutture precedenti
 		    load();//fosse così facile...
 		  }
 		Local.chosen= 1;
@@ -61,9 +60,6 @@ int main()
                     Local.item_chosen= 1;
 		    Local.use_chosen= 1;
 		    Local.health= 3;
-		    deleteChoices(&Local.Events);
-		    //deleteItems(&Local.Bag);
-		    //deleteEnemies(...);
 		    save();
                   }
 		press_a();
@@ -71,7 +67,7 @@ int main()
               case 3:
                 next_page();
                 print_ahah();
-                Local.chosen= 1;
+                Local.chosen= 1; //*
                 press_a();
                 continue;
               }
@@ -99,7 +95,12 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-            Local.state='m';
+	    {
+	      deleteChoices(&Local.Events);
+	      //deleteItems(&Local.Bag);
+	      //deleteEnemies(...);
+	      Local.state='m';
+	    }
           continue;
         case'q':
           print_quit();
@@ -107,12 +108,15 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-		//save(); 
+		switch_state();
+		save();//da controllare
                 Local.chosen= 1; //rivedili tutti*
 		press_a();
                 continue;
               case 2:
-		;//deleteEnemies();
+		deleteChoices(&Local.Events);
+		//deleteItems(&Local.Bag);
+		//deleteEnemies(...);
 		Local.chosen= 1; //* 
                 Local.state='m';
                 Local.previous='q';

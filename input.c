@@ -13,7 +13,7 @@ void switch_state()
   Local.previous= temp;
 }
 
-void press_a(void) 
+void press_a() 
 {
   if(buffered)
     {

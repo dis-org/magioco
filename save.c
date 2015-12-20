@@ -1,7 +1,6 @@
 #include "universal.h"
 #include <stdlib.h>
 #include <string.h>
-extern Data_t Local;
 
 extern Data_t Local;
 
