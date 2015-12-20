@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//extern Data_t Local;
+
 void addChoice(char* text, Choice_List* List)
 {
   Choice_t* C= calloc(1,sizeof(Choice_t)); //controllo allocazione
@@ -116,7 +118,7 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   exit(EXIT_FAILURE);
  }
 
- strcpy(Action->name, text);
+ strcpy(Action->text, text);
  Action->type = type;
  Action->value = value;
 
@@ -127,7 +129,7 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   Enemy->Last->Next = Action;
   Enemy->Last = Action;
  }
- Enemy->enemies++;
+ //Battle.enemies+=1;
 }
 
 Enemy_t* searchEnemy(char* id, Enemy_List* List)
