@@ -42,18 +42,6 @@ void deleteChoices(Choice_List* List)
   List->choices= 0;
 }
 
-Item_t* searchItem(char* id, Item_List* List)
-{
-  Item_t* Ret= List->First;
-  while(Ret)
-    {
-      if(!strcmp(Ret->name, id))
-        break;
-      Ret= Ret->Next;
-    }
-  return Ret;
-}
-
 void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses)
 {
  Item_t *Item = calloc(1, sizeof(Item_t));
@@ -81,11 +69,21 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
  List->items++;
 }
 
-void addEnemy(char* name, short health)
+Item_t* searchItem(char* id, Item_List* List)
+{
+  Item_t* Ret= List->First;
+  while(Ret)
+    {
+      if(!strcmp(Ret->name, id))
+        break;
+      Ret= Ret->Next;
+    }
+  return Ret;
+}
+
+void addEnemy(Enemy_List* List,char* name, short health)
 {
  Enemy_t* Enemy = calloc(1, sizeof(Enemy_t));
-
- Enemy_List* List;
 
  if(!Enemy)
  {
@@ -116,7 +114,7 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   exit(EXIT_FAILURE);
  }
 
- strcpy(Action->name, text);
+ strcpy(Action->text, text);
  Action->type = type;
  Action->value = value;
 
@@ -127,7 +125,7 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   Enemy->Last->Next = Action;
   Enemy->Last = Action;
  }
- Enemy->enemies++;
+ Enemy->actions++;
 }
 
 Enemy_t* searchEnemy(char* id, Enemy_List* List)
@@ -142,9 +140,8 @@ Enemy_t* searchEnemy(char* id, Enemy_List* List)
   return Ret;
 }
 
-void deleteEnemy(Enemy_t* Enemy)
+void deleteEnemy(Enemy_List* List,Enemy_t* Enemy)
 {
-  Enemy_List* List;
   while(List->First)
   {
     Enemy = List->First;

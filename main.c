@@ -49,7 +49,6 @@ int main()
 		  }
 		Local.chosen= 1;
 		continue;
-		puts("seleggiquestoc'èunerrorebruttissimo");
               case 2:
                 next_page();
                 if(new_name())
@@ -63,7 +62,8 @@ int main()
 		    Local.use_chosen= 1;
 		    Local.health= 3;
 		    deleteChoices(&Local.Events);
-		    //deleteEnemies();
+		    //deleteItems(&Local.Bag);
+		    //deleteEnemies(...);
 		    save();
                   }
 		press_a();
