@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//extern Data_t Local;
+
 void addChoice(char* text, Choice_List* List)
 {
   Choice_t* C= calloc(1,sizeof(Choice_t)); //controllo allocazione
