@@ -1,3 +1,4 @@
+//Choices
 typedef struct Choice{ //possibili opzioni
   char text[128];//convertire tutto a stringa di testo
   struct Choice* Next;
@@ -10,6 +11,7 @@ typedef struct{ //ogni scelta è una lista di opzioni
   Choice_t* Last;
 } Choice_List_t;
 
+//Enemies
 typedef struct{
   char text[256];
   char type;
@@ -22,13 +24,13 @@ typedef struct Action{
 } Action_t;
 
 typedef struct{
-  char name[64]; //con un nome
+  char name[64];
   unsigned short health;
   unsigned short defence;
   unsigned short actions;
 } Enemy_Data_t;
 
-typedef struct Enemy{ //ogni nemico è una lista dinamica di azioni
+typedef struct Enemy{ //ogni nemico contine una lista dinamica di azioni
   Enemy_Data_t Info;
   Action_t* First;
   Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
@@ -41,6 +43,7 @@ typedef struct{
   Enemy_t* Last;
 } Enemy_List_t; //doppiamente dinamica
 
+//Items
 typedef struct{
   char name[64];
   char type; //unitario 'u' o pluritario 'p' cambia la scritta tra durata e quantità
@@ -61,6 +64,7 @@ typedef struct{
   Item_t* Last;
 } Item_List_t;
 
+//Local data
 typedef struct Data{
   char state;
   char previous;

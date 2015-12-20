@@ -117,7 +117,7 @@ void readchoices(FILE* pf){
     free(x);
     if (!strcmp(Local.id,"#"))
       return;
-    addChoice(Local.id, &Local.Events);
+    addChoice(&Local.Events, Local.id);
   }while(1);
 }
 
@@ -137,9 +137,9 @@ void isearch(short uses){
   Item_t* temp;
   switch(type){
   case'p':
-    temp= searchItem(Local.id, &Local.Bag);
+    temp= searchItem(&Local.Bag, Local.id);
     if (temp){
-      temp->uses+=uses;
+      temp->Info.uses+=uses;
       break;
     }
   case'u':

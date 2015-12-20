@@ -36,18 +36,18 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-		readsaves();
-		do{
-		  next_page();
-		  print_Choices(Local.chosen, &Local.Events);
-		}while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
-		if(Local.Events.choices && Local.state!='q')
-		  {
-		    select(Local.name, Local.chosen, &Local.Events);
-		    load();//fosse così facile...
-		  }
-		Local.chosen= 1;
-		continue;
+                readsaves();
+                do{
+                  next_page();
+                  print_Choices(&Local.Events,Local.chosen);
+                }while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
+                if(Local.Events.choices && Local.state!='q')
+                  {
+                    select(&Local.Events, Local.name, Local.chosen);
+                    load();//fosse così facile...
+                  }
+                Local.chosen= 1;
+                continue;
               case 2:
                 next_page();
                 if(new_name())
@@ -58,11 +58,11 @@ int main()
                     Local.chosen= 1;
                     Local.enemy_chosen= 0;
                     Local.item_chosen= 1;
-		    Local.use_chosen= 1;
-		    Local.health= 3;
-		    save();
+                    Local.use_chosen= 1;
+                    Local.health= 3;
+                    save();
                   }
-		press_a();
+                press_a();
                 continue;
               case 3:
                 next_page();
@@ -78,10 +78,10 @@ int main()
           press_a();
           continue;
         case'c':
-          print_Choices(Local.chosen, &Local.Events);
+          print_Choices(&Local.Events, Local.chosen);
           if(choice(&Local.chosen, Local.Events.choices))
             {
-              select(Local.id, Local.chosen, &Local.Events);
+              select(&Local.Events, Local.id, Local.chosen);
               Local.state='t';
               Local.chosen= 1;
             }
@@ -95,12 +95,12 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-	    {
-	      deleteChoices(&Local.Events);
-	      //deleteItems(&Local.Bag);
-	      //deleteEnemies(...);
-	      Local.state='m';
-	    }
+            {
+              deleteChoices(&Local.Events);
+              //deleteItems(&Local.Bag);
+              //deleteEnemies(...);
+              Local.state='m';
+            }
           continue;
         case'q':
           print_quit();
@@ -108,16 +108,16 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-		switch_state();
-		save();//da controllare
+                switch_state();
+                save();//da controllare
                 Local.chosen= 1; //rivedili tutti*
-		press_a();
+                press_a();
                 continue;
               case 2:
-		deleteChoices(&Local.Events);
-		//deleteItems(&Local.Bag);
-		//deleteEnemies(...);
-		Local.chosen= 1; //* 
+                deleteChoices(&Local.Events);
+                //deleteItems(&Local.Bag);
+                //deleteEnemies(...);
+                Local.chosen= 1; //* 
                 Local.state='m';
                 Local.previous='q';
                 continue;

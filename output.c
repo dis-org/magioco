@@ -69,10 +69,10 @@ void print_Enemies()
 { 
   for (int x=0; x<Local.Battle.enemies; x++)
     {
-      printf("%c %s\nHp: ",x==Local.enemy_chosen? '[':' ', Local.Battle.First->name);
-      for (int y=0; y<Local.Battle.First->health; y++)
+      printf("%c %s\nHp: ",x==Local.enemy_chosen? '[':' ', Local.Battle.First->Info.name);
+      for (int y=0; y<Local.Battle.First->Info.health; y++)
         printf("*");
-      for (int z=0; z<Local.Battle.First->defence; z++)
+      for (int z=0; z<Local.Battle.First->Info.defence; z++)
         printf(")");
       printf("%c\n", x==Local.enemy_chosen? ']':' ');
     }
@@ -86,14 +86,14 @@ void print_Items()      //solo nome
     {
       printf("%c %s %s x%d\n", 
         x==Local.item_chosen? '>' : ' ',  
-        Tmp->name, 
-        Local.Bag.First->type=='u' ? "res" : "qnt", 
-        Local.Bag.First->uses);
+        Tmp->Info.name, 
+        Local.Bag.First->Info.type=='u' ? "res" : "qnt", 
+        Local.Bag.First->Info.uses);
       Tmp= Tmp->Next;
     }
 }
 
-void print_Choices(short chosen, Choice_List* List)
+void print_Choices(Choice_List_t* List, short chosen)
 {
   printf("%s\n", List->text);
   Choice_t* Temp= List->First; 
@@ -123,7 +123,7 @@ void print_Uses()
          "%cScaglia contro il nemico%c\n"
          "%cDifenditi%c\n"
          "%cTorna all'inventario%c\n",
-         Local.Bag.First->name, Local.Bag.First->type=='u' ? "res" : "qnt", Local.Bag.First->uses,
+         Local.Bag.First->Info.name, Local.Bag.First->Info.type=='u' ? "res" : "qnt", Local.Bag.First->Info.uses,
          Local.use_chosen==1?'[':' ', Local.name ,Local.use_chosen==1?']':' ',
          Local.use_chosen==2?'[':' ', Local.use_chosen==2?']':' ',
          Local.use_chosen==3?'[':' ', Local.use_chosen==3?']':' ',

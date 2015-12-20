@@ -17,22 +17,23 @@ void save()
       exit(EXIT_FAILURE);
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
+  fprintf(stdout,"%hd\n", Local.Events.choices);
   for(int x= 0; x<Local.Events.choices; x++)
     {
       Choice_t* Temp= Local.Events.First;
-      fwrite(Temp,sizeof(Choice_t),1,pf);
+      fwrite(&Temp->text,sizeof(char),128,pf);
       Temp= Temp->Next;
     }
   for(int x= 0; x<Local.Bag.items; x++)
     {
       Item_t* Temp= Local.Bag.First;
-      fwrite(Temp,sizeof(Item_t),1,pf);
+      fwrite(&Temp->Info,sizeof(Item_Data_t),1,pf);
       Temp= Temp->Next;
     }
   /* for(int x= 0; x<Local.Events.choices) */
   /*   { */
   /*     Enemy_t* Temp= Events.First; */
-  /*     fwrite(Temp,sizeof(Choice_t),1,pf); */
+  /*     fwrite(Temp->Info,sizeof(Enemy_Data_t),1,pf); */
   /*     Temp= Temp->Next; */
   /*   } */
   puts("Partita salvata.");
@@ -52,22 +53,22 @@ void load()
       exit(EXIT_FAILURE);
     }
   fread(&Local,sizeof(Data_t),1,pf);
-  Local.Events.First=NULL;
-  Local.Events.Last=NULL;
+  fprintf(stdout,"%hd\n", Local.Events.choices);
   for(int x= 0; x<Local.Events.choices; x++)
     {
-      addChoice("",&Local.Events);
-      Choice_t* Temp= Local.Events.First;
-      fwrite(Temp,sizeof(Choice_t),1,pf);
-      Temp= Temp->Next;
+      addChoice(&Local.Events,"");
+      fread(&Local.Events.Last->text,sizeof(char),128,pf);
     }
   for(int x= 0; x<Local.Bag.items; x++)
     {
-      addItem(&Local.Bag,'\0','\0',0,0,0,0);
-      Item_t* Temp= Local.Bag.First;
-      fwrite(Temp,sizeof(Item_t),1,pf);
-      Temp= Temp->Next;
+      addItem(&Local.Bag,"",'\0',0,0,0,0);
+      fread(&Local.Bag.Last->Info,sizeof(Item_Data_t),1,pf);
     }
+  /* for(int x= 0; x<Local.Battle.enemies; x++) */
+  /*   { */
+  /*     addEnemy(&Local.Battle,"",0,0,0); */
+  /*     fread(&Local.Bag.Last->Info,sizeof(Enemy_Data_t),1,pf); */
+  /*   } */
   fclose(pf);
 }
 
@@ -86,7 +87,7 @@ void readsaves()
   while(getc(pf)=='#')
     {
       name= sstring(pf,'\n');
-      addChoice(name, &Local.Events);
+      addChoice(&Local.Events, name);
       free(name);
     }
   if(Local.Events.choices)

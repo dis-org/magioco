@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//extern Data_t Local;
-
-void addChoice(char* text, Choice_List* List)
+void addChoice(Choice_List_t* List, char* text)
 {
   Choice_t* C= calloc(1,sizeof(Choice_t)); //controllo allocazione
   if(!C)
@@ -23,7 +21,7 @@ void addChoice(char* text, Choice_List* List)
   List->choices++;
 }
 
-void select(char* text, short chosen, Choice_List* List)
+void select(Choice_List_t* List, char* text, short chosen)
 {
   Choice_t* p= List->First;
   for(int x= 1; x < chosen; x++)
@@ -31,7 +29,7 @@ void select(char* text, short chosen, Choice_List* List)
   strcpy(text, p->text);
 }
 
-void deleteChoices(Choice_List* List)
+void deleteChoices(Choice_List_t* List)
 {
   Choice_t* temp;
   while(List->First)
@@ -44,7 +42,7 @@ void deleteChoices(Choice_List* List)
   List->choices= 0;
 }
 
-void addItem(Item_List* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses)
+void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses)
 {
  Item_t *Item = calloc(1, sizeof(Item_t));
 
@@ -54,12 +52,12 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
   exit(EXIT_FAILURE);
  }
 
- strcpy(Item->name, name);
- Item->type= type;
- Item->usevalue= usev;
- Item->trowvalue= trwv;
- Item->defvalue= defv;
- Item->uses= uses;
+ strcpy(Item->Info.name, name);
+ Item->Info.type= type;
+ Item->Info.usevalue= usev;
+ Item->Info.trowvalue= trwv;
+ Item->Info.defvalue= defv;
+ Item->Info.uses= uses;
  
  if(!List->First)
    List->First = List->Last = Item;
@@ -71,19 +69,19 @@ void addItem(Item_List* List, char* name, char type, int usev, unsigned short tr
  List->items++;
 }
 
-Item_t* searchItem(char* id, Item_List* List)
+Item_t* searchItem(Item_List_t* List, char* name)
 {
   Item_t* Ret= List->First;
   while(Ret)
     {
-      if(!strcmp(Ret->name, id))
+      if(!strcmp(Ret->Info.name, name))
         break;
       Ret= Ret->Next;
     }
   return Ret;
 }
 
-void addEnemy(Enemy_List* List,char* name, short health)
+void addEnemy(Enemy_List_t* List, char* name, short health)
 {
  Enemy_t* Enemy = calloc(1, sizeof(Enemy_t));
 
@@ -93,8 +91,8 @@ void addEnemy(Enemy_List* List,char* name, short health)
   exit(EXIT_FAILURE); 
  }
 
- strcpy(Enemy->name, name);
- Enemy->health = health;
+ strcpy(Enemy->Info.name, name);
+ Enemy->Info.health = health;
 
  if(!List->First)
    List->First = List->Last = Enemy;
@@ -116,9 +114,9 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   exit(EXIT_FAILURE);
  }
 
- strcpy(Action->text, text);
- Action->type = type;
- Action->value = value;
+ strcpy(Action->Info.text, text);
+ Action->Info.type = type;
+ Action->Info.value = value;
 
  if(!Enemy->First)
    Enemy->First = Enemy->Last = Action;
@@ -127,22 +125,22 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   Enemy->Last->Next = Action;
   Enemy->Last = Action;
  }
- Enemy->actions++;
+ Enemy->Info.actions++;
 }
 
-Enemy_t* searchEnemy(char* id, Enemy_List* List)
+Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
 {
   Enemy_t* Ret = List->First;
   while(Ret)
   {
-    if(!strcmp(Ret->name, id))
+    if(!strcmp(Ret->Info.name, name))
       break;
     Ret = Ret->Next;
   }
   return Ret;
 }
 
-void deleteEnemy(Enemy_List* List,Enemy_t* Enemy)
+void deleteEnemy(Enemy_List_t* List,Enemy_t* Enemy)
 {
   while(List->First)
   {
