@@ -108,10 +108,13 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-                switch_state();
-                save();//da controllare
-                Local.chosen= 1; //rivedili tutti*
-                press_a();
+		if(Local.previous!='m')
+		  {
+		    switch_state();                
+		    save();//da controllare
+		    switch_state();
+		    press_a();
+		  }
                 continue;
               case 2:
                 deleteChoices(&Local.Events);

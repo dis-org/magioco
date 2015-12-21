@@ -17,7 +17,6 @@ void save()
       exit(EXIT_FAILURE);
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
-  fprintf(stdout,"%hd\n", Local.Events.choices);
   for(int x= 0; x<Local.Events.choices; x++)
     {
       Choice_t* Temp= Local.Events.First;
@@ -53,7 +52,6 @@ void load()
       exit(EXIT_FAILURE);
     }
   fread(&Local,sizeof(Data_t),1,pf);
-  fprintf(stdout,"%hd\n", Local.Events.choices);
   for(int x= 0; x<Local.Events.choices; x++)
     {
       addChoice(&Local.Events,"");

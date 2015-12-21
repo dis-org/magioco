@@ -146,7 +146,6 @@ void isearch(short uses){
     addItem(&Local.Bag, Local.id, type, usev, trwv, defv, uses);
     break;
   }
-  print_Items();
   fclose(pf);
 }
 void esearch(){
