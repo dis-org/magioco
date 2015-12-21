@@ -1,6 +1,7 @@
 #include "universal.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 Data_t Local;
 _Bool buffered;
@@ -44,6 +45,7 @@ int main()
                 if(Local.Events.choices && Local.state!='q')
                   {
                     select(&Local.Events, Local.name, Local.chosen);
+                    //deleteChoices(&Local.Events);
                     load();//fosse così facile...
                   }
                 Local.chosen= 1;

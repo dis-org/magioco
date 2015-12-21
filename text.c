@@ -107,18 +107,20 @@ void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
 
 void readchoices(FILE* pf){
   char *x;
+  char*temp=calloc(128,sizeof(char));
   deleteChoices(&Local.Events);
   controle(pf,'+','\n');
   strcpy(Local.Events.text,Local.id);
   do{
     move('/',pf);
     x=sstring(pf,'\n');
-    strcpy(Local.id,x);
+    strcpy(temp,x);
     free(x);
-    if (!strcmp(Local.id,"#"))
-      return;
-    addChoice(&Local.Events, Local.id);
+    if (!strcmp(temp,"#"))
+      break;
+    addChoice(&Local.Events, temp);
   }while(1);
+  free(temp);
 }
 
 void isearch(short uses){
