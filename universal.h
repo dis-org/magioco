@@ -52,6 +52,6 @@ void printtext(FILE*);
 void move(char,FILE*);
 char* sstring(FILE*,char);
 void controle(FILE*,char,char);
-void readchoices(FILE*);
+void readchoices();
 void isearch(short uses);
 void esearch();

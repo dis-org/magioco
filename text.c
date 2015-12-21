@@ -41,8 +41,8 @@ void readevent(){
     f=sstring(pf,'\n');
     strcpy(Local.id,f);
     free(f);
-    rewind(pf);
-    readchoices(pf);
+   // rewind(pf);
+    //readchoices();
   }
   if (x=='>'){
     Local.state='t';
@@ -105,8 +105,14 @@ void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
   free(temp);
 }
 
-void readchoices(FILE* pf){
+void readchoices(){
   char *x;
+  FILE *pf;
+  pf = fopen("custom/events.txt","r");
+  if (!pf){ 
+    fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
+    exit(EXIT_FAILURE);
+  }
   char*temp=calloc(128,sizeof(char));
   deleteChoices(&Local.Events);
   controle(pf,'+','\n');

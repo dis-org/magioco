@@ -80,6 +80,7 @@ int main()
           press_a();
           continue;
         case'c':
+          readchoices();
           print_Choices(&Local.Events, Local.chosen);
           if(choice(&Local.chosen, Local.Events.choices))
             {
