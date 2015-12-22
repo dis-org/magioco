@@ -29,7 +29,7 @@ void select(Choice_List_t* List, char* text, short chosen)
   strcpy(text, p->text);
 }
 
-void deleteChoices(Choice_List_t* List)
+void deleteChoices(Choice_List_t* List) //ricontrolla
 {
   Choice_t* temp;
   while(List->First)
@@ -69,7 +69,7 @@ void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short 
  List->items++;
 }
 
-Item_t* searchItem(Item_List_t* List, char* name)
+Item_t* searchItem(Item_List_t* List, char* name)//forse è inutile
 {
   Item_t* Ret= List->First;
   while(Ret)
@@ -79,6 +79,27 @@ Item_t* searchItem(Item_List_t* List, char* name)
       Ret= Ret->Next;
     }
   return Ret;
+}
+
+void deleteItem(Item_List_t* List, char* name)
+{
+  Item_t* Ret= List->First;
+  if(!strcmp(Ret->Info.name, name))
+    {
+      List->First= Ret->Next;
+      free(Ret);
+      return;
+    }
+  while(Ret)
+    {
+      if(!strcmp(Ret->Next->Info.name, name))
+	{
+	  Ret->Next= Ret->Next->Next;
+	  free(Ret->Next);
+	  return;
+	}
+      Ret= Ret->Next;
+    }
 }
 
 void addEnemy(Enemy_List_t* List, char* name, short health)
