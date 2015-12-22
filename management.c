@@ -93,13 +93,34 @@ void deleteItem(Item_List_t* List, char* name)
   while(Ret)
     {
       if(!strcmp(Ret->Next->Info.name, name))
-	{
-	  Ret->Next= Ret->Next->Next;
-	  free(Ret->Next);
-	  return;
-	}
-      Ret= Ret->Next;
+        	{
+        	  Ret->Next= Ret->Next->Next;
+        	  free(Ret->Next);
+        	  return;
+        	}
+      if(Ret->Next)
+        Ret= Ret->Next;
+      else
+        break;
     }
+  Ret= List->Last;
+    if(!strcmp(Ret->Info.name, name))
+    {
+      List->First= Ret->Next;
+      free(Ret);
+    }
+}
+
+void deleteItems(Item_List_t* List)
+{
+while(List->First)
+  {
+    Item = List->First;
+    List->First = List->First->Next;
+    free(Item);
+  }
+  List->Last = NULL;
+  List->items = 0;
 }
 
 void addEnemy(Enemy_List_t* List, char* name, short health)
@@ -161,14 +182,62 @@ Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
   return Ret;
 }
 
-void deleteEnemy(Enemy_List_t* List,Enemy_t* Enemy)
+void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
 {
+    Enemy_t* Ret= List->First;
+  if(!strcmp(Ret->Info.name, name))
+    {
+      List->First= Ret->Next;
+      deleteActions(Ret);
+      free(Ret);
+      return;
+    }
+  while(Ret)
+    {
+      if(!strcmp(Ret->Next->Info.name, name))
+        {
+          Ret->Next= Ret->Next->Next;
+          deleteActions(Ret->Next)
+          free(Ret->Next);
+          return;
+        }
+      if(Ret->Next)
+        Ret= Ret->Next;
+      else
+        break;
+    }
+      Ret= List->Last;
+    if(!strcmp(Ret->Info.name, name))
+    {
+      List->First= Ret->Next;
+      deleteActions(Ret);
+      free(Ret);
+    }
+}
+
+void deleteEnemies(Enemy_List_t* List)
+{
+  Enemy_t* Enemy;
   while(List->First)
   {
     Enemy = List->First;
     List->First = List->First->Next;
+    deleteActions(Enemy);
     free(Enemy);
   }
   List->Last = NULL;
   List->enemies = 0;
+}
+
+void deleteActions(Enemy_t* Enemy)
+{
+  Action_t* Action;
+  while(Enemy->First)
+  {
+    Action = Enemy->First;
+    Enemy->First = Enemy->First->Next;
+    free(Action);
+  }
+  Enemy->Last = NULL;
+  Enemy->actions = 0;
 }
