@@ -24,7 +24,7 @@ Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto
 /Prendersi un caffè
 Espresso lungo senza zucchero, il suo preferito.*
   -i.caffè.1
-  ->quindi lui fu felice
+  -*Il ragazzo decise di:
 /#
 /quindi lui fu felice
 essendo dopo il caffè estremamente felice compilò e per magia tutto funzionò*

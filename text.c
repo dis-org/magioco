@@ -114,7 +114,9 @@ void readchoices(){
     exit(EXIT_FAILURE);
   }
   char*temp=calloc(128,sizeof(char));
+  puts("sai");
   deleteChoices(&Local.Events);
+  puts("io");
   controle(pf,'+','\n');
   strcpy(Local.Events.text,Local.id);
   do{

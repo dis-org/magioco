@@ -51,7 +51,7 @@ void load()
       fprintf(stderr,"Errore: impossibile aprire %s\n",a);
       exit(EXIT_FAILURE);
     }
-    puts("jonny!!");
+    //puts("jonny!!");
   fread(&Local,sizeof(Data_t),1,pf);
   
 /*  for(int x= 0; x<Local.Events.choices; x++)*/
