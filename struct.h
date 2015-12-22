@@ -27,11 +27,11 @@ typedef struct{
   char name[64];
   unsigned short health;
   unsigned short defence;
-  unsigned short actions;
 } Enemy_Data_t;
 
 typedef struct Enemy{ //ogni nemico contine una lista dinamica di azioni
   Enemy_Data_t Info;
+  unsigned short actions;
   Action_t* First;
   Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
   struct Enemy* Next;

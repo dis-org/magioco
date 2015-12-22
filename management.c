@@ -113,6 +113,7 @@ void deleteItem(Item_List_t* List, char* name)
 
 void deleteItems(Item_List_t* List)
 {
+  Item_t* Item;
 while(List->First)
   {
     Item = List->First;
@@ -167,7 +168,7 @@ void addAction(Enemy_t* Enemy, char* text, char type, short value)
   Enemy->Last->Next = Action;
   Enemy->Last = Action;
  }
- Enemy->Info.actions++;
+ Enemy->actions++;
 }
 
 Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
@@ -182,7 +183,7 @@ Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
   return Ret;
 }
 
-void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
+void deleteEnemy(Enemy_List_t* List, char* name)
 {
     Enemy_t* Ret= List->First;
   if(!strcmp(Ret->Info.name, name))
@@ -197,7 +198,7 @@ void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
       if(!strcmp(Ret->Next->Info.name, name))
         {
           Ret->Next= Ret->Next->Next;
-          deleteActions(Ret->Next)
+          deleteActions(Ret->Next);
           free(Ret->Next);
           return;
         }

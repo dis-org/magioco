@@ -22,11 +22,10 @@ int main()
   while(on)
     {
       next_page();
-
+      
       if(!Local.health)
         Local.state='g';
-
-      if(Local.Battle.enemies)
+      else if(Local.Battle.enemies)
         Local.state='b';
 
       switch(Local.state)
@@ -45,7 +44,7 @@ int main()
                 if(Local.Events.choices && Local.state!='q')
                   {
                     select(&Local.Events, Local.name, Local.chosen);
-                    //deleteChoices(&Local.Events);
+                    deleteChoices(&Local.Events);
                     load();//fosse così facile...
                   }
                 Local.chosen= 1;
@@ -69,7 +68,7 @@ int main()
               case 3:
                 next_page();
                 print_ahah();
-                Local.chosen= 1; //*
+                Local.chosen= 1;
                 press_a();
                 continue;
               }
@@ -100,8 +99,8 @@ int main()
           else
             {
               deleteChoices(&Local.Events);
-              //deleteItems(&Local.Bag);
-              //deleteEnemies(...);
+              deleteItems(&Local.Bag);
+              deleteEnemies(&Local.Battle);
               Local.state='m';
             }
           continue;
@@ -114,16 +113,16 @@ int main()
 		if(Local.previous!='m')
 		  {
 		    switch_state();                
-		    save();//da controllare
+		    save();
 		    switch_state();
 		    press_a();
 		  }
                 continue;
               case 2:
                 deleteChoices(&Local.Events);
-                //deleteItems(&Local.Bag);
-                //deleteEnemies(...);
-                Local.chosen= 1; //* 
+                deleteItems(&Local.Bag);
+                deleteEnemies(&Local.Battle);
+                Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';
                 continue;

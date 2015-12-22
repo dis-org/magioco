@@ -25,8 +25,9 @@ void deleteItems(Item_List_t* List);
 void addEnemy(Enemy_List_t* List, char* name, short health);
 void addAction(Enemy_t* Enemy, char* text, char type, short value);
 Enemy_t* searchEnemy(Enemy_List_t* List, char* name);
-void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy);
+void deleteEnemy(Enemy_List_t* List, char* name);
 void deleteEnemies(Enemy_List_t* List);
+void deleteActions(Enemy_t* Enemy);
 
 //output
 void next_page(); //divide graficamente le varie schermate
