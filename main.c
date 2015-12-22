@@ -79,7 +79,6 @@ int main()
           press_a();
           continue;
         case'c':
-          readchoices();
           print_Choices(&Local.Events, Local.chosen);
           if(choice(&Local.chosen, Local.Events.choices))
             {
@@ -112,7 +111,7 @@ int main()
               case 1:
 		if(Local.previous!='m')
 		  {
-		    switch_state();                
+		    switch_state();
 		    save();
 		    switch_state();
 		    press_a();
