@@ -112,7 +112,7 @@ _Bool new_name()
         break;
       continue;
     }
-  next_page();
+  printf("\r        \r");
   if(!n && !buffered)
     {
       puts("Annullato.");

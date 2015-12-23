@@ -15,7 +15,7 @@ int main()
   Local.chosen= 1;
   Local.health= 3;
 
-  next_page();
+  next_page();//da decidere se spostare in un nuovo case
   print_intro();
   press_a();
 
@@ -43,7 +43,6 @@ int main()
                 }while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
                 if(Local.Events.choices && Local.state!='q')
                   {
-		    deleteChoices(&Local.Events);
 		    deleteItems(&Local.Bag);
 		    deleteEnemies(&Local.Battle);
                     select(&Local.Events, Local.name, Local.chosen);
@@ -52,7 +51,6 @@ int main()
                 Local.chosen= 1;
                 continue;
               case 2:
-                next_page();
                 if(new_name())
                   {
                     Local.state='t';
@@ -68,7 +66,7 @@ int main()
                 press_a();
                 continue;
               case 3:
-                next_page();
+		next_page();
                 print_ahah();
                 Local.chosen= 1;
                 press_a();
@@ -98,10 +96,12 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-	    deleteChoices(&Local.Events);
-	  deleteItems(&Local.Bag);
-	  deleteEnemies(&Local.Battle);
-	  Local.state='m';
+	    {
+	      deleteChoices(&Local.Events);
+	      deleteItems(&Local.Bag);
+	      deleteEnemies(&Local.Battle);
+	      Local.state='m';
+	    }
           continue;
         case'q':
           print_quit();

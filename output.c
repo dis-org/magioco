@@ -39,7 +39,7 @@ void print_menu()
 
 void print_ahah()
 {
-  puts(  "                 AHAHAHAHAHAHAHHAHAHAHAHAHAH");
+  puts(  "\n\n                 AHAHAHAHAHAHAHHAHAHAHAHAHAH");
 }
 
 void print_quit()
