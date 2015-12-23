@@ -29,7 +29,7 @@ void save()
       fwrite(&Temp->Info,sizeof(Item_Data_t),1,pf);
       Temp= Temp->Next;
     }
-  for(int x= 0; x<Local.Events.choices; x++)
+  for(int x= 0; x<Local.Battle.enemies; x++)
     {
       Enemy_t* Temp= Local.Battle.First;
       fwrite(&Temp->Info,sizeof(Enemy_Data_t),1,pf);
@@ -55,12 +55,11 @@ void load()
   for(int x= 0; x<Local.Events.choices; x++)
     {
       addChoice(&Local.Events,"");
-      fread(&Local.Events.Last->text,128*sizeof(char),128,pf);
+      fread(&Local.Events.Last->text,sizeof(char),128,pf);
     }
   for(int x= 0; x<Local.Bag.items; x++)
     {
-      addItem(&Local.Bag,"",'\0',0,0,0,0
-);
+      addItem(&Local.Bag,"",'\0',0,0,0,0);
       fread(&Local.Bag.Last->Info,sizeof(Item_Data_t),1,pf);
     }
   for(int x= 0; x<Local.Battle.enemies; x++)

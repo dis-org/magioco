@@ -43,9 +43,11 @@ int main()
                 }while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
                 if(Local.Events.choices && Local.state!='q')
                   {
+		    deleteChoices(&Local.Events);
+		    deleteItems(&Local.Bag);
+		    deleteEnemies(&Local.Battle);
                     select(&Local.Events, Local.name, Local.chosen);
-                    deleteChoices(&Local.Events);
-                    load();//fosse così facile...
+                    load();
                   }
                 Local.chosen= 1;
                 continue;
@@ -96,12 +98,10 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-            {
-              deleteChoices(&Local.Events);
-              deleteItems(&Local.Bag);
-              deleteEnemies(&Local.Battle);
-              Local.state='m';
-            }
+	    deleteChoices(&Local.Events);
+	  deleteItems(&Local.Bag);
+	  deleteEnemies(&Local.Battle);
+	  Local.state='m';
           continue;
         case'q':
           print_quit();
@@ -118,9 +118,9 @@ int main()
 		  }
                 continue;
               case 2:
-                deleteChoices(&Local.Events);
-                deleteItems(&Local.Bag);
-                deleteEnemies(&Local.Battle);
+		deleteChoices(&Local.Events);
+		deleteItems(&Local.Bag);
+		deleteEnemies(&Local.Battle);
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

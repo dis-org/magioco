@@ -6,7 +6,7 @@
 extern Data_t Local;
 
 void readevent(){
-  char x,*f;
+  char x,*f,*n;
   FILE *pf;
   pf = fopen("custom/events.txt","r");
   if (!pf){ 
@@ -23,9 +23,11 @@ void readevent(){
     if (x=='i'){
       getc(pf);
       f=sstring(pf,'.');
-      int uses=atoi(sstring(pf,'\n'));
+      n=sstring(pf,'\n');
+      int uses=atoi(n);
       strcpy(Local.id,f);
       free(f);
+      free(n);
       isearch(uses);
     }
     if (x=='e'){
@@ -111,19 +113,21 @@ void readchoices(FILE* pf){
   deleteChoices(&Local.Events);
   controle(pf,'+','\n');
   strcpy(Local.Events.text,Local.id);
-  do{
+  while(1){
     move('/',pf);
     x=sstring(pf,'\n');
     strcpy(temp,x);
     free(x);
     if (!strcmp(temp,"#"))
-      return;
+      break;
     addChoice(&Local.Events, temp);
-  }while(1);
+  }
+  free(temp);
 }
 
 void isearch(short uses){
   FILE* pf;
+  char* t;
   pf=fopen("custom/items.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire items.txt\n");
@@ -132,9 +136,15 @@ void isearch(short uses){
   controle(pf,'/','.');
   char type=getc(pf);
   getc(pf);
-  int usev=atoi(sstring(pf,'.')); //da correggere (free)
-  int trwv=atoi(sstring(pf,'.'));
-  int defv=atoi(sstring(pf,'\n'));
+  t=sstring(pf,'.');
+  int usev=atoi(t);
+  free(t);
+  t=sstring(pf,'.');
+  int trwv=atoi(t);
+  free(t);
+  t=sstring(pf,'\n');
+  int defv=atoi(t);
+  free(t);
   Item_t* temp;
   switch(type){
   case'p':
