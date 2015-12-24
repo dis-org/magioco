@@ -5,19 +5,16 @@
 
 Data_t Local;
 _Bool buffered;
+short quit_chosen;
 
 int main()
 {
   _Bool on= 1;
 
-  Local.state='m';
+  Local.state='i';
   Local.previous='q';
   Local.chosen= 1;
   Local.health= 3;
-
-  next_page();//da decidere se spostare in un nuovo case
-  print_intro();
-  press_a();
 
   while(on)
     {
@@ -30,9 +27,16 @@ int main()
 
       switch(Local.state)
         {
+        case'i':
+          print_intro();
+	  Local.state='m';
+          press_a();
+          if(Local.state=='q')
+            on=0;
+          continue;
         case'm':
           print_menu();
-	  deleteChoices(&Local.Events);
+          deleteChoices(&Local.Events);
           if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
@@ -48,15 +52,15 @@ int main()
                     deleteChoices(&Local.Events);
                     load();
                   }
-                Local.chosen= 1;
+		if(Local.state=='q')
+		  switch_state();
                 continue;
-              case 2:
+              case 2:  //forse meglio if else
                 if(new_name())
                   {
                     Local.state='t';
                     Local.phase='i';
                     strcpy(Local.id,"Start");
-                    Local.chosen= 1;
                     Local.enemy_chosen= 0;
                     Local.item_chosen= 1;
                     Local.use_chosen= 1;
@@ -64,24 +68,29 @@ int main()
                     save();
                   }
                 press_a();
+		if(Local.state=='q')
+		  switch_state();
                 continue;
               case 3:
                 next_page();
                 print_ahah();
-                Local.chosen= 1;
                 press_a();
+		if(Local.state=='q')
+		  switch_state();
                 continue;
               case 4:
                 next_page();
                 deletesaves();
-                Local.chosen=1;
                 press_a();
+		if(Local.state=='q')
+		  switch_state();
                 continue;
               }
           else
             continue;
         case't':
           readevent();
+	  print_Items();
           press_a();
           continue;
         case'c':
@@ -90,7 +99,6 @@ int main()
             {
               select(&Local.Events, Local.id, Local.chosen);
               Local.state='t';
-              Local.chosen= 1;
             }
           continue;
         case'b':
@@ -102,19 +110,24 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-              Local.state='m';
+            {
+              Local.state='i';
+              Local.chosen= 1;
+            }
           continue;
         case'q':
-          print_quit();
-          if(choice(&Local.chosen, 3))
-            switch(Local.chosen)
+	  if(Local.previous=='c')
+	    Local.previous='t';
+          print_quit(&quit_chosen);
+          if(choice(&quit_chosen, 3))
+            switch(quit_chosen)
               {
               case 1:
                 if(Local.previous!='m')
                   {
-                    Local.state='t';
-                    Local.previous='q';
+		    switch_state();
                     save();
+                    switch_state();
                     press_a();
                   }
                 continue;

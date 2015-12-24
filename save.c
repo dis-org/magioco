@@ -17,12 +17,8 @@ void save()
       exit(EXIT_FAILURE);
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
-  /* for(int x= 0; x<Local.Bag.items; x++) */
-  /*   { */
-  /*     Item_t* Temp= Local.Bag.First; */
-  /*     fwrite(&Temp->Info,sizeof(Item_Data_t),1,pf); */
-  /*     Temp= Temp->Next; */
-  /*   } */
+  if(Local.Bag.items)
+    fwrite(&Local.Bag.First->Info,sizeof(Item_Data_t),1,pf);
   /* for(int x= 0; x<Local.Battle.enemies; x++) */
   /*   { */
   /*     Enemy_t* Temp= Local.Battle.First; */
@@ -46,11 +42,8 @@ void load()
       exit(EXIT_FAILURE);
     }
   fread(&Local,sizeof(Data_t),1,pf);
-  /* for(int x= 0; x<Local.Bag.items; x++) */
-  /*   { */
-  /*     addItem(&Local.Bag,"",'\0',0,0,0,0); */
-  /*     fread(&Local.Bag.Last->Info,sizeof(Item_Data_t),1,pf); */
-  /*   } */
+  if(Local.Bag.items)
+    fread(&Local.Bag.First->Info,sizeof(Item_Data_t),1,pf);
   /* for(int x= 0; x<Local.Battle.enemies; x++) */
   /*   { */
   /*     addEnemy(&Local.Battle,"",0); */

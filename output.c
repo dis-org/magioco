@@ -41,10 +41,10 @@ void print_menu()
 
 void print_ahah()
 {
-  puts(  "\n\n                 AHAHAHAHAHAHAHHAHAHAHAHAHAH");
+  puts(  "\n                 AHAHAHAHAHAHAHHAHAHAHAHAHAH");
 }
 
-void print_quit()
+void print_quit(short* chosen)
 {
   printf(
          "                            Quit\n\n"
@@ -52,9 +52,9 @@ void print_quit()
          "                           %cSalva%c\n"
          "                           %cMenù%c\n"
          "                           %cEsci%c\n",
-         Local.chosen==1?'[':' ',Local.chosen==1?']':' ',
-         Local.chosen==2?'[':' ',Local.chosen==2?']':' ',
-         Local.chosen==3?'[':' ',Local.chosen==3?']':' '
+         *chosen==1?'[':' ',*chosen==1?']':' ',
+         *chosen==2?'[':' ',*chosen==2?']':' ',
+         *chosen==3?'[':' ',*chosen==3?']':' '
          );
 }
 
@@ -63,7 +63,7 @@ void print_gameover()
   printf(
          "                          Game Over\n\n"
          "                    Premere 'q' per uscire.\n"
-         "                 Premere 'a' per tornare al menù.\n"
+         "                  Premere 'a' per continuare.\n"
          );
 }
 

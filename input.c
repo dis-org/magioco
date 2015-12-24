@@ -5,6 +5,7 @@
 
 extern Data_t Local;
 extern char buffered;
+extern short quit_chosen;
 
 void switch_state()
 {
@@ -30,6 +31,7 @@ void press_a()
             break; //esce dal loop se digito 'a'
           if(in=='q')
             {
+	      quit_chosen= 1;
               switch_state();
               break;
             }
@@ -56,8 +58,8 @@ _Bool choice(short* chosen, short choices)
           printf("\r        \r");
           if(in=='q')
             {
+	      quit_chosen= 1;
               switch_state();
-              *chosen= 1;
               break;
             }
           if(in=='a')
@@ -94,13 +96,13 @@ _Bool new_name()
       for(int x= 16-(n)/2; x>0; --x)
         printf(" ");
       printf("%s\n\n"
-             "                  premere '.' per confermare\n"
-             "                  premere '-' per cancellare\n"
+             "                  Premere '.' per confermare.\n"
+             "                  Premere '-' per cancellare.\n"
              , name);
       system("/bin/stty raw");
       while((c=getchar()))
         {
-          if(((c <='z' && c>='a')||(c<='Z' && c>='A'))&& n<32)
+          if(((c <='z' && c>='a')||(c<='Z' && c>='A'))&& n<31)
             name[n++]= c;
           if(c=='-' && n)
             n--;

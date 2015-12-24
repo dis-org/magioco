@@ -36,7 +36,7 @@ void next_page();       //divide graficamente le varie schermate
 void print_intro();     //stampa l'intro del gioco ********* da fare
 void print_menu();      //stampa il menù
 void print_ahah();      //stampa derisione ********** aggiungere crediti
-void print_quit();      //stampa menù quit
+void print_quit(short* chosen); //stampa menù quit
 void print_gameover();  //stampa messaggio Game Over
 void print_Enemies();   //stampa lista nemici con vita e difesa
 void print_Items();     //stampa la lista degli oggetti con durata/quantità
