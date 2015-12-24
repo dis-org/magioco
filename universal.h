@@ -6,7 +6,7 @@ void battle();
 void enemy_Use();
 void Trow();
 Enemy_t* enemy_sel();   //trova l'enemy_chosen
-Item_t* item_sel(); 	//trova l'item_chosen
+Item_t* item_sel();     //trova l'item_chosen
 
 //input
 void switch_state();
@@ -46,7 +46,9 @@ void print_Uses();      //Possibili utilizzi degli oggetti
 //save
 void save();            //salva Date_t Local su file save.bin
 void load();            //carica i salvataggi (se esistono) e stampa relativo messaggio
+void loadChoice(Choice_List_t* List, FILE* pf); //carica una scelta
 void readsaves();       //genera una Choice_List per i file di salvataggio
+void deletesaves();     //cancella tutti i salvataggi
 
 //text *********** aggiungere descrizione funzioni
 void readevent();

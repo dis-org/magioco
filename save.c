@@ -17,6 +17,7 @@ void save()
       exit(EXIT_FAILURE);
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
+  printf("%hu", Local.Events.choices);
   for(int x= 0; x<Local.Events.choices; x++)
     {
       Choice_t* Temp= Local.Events.First;
@@ -52,21 +53,35 @@ void load()
       exit(EXIT_FAILURE);
     }
   fread(&Local,sizeof(Data_t),1,pf);
-  for(int x= 0; x<Local.Events.choices; x++)
+  printf("%hu", Local.Events.choices);
+  for(unsigned short x= 0; x<Local.Events.choices; x++)
     {
-      addChoice(&Local.Events,"");
-      fread(&Local.Events.Last->text,sizeof(char),128,pf);
+      Choice_t* C= calloc(1,sizeof(Choice_t));
+      Choice_List_t* List= &Local.Events;
+      if(!C)
+	{
+	  fprintf(stderr,"Errore: allocazione non riuscita (addChoice)\n");
+	  exit(EXIT_FAILURE);
+	}
+      fread(Local.Events.Last->text,sizeof(char),128,pf);
+      if(!List->Last)
+	List->Last= List->First= C;
+      else
+	{
+	  List->Last->Next= C;
+	  List->Last= C;
+	}
     }
-  for(int x= 0; x<Local.Bag.items; x++)
-    {
-      addItem(&Local.Bag,"",'\0',0,0,0,0);
-      fread(&Local.Bag.Last->Info,sizeof(Item_Data_t),1,pf);
-    }
-  for(int x= 0; x<Local.Battle.enemies; x++)
-    {
-      addEnemy(&Local.Battle,"",0);
-      fread(&Local.Bag.Last->Info,sizeof(Enemy_Data_t),1,pf);
-    }
+  /* for(int x= 0; x<Local.Bag.items; x++) */
+  /*   { */
+  /*     addItem(&Local.Bag,"",'\0',0,0,0,0); */
+  /*     fread(&Local.Bag.Last->Info,sizeof(Item_Data_t),1,pf); */
+  /*   } */
+  /* for(int x= 0; x<Local.Battle.enemies; x++) */
+  /*   { */
+  /*     addEnemy(&Local.Battle,"",0); */
+  /*     fread(&Local.Bag.Last->Info,sizeof(Enemy_Data_t),1,pf); */
+  /*   } */
   fclose(pf);
 }
 
@@ -80,8 +95,7 @@ void readsaves()
       fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n");
       exit(EXIT_FAILURE);
     }
-  rewind(pf);
-  deleteChoices(&Local.Events);
+  rewind(pf); //ho rimosso un deleteChoices()
   while(getc(pf)=='#')
     {
       name= sstring(pf,'\n');
@@ -93,4 +107,35 @@ void readsaves()
   else
     strcpy(Local.Events.text,"Nessun salvataggio presente.");
   fclose(pf);
+}
+
+void loadChoice(Choice_List_t* List, FILE* pf)
+{
+
+}
+
+void deletesaves()
+{
+  FILE* pf;
+  char* name;
+  char a[64];
+  pf=fopen("saves/saves.txt","a+");
+  if(!pf)
+    {
+      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n");
+      exit(EXIT_FAILURE);
+    }
+  rewind(pf);
+  while(getc(pf)=='#')
+    {
+      name= sstring(pf,'\n');
+      strcpy(a,"saves/");
+      strcat(a, name);
+      free(name);
+      strcat(a,".bin");
+      remove(a);
+    }
+  fclose(pf);
+  remove("saves/saves.txt");
+  puts("Salvataggi rimossi");
 }

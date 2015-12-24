@@ -30,10 +30,12 @@ void print_menu()
          "                        per muoversi.\n\n"
          "                         %cContinua%c\n"
          "                       %cNuova partita%c\n"
-         "                       %cImp. grafiche%c\n",
+         "                       %cImp. grafiche%c\n"
+         "                      %cCanc. salvataggi%c\n",
          Local.chosen==1?'[':' ',Local.chosen==1?']':' ',
          Local.chosen==2?'[':' ',Local.chosen==2?']':' ',
-         Local.chosen==3?'[':' ',Local.chosen==3?']':' '
+         Local.chosen==3?'[':' ',Local.chosen==3?']':' ',
+         Local.chosen==4?'[':' ',Local.chosen==4?']':' '
          );
 }
 

@@ -32,7 +32,7 @@ int main()
         {
         case'm':
           print_menu();
-          if(choice(&Local.chosen, 3))
+          if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
               case 1:
@@ -43,9 +43,10 @@ int main()
                 }while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
                 if(Local.Events.choices && Local.state!='q')
                   {
-		    deleteItems(&Local.Bag);
-		    deleteEnemies(&Local.Battle);
+                    deleteItems(&Local.Bag);
+                    deleteEnemies(&Local.Battle);
                     select(&Local.Events, Local.name, Local.chosen);
+		    deleteChoices(&Local.Events);
                     load();
                   }
                 Local.chosen= 1;
@@ -66,11 +67,17 @@ int main()
                 press_a();
                 continue;
               case 3:
-		next_page();
+                next_page();
                 print_ahah();
                 Local.chosen= 1;
                 press_a();
                 continue;
+	      case 4:
+		next_page();
+		deletesaves();
+		Local.chosen=1;
+		press_a();
+		continue;
               }
           else
             continue;
@@ -96,12 +103,12 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-	    {
-	      deleteChoices(&Local.Events);
-	      deleteItems(&Local.Bag);
-	      deleteEnemies(&Local.Battle);
-	      Local.state='m';
-	    }
+            {
+              deleteChoices(&Local.Events);
+              deleteItems(&Local.Bag);
+              deleteEnemies(&Local.Battle);
+              Local.state='m';
+            }
           continue;
         case'q':
           print_quit();
@@ -109,18 +116,18 @@ int main()
             switch(Local.chosen)
               {
               case 1:
-		if(Local.previous!='m')
-		  {
-		    switch_state();
-		    save();
-		    switch_state();
-		    press_a();
-		  }
+                if(Local.previous!='m')
+                  {
+                    switch_state();
+                    save();
+                    switch_state();
+                    press_a();
+                  }
                 continue;
               case 2:
-		deleteChoices(&Local.Events);
-		deleteItems(&Local.Bag);
-		deleteEnemies(&Local.Battle);
+                deleteChoices(&Local.Events);
+                deleteItems(&Local.Bag);
+                deleteEnemies(&Local.Battle);
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';
