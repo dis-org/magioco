@@ -52,6 +52,7 @@ void readevent(){
     rewind(pf);
     readchoices(pf);
     strcpy(Local.id, n);
+    Local.chosen= 1;
   }
   if (x=='>'){
     Local.state='t';
