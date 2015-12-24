@@ -32,6 +32,7 @@ int main()
         {
         case'm':
           print_menu();
+	  deleteChoices(&Local.Events);
           if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
@@ -43,10 +44,8 @@ int main()
                 }while(!choice(&Local.chosen, Local.Events.choices)&& Local.state!='q');
                 if(Local.Events.choices && Local.state!='q')
                   {
-                    deleteItems(&Local.Bag);
-                    deleteEnemies(&Local.Battle);
                     select(&Local.Events, Local.name, Local.chosen);
-		    deleteChoices(&Local.Events);
+                    deleteChoices(&Local.Events);
                     load();
                   }
                 Local.chosen= 1;
@@ -72,12 +71,12 @@ int main()
                 Local.chosen= 1;
                 press_a();
                 continue;
-	      case 4:
-		next_page();
-		deletesaves();
-		Local.chosen=1;
-		press_a();
-		continue;
+              case 4:
+                next_page();
+                deletesaves();
+                Local.chosen=1;
+                press_a();
+                continue;
               }
           else
             continue;
@@ -103,12 +102,7 @@ int main()
           if(Local.state=='q')
             on=0;
           else
-            {
-              deleteChoices(&Local.Events);
-              deleteItems(&Local.Bag);
-              deleteEnemies(&Local.Battle);
               Local.state='m';
-            }
           continue;
         case'q':
           print_quit();
@@ -118,16 +112,13 @@ int main()
               case 1:
                 if(Local.previous!='m')
                   {
-                    switch_state();
+                    Local.state='t';
+                    Local.previous='q';
                     save();
-                    switch_state();
                     press_a();
                   }
                 continue;
               case 2:
-                deleteChoices(&Local.Events);
-                deleteItems(&Local.Bag);
-                deleteEnemies(&Local.Battle);
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

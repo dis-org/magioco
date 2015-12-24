@@ -39,12 +39,19 @@ void readevent(){
     }
   }while(x!=EOF);
   if (x=='*'){
+    n= calloc(128,sizeof(char));
+    if (!n){
+      fprintf(stderr,"Errore: allocazione non riuscita (readevent)\n");
+      exit(EXIT_FAILURE);
+    }
+    strcpy(n, Local.id);
     Local.state='c';
     f=sstring(pf,'\n');
     strcpy(Local.id,f);
     free(f);
     rewind(pf);
     readchoices(pf);
+    strcpy(Local.id, n);
   }
   if (x=='>'){
     Local.state='t';
@@ -54,7 +61,7 @@ void readevent(){
   }
   if (x=='#')
     Local.state='g';
-  
+
   fclose(pf);
 }
 

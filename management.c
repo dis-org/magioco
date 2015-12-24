@@ -31,16 +31,16 @@ void select(Choice_List_t* List, char* text, short chosen)
 
 void deleteChoices(Choice_List_t* List) //ricontrolla
 {
-  Choice_t* temp;
+  Choice_t* Temp;
   while(List->First)
     {
-      temp= List->First;
+      Temp= List->First;
       List->First= List->First->Next;
-      free(temp);
+      free(Temp);
     }
   List->First=NULL;
   List->Last=NULL;
-  List->choices= 0;
+  List->choices=0;
 }
 
 void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses)
