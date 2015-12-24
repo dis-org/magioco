@@ -7,6 +7,7 @@ void enemy_Use();
 void Trow();
 Enemy_t* enemy_sel();   //trova l'enemy_chosen
 Item_t* item_sel();     //trova l'item_chosen
+void Action();
 
 //input
 void switch_state();

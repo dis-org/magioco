@@ -39,14 +39,15 @@ void battle(void)
             break;  
           }
       if (Local.Battle.First->Info.health==0)
-        /*deleteEnemy(Local.Battle.First);*/    //ha poco senso a definizione, da riguaardare
-        if(Local.Bag.First->Info.uses==0)
-          /*deleteItem(Local.Bag.First);*/      //ha poco senso a definizione, da riguaardare
-          Local.phase= Local.use_chosen==5 ? 'i':'a';
+         deleteEnemy(&Local.Battle, Local.Battle.First->Info.name);        
+      if(Local.Bag.First->Info.uses==0)
+         deleteItem(&Local.Bag, Local.Bag.First->Info.name);          
+      Local.phase= Local.use_chosen==5 ? 'i':'a';
       break;
     case 'a':
       print_Items();
-      //azioni
+      Action();
+      Local.phase= 'i'; 
       break;
     }
 }
@@ -98,7 +99,7 @@ void enemy_Use()
           else
             {
               if(Local.Battle.First->First->Info.type=='t')  //il nemico non ha difsa, e la sua azione sarà di trow (use<trow)
-                NULL; //lol?
+                NULL; 
               else
                 Local.Battle.First->Info.health += Local.Bag.First->Info.usevalue;
             }
@@ -107,8 +108,8 @@ void enemy_Use()
 
   if(Local.Bag.First->Info.type=='u')        //se è unitario, diminuisco la duarta
     Local.Bag.First->Info.uses--;
-  /* else */
-    /*deleteItem(Local.Bag.First);*/    //ha poco senso a definizione, da riguaardare   //se è pluritatrio li elimino (lo volevamo così, boh?)
+  else
+    deleteItem(&Local.Bag, Local.Bag.First->Info.name);    //se è pluritatrio li elimino (lo volevamo così, boh?)
     }
 
 void Trow()
@@ -118,12 +119,48 @@ void Trow()
       enemy_sel();
       item_sel();
       if (Local.Battle.First->Info.defence)  //trow<def
-        NULL; //LOL?
+        NULL;
       else              //trow>use
         Local.Battle.First->Info.health += Local.Bag.First->Info.trowvalue;
     }
-  if (Local.Bag.First->Info.type=='u');//poi togliere punto e virgola
-    /*deleteItem(Local.Bag.First);*/    //ha poco senso a definizione, da riguaardare
+  if (Local.Bag.First->Info.type=='u')
+    deleteItem(&Local.Bag, Local.Bag.First->Info.name);    
   else
     Local.Bag.First->Info.uses--;
 }
+
+void Action ()
+{
+	if (Local.Battle.First->First->Info.type=='d')		
+		Local.Battle.First->Info.defence += Local.Battle.First->First->Info.value;
+	else if (Local.Battle.First->First->Info.type=='u' && Local.Battle.First->First->Info.value > 0)		//usa su se stesso, discutibile (lo vogliamo fare?)
+		Local.Battle.First->Info.health += Local.Battle.First->First->Info.value;
+	else
+	{
+		if (Local.defence)	
+		{
+			if(Local.Battle.First->First->Info.type=='u')		
+				Local.defence=0;								
+			else
+				NULL;
+		}
+		else	
+		{
+			if(Local.Battle.First->First->Info.type=='u')	
+				{
+					if (Local.use_chosen==3)	//se l'ultimo item usato era di tipo trow (u vs t)
+						NULL;
+					else						//u vs u
+						Local.health += Local.Battle.First->First->Info.value;
+				}
+			else 		//t vs t, t vs u 
+				Local.health += Local.Battle.First->First->Info.value;
+		}
+	}
+	Local.Battle.First->Last->Next = Local.Battle.First->First;
+	Local.Battle.First->First = Local.Battle.First->First->Next;
+	printf ("%s\n\nPremere 'a'continuare.\n", Local.Battle.First->First->Info.text);	//discutibile anche questo ahah
+	press_a();	
+
+}
+
