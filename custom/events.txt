@@ -25,12 +25,17 @@ Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto
 Espresso lungo senza zucchero, il suo preferito.*
   -i.caffè.1
   -*Il ragazzo decise di:
+/Rivolgersi al lato oscuro della matematica
+Boccuto out of nowhere!*
+	-i.La forza della disperazione.404
+	-e.Boccuto
+	->Vittoria
 /#
-/quindi lui fu felice
-essendo dopo il caffè estremamente felice compilò e per magia tutto funzionò*
--#
-
 
 /Incredibile
 Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*
   -#
+  
+/Vittoria
+Dopo il feroce scontro il ragazzo uscì a prendere una boccuto d'aria, ora tutti i suoi problemi non avevano più importanza e la vita risplendeva di luce nuova.*
+	-#

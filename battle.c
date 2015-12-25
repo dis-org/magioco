@@ -39,9 +39,9 @@ void battle(void)
             break;  
           }
       if (Local.Battle.First->Info.health==0)
-         deleteEnemy(&Local.Battle, Local.Battle.First->Info.name);        
+        deleteEnemy(&Local.Battle, Local.Battle.First->Info.name);        
       if(Local.Bag.First->Info.uses==0)
-         deleteItem(&Local.Bag, Local.Bag.First->Info.name);          
+        deleteItem(&Local.Bag, Local.Bag.First->Info.name);          
       Local.phase= Local.use_chosen==5 ? 'i':'a';
       break;
     case 'a':
@@ -110,7 +110,7 @@ void enemy_Use()
     Local.Bag.First->Info.uses--;
   else
     deleteItem(&Local.Bag, Local.Bag.First->Info.name);    //se è pluritatrio li elimino (lo volevamo così, boh?)
-    }
+}
 
 void Trow()
 {
@@ -131,36 +131,36 @@ void Trow()
 
 void Action ()
 {
-	if (Local.Battle.First->First->Info.type=='d')		
-		Local.Battle.First->Info.defence += Local.Battle.First->First->Info.value;
-	else if (Local.Battle.First->First->Info.type=='u' && Local.Battle.First->First->Info.value > 0)		//usa su se stesso, discutibile (lo vogliamo fare?)
-		Local.Battle.First->Info.health += Local.Battle.First->First->Info.value;
-	else
-	{
-		if (Local.defence)	
-		{
-			if(Local.Battle.First->First->Info.type=='u')		
-				Local.defence=0;								
-			else
-				NULL;
-		}
-		else	
-		{
-			if(Local.Battle.First->First->Info.type=='u')	
-				{
-					if (Local.use_chosen==3)	//se l'ultimo item usato era di tipo trow (u vs t)
-						NULL;
-					else						//u vs u
-						Local.health += Local.Battle.First->First->Info.value;
-				}
-			else 		//t vs t, t vs u 
-				Local.health += Local.Battle.First->First->Info.value;
-		}
-	}
-	Local.Battle.First->Last->Next = Local.Battle.First->First;
-	Local.Battle.First->First = Local.Battle.First->First->Next;
-	printf ("%s\n\nPremere 'a'continuare.\n", Local.Battle.First->First->Info.text);	//discutibile anche questo ahah
-	press_a();	
+  if (Local.Battle.First->First->Info.type=='d')                
+    Local.Battle.First->Info.defence += Local.Battle.First->First->Info.value;
+  else if (Local.Battle.First->First->Info.type=='u' && Local.Battle.First->First->Info.value > 0)              //usa su se stesso, discutibile (lo vogliamo fare?)
+    Local.Battle.First->Info.health += Local.Battle.First->First->Info.value;
+  else
+    {
+      if (Local.defence)        
+        {
+          if(Local.Battle.First->First->Info.type=='u')         
+            Local.defence=0;                                                            
+          else
+            NULL;
+        }
+      else      
+        {
+          if(Local.Battle.First->First->Info.type=='u') 
+            {
+              if (Local.use_chosen==3)  //se l'ultimo item usato era di tipo trow (u vs t)
+                NULL;
+              else                                              //u vs u
+                Local.health += Local.Battle.First->First->Info.value;
+            }
+          else          //t vs t, t vs u 
+            Local.health += Local.Battle.First->First->Info.value;
+        }
+    }
+  Local.Battle.First->Last->Next = Local.Battle.First->First;
+  Local.Battle.First->First = Local.Battle.First->First->Next;
+  printf ("%s\n\nPremere 'a'continuare.\n", Local.Battle.First->First->Info.text);      //discutibile anche questo ahah
+  press_a();    
 
 }
 

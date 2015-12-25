@@ -167,7 +167,7 @@ void isearch(short uses){
   }
   fclose(pf);
 }
-void esearch(){
+void esearch(){ //da rivedere
   FILE* pf;
   pf=fopen("custom/enemies.txt","r");
   if (!pf){ 

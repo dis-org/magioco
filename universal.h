@@ -64,3 +64,4 @@ void esearch();
 //Memo: 
 //aggiungere eventi che fanno perdere o guadagnare vita al giocatore
 //aggiungere evnti di scelta che utilizzano oggetti dall'inventario
+//aggiungere vita massima
