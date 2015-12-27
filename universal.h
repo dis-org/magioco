@@ -11,10 +11,10 @@ void Action();
 
 //input
 void switch_state();
-void press_a();         //ferma il programma fino a che non si preme 'a'
+_Bool press_a();         //ferma il programma fino a che non si preme 'a'
 _Bool choice(short* chosen, short choices);
 //rende 1 se viene premuto'a', se effettua un cambiamento al valore chosed o allo stato rende 0
-_Bool new_name();       //salva il nome del giocatore controllando che non sia già presente
+_Bool new_name();        //salva il nome del giocatore controllando che non sia già presente
 
 //management
 void addChoice(Choice_List_t* List, char* text);  //aggiunge una scelta ad una Choice_List
@@ -56,10 +56,10 @@ void readevent();
 void printtext(FILE*);
 void move(char,FILE*);
 char* sstring(FILE*,char);
-void controle(FILE*,char,char);
+void controle(FILE*,char,char,char*);
 void readchoices();
-void isearch(short uses);
-void esearch();
+void isearch(short,char*);
+void esearch(char*);
 
 //Memo: 
 //aggiungere eventi che fanno perdere o guadagnare vita al giocatore

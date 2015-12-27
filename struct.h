@@ -69,7 +69,7 @@ typedef struct Data{
   char state;
   char previous;
   char phase; //tipo state, ma per il combattimento
-  _Bool buffered;
+  _Bool done;
   char id[128];
   short chosen;
   short enemy_chosen;

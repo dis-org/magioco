@@ -14,13 +14,15 @@ void switch_state()
   Local.previous= temp;
 }
 
-void press_a() 
+_Bool press_a() 
 {
   if(buffered)
     {
+      return 0;
     }
   else
     {
+      _Bool ret;
       char in;
       system("/bin/stty raw");
       while(1) //loop infinito
@@ -37,6 +39,8 @@ void press_a()
             }
         }
       system("/bin/stty cooked");
+      ret= in=='a'? 1: 0;
+      return ret;
     }
 }
 //dovrebbe essere l'ultima funzione chiamata prima di rivalutare il loop

@@ -10,6 +10,8 @@ short quit_chosen;
 int main()
 {
   _Bool on= 1;
+  char temp[128];
+  char t;
 
   Local.state='i';
   Local.previous='q';
@@ -29,9 +31,8 @@ int main()
         {
         case'i':
           print_intro();
-	  Local.state='m';
-          press_a();
-          if(Local.state=='q')
+          Local.state='m';
+          if(!press_a())
             on=0;
           continue;
         case'm':
@@ -52,8 +53,8 @@ int main()
                     deleteChoices(&Local.Events);
                     load();
                   }
-		if(Local.state=='q')
-		  switch_state();
+                if(Local.state=='q')
+                  switch_state();
                 continue;
               case 2:  //forse meglio if else
                 if(new_name())
@@ -61,37 +62,41 @@ int main()
                     Local.state='t';
                     Local.phase='i';
                     strcpy(Local.id,"Start");
+                    Local.done= 0;
                     Local.enemy_chosen= 0;
                     Local.item_chosen= 1;
                     Local.use_chosen= 1;
                     Local.health= 3;
                     save();
                   }
-                press_a();
-		if(Local.state=='q')
-		  switch_state();
+                if(!press_a())
+                  switch_state();
                 continue;
               case 3:
                 next_page();
                 print_ahah();
-                press_a();
-		if(Local.state=='q')
-		  switch_state();
+                if(!press_a())
+                  switch_state();
                 continue;
               case 4:
                 next_page();
                 deletesaves();
-                press_a();
-		if(Local.state=='q')
-		  switch_state();
+                if(!press_a())
+                  switch_state();
                 continue;
               }
           else
             continue;
         case't':
-          readevent();
-	  print_Items();
-          press_a();
+          strcpy(temp,Local.id);
+          readevent(temp, &t);
+          print_Items();
+          if(press_a())
+            {
+              strcpy(Local.id,temp);
+              Local.state= t;
+              Local.done= 0;
+            }
           continue;
         case'c':
           print_Choices(&Local.Events, Local.chosen);
@@ -106,8 +111,7 @@ int main()
           continue;
         case'g':
           print_gameover();
-          press_a();
-          if(Local.state=='q')
+          if(!press_a())
             on=0;
           else
             {
@@ -116,22 +120,20 @@ int main()
             }
           continue;
         case'q':
-	  if(Local.previous=='c')
-	    Local.previous='t';
           print_quit(&quit_chosen);
           if(choice(&quit_chosen, 3))
             switch(quit_chosen)
               {
               case 1:
-                if(Local.previous!='m')
+                if(Local.previous!='m' && Local.previous!='g')
                   {
-		    switch_state();
+                    switch_state();
                     save();
                     switch_state();
                     press_a();
                   }
                 continue;
-              case 2:
+              case 2: //delete?
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

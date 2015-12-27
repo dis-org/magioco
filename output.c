@@ -87,10 +87,10 @@ void print_Items()      //solo nome
   for(int x= 1; x <= Local.Bag.items; x++)
     {
       printf("%c %s %s x%d\n", 
-        x==Local.item_chosen? '>' : ' ',  
-        Tmp->Info.name, 
-        Local.Bag.First->Info.type=='u' ? "res" : "qnt", 
-        Local.Bag.First->Info.uses);
+	     x==Local.item_chosen? '>' : ' ',  
+	     Tmp->Info.name, 
+	     Local.Bag.First->Info.type=='u' ? "res" : "qnt", 
+	     Local.Bag.First->Info.uses);
       Tmp= Tmp->Next;
     }
 }

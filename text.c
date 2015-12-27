@@ -1,68 +1,65 @@
 #include "universal.h"
-#include <stdio.h>	
+#include <stdio.h>      
 #include <stdlib.h>
 #include <string.h>
 
 extern Data_t Local;
 
-void readevent(){
-  char x,*f,*n;
+void readevent(char* id, char* t){
+  char x=0,*f,*n;
   FILE *pf;
   pf = fopen("custom/events.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
     exit(EXIT_FAILURE);
   }
-  controle(pf,'/','\n');
+  controle(pf,'/','\n',id);
   printtext(pf);
-  do{
-    move('-',pf);
 
-    x=getc(pf);
-    if (x=='*'|| x=='>'|| x=='#') break;
-    if (x=='i'){
-      getc(pf);
-      f=sstring(pf,'.');
-      n=sstring(pf,'\n');
-      int uses=atoi(n);
-      strcpy(Local.id,f);
-      free(f);
-      free(n);
-      isearch(uses);
-    }
-    if (x=='e'){
-      getc(pf);
-      f=sstring(pf,'\n');
-      strcpy(Local.id,f);
-      free(f);
-      esearch();
-    }
-  }while(x!=EOF);
-  if (x=='*'){
-    n= calloc(128,sizeof(char));
-    if (!n){
-      fprintf(stderr,"Errore: allocazione non riuscita (readevent)\n");
-      exit(EXIT_FAILURE);
-    }
-    strcpy(n, Local.id);
-    Local.state='c';
-    f=sstring(pf,'\n');
-    strcpy(Local.id,f);
-    free(f);
-    rewind(pf);
-    readchoices(pf);
-    strcpy(Local.id, n);
-    Local.chosen= 1;
-  }
-  if (x=='>'){
-    Local.state='t';
-    f=sstring(pf,'\n');
-    strcpy(Local.id,f);
-    free(f);
-  }
-  if (x=='#')
-    Local.state='g';
+  if(!Local.done)
+    {
+      Local.done= 1;
 
+      do{
+        move('-',pf);
+        x=getc(pf);
+        if (x=='*'|| x=='>'|| x=='#') break;
+        if (x=='i'){
+          getc(pf);
+          f=sstring(pf,'.');
+          n=sstring(pf,'\n');
+          int uses=atoi(n);
+          strcpy(id,f);
+          free(f);
+          free(n);
+          isearch(uses, id);
+        }
+        if (x=='e'){
+          getc(pf);
+          f=sstring(pf,'\n');
+          strcpy(id,f);
+          free(f);
+          esearch(id);
+        }
+      }while(x!=EOF);
+      if (x=='*'){
+        *t='c';
+        f=sstring(pf,'\n');
+        strcpy(id,f);
+        free(f);
+        rewind(pf);
+        readchoices(pf, id);
+        Local.chosen= 1;
+      }
+      if (x=='>'){
+        *t='t';
+        f=sstring(pf,'\n');
+        strcpy(id,f);
+        free(f);
+      }
+      if (x=='#')
+        *t='g';
+    }
   fclose(pf);
 }
 
@@ -106,21 +103,25 @@ char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
   return NULL;
 }
 
-void controle(FILE* pf,char f,char x){ // controlla 2 stringhe.. finito.
+void controle(FILE* pf,char f,char x,char* id){ // controlla 2 stringhe.. finito.
   char *temp;
   do{
     move(f,pf);
     temp = sstring(pf,x);
-  }while (strcmp(temp,Local.id));// da aggiungere parametro 
+  }while (strcmp(temp,id));// da aggiungere parametro 
   free(temp);
 }
 
-void readchoices(FILE* pf){
+void readchoices(FILE* pf, char* id){
   char *x;
   char *temp=calloc(128,sizeof(char));
+  if (!temp){
+    fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n");
+    exit(EXIT_FAILURE);
+  }
   deleteChoices(&Local.Events);
-  controle(pf,'+','\n');
-  strcpy(Local.Events.text,Local.id);
+  controle(pf,'+','\n',id);
+  strcpy(Local.Events.text,id);
   while(1){
     move('/',pf);
     x=sstring(pf,'\n');
@@ -133,7 +134,7 @@ void readchoices(FILE* pf){
   free(temp);
 }
 
-void isearch(short uses){
+void isearch(short uses, char* id){
   FILE* pf;
   char* t;
   pf=fopen("custom/items.txt","r");
@@ -141,7 +142,7 @@ void isearch(short uses){
     fprintf(stderr,"Errore: impossibile aprire items.txt\n");
     exit(EXIT_FAILURE);
   }
-  controle(pf,'/','.');
+  controle(pf,'/','.',id);
   char type=getc(pf);
   getc(pf);
   t=sstring(pf,'.');
@@ -156,18 +157,18 @@ void isearch(short uses){
   Item_t* temp;
   switch(type){
   case'p':
-    temp= searchItem(&Local.Bag, Local.id);
+    temp= searchItem(&Local.Bag, id);
     if (temp){
       temp->Info.uses+=uses;
       break;
     }
   case'u':
-    addItem(&Local.Bag, Local.id, type, usev, trwv, defv, uses);
+    addItem(&Local.Bag, id, type, usev, trwv, defv, uses);
     break;
   }
   fclose(pf);
 }
-void esearch(){ //da rivedere
+void esearch(char* id){ //da rivedere
   FILE* pf;
   pf=fopen("custom/enemies.txt","r");
   if (!pf){ 
@@ -176,11 +177,11 @@ void esearch(){ //da rivedere
   }
   short y;
   char x,*temp;
-  controle(pf,'/','.');
+  controle(pf,'/','.', id);
   temp=sstring(pf,'\n');
   y=atoi(temp);
   free(temp);
-  addEnemy(&Local.Battle, Local.id, y);
+  addEnemy(&Local.Battle, id, y);
   while(1){
     move('-', pf);
     temp=sstring(pf,'/');
@@ -188,7 +189,7 @@ void esearch(){ //da rivedere
       free(temp);
       break;
     }
-    strcpy(Local.id,temp);
+    strcpy(id,temp);
     free(temp);
     temp=sstring(pf,'.');
     x=*temp;
@@ -196,7 +197,7 @@ void esearch(){ //da rivedere
     temp=sstring(pf,'\n');
     y=atoi(temp);
     free(temp);
-    addAction(Local.Battle.Last, Local.id, x, y);
+    addAction(Local.Battle.Last, id, x, y);
   }
   fclose(pf);
 }
