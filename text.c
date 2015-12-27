@@ -8,6 +8,7 @@ extern Data_t Local;
 void readevent(char* id, char* t){
   char x=0,*f,*n;
   FILE *pf;
+  _Bool add= 0;
   pf = fopen("custom/events.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
@@ -18,48 +19,53 @@ void readevent(char* id, char* t){
 
   if(!Local.done)
     {
+      add= 1;
       Local.done= 1;
-
-      do{
-        move('-',pf);
-        x=getc(pf);
-        if (x=='*'|| x=='>'|| x=='#') break;
-        if (x=='i'){
-          getc(pf);
-          f=sstring(pf,'.');
-          n=sstring(pf,'\n');
-          int uses=atoi(n);
-          strcpy(id,f);
-          free(f);
-          free(n);
-          isearch(uses, id);
-        }
-        if (x=='e'){
-          getc(pf);
-          f=sstring(pf,'\n');
-          strcpy(id,f);
-          free(f);
-          esearch(id);
-        }
-      }while(x!=EOF);
-      if (x=='*'){
-        *t='c';
-        f=sstring(pf,'\n');
-        strcpy(id,f);
-        free(f);
-        rewind(pf);
-        readchoices(pf, id);
-        Local.chosen= 1;
-      }
-      if (x=='>'){
-        *t='t';
-        f=sstring(pf,'\n');
-        strcpy(id,f);
-        free(f);
-      }
-      if (x=='#')
-        *t='g';
     }
+
+  do{
+    move('-',pf);
+    x=getc(pf);
+    if (x=='*'|| x=='>'|| x=='#') break;
+    if(add)
+      {
+	if (x=='i'){
+	  getc(pf);
+	  f=sstring(pf,'.');
+	  n=sstring(pf,'\n');
+	  int uses=atoi(n);
+	  strcpy(id,f);
+	  free(f);
+	  free(n);
+	  isearch(uses, id);
+	}
+	if (x=='e'){
+	  getc(pf);
+	  f=sstring(pf,'\n');
+	  strcpy(id,f);
+	  free(f);
+	  esearch(id);
+	}
+      }
+  }while(x!=EOF);
+  if (x=='*'){
+    *t='c';
+    f=sstring(pf,'\n');
+    strcpy(id,f);
+    free(f);
+    rewind(pf);
+    readchoices(pf, id);
+    Local.chosen= 1;
+  }
+  if (x=='>'){
+    *t='t';
+    f=sstring(pf,'\n');
+    strcpy(id,f);
+    free(f);
+  }
+  if (x=='#')
+    *t='g';
+
   fclose(pf);
 }
 
@@ -119,7 +125,6 @@ void readchoices(FILE* pf, char* id){
     fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n");
     exit(EXIT_FAILURE);
   }
-  deleteChoices(&Local.Events);
   controle(pf,'+','\n',id);
   strcpy(Local.Events.text,id);
   while(1){

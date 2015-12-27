@@ -37,7 +37,7 @@ int main()
           continue;
         case'm':
           print_menu();
-          deleteChoices(&Local.Events);
+	  deleteChoices(&Local.Events);
           if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
@@ -50,13 +50,12 @@ int main()
                 if(Local.Events.choices && Local.state!='q')
                   {
                     select(&Local.Events, Local.name, Local.chosen);
-                    deleteChoices(&Local.Events);
                     load();
                   }
                 if(Local.state=='q')
                   switch_state();
                 continue;
-              case 2:  //forse meglio if else
+              case 2:
                 if(new_name())
                   {
                     Local.state='t';
@@ -70,7 +69,10 @@ int main()
                     save();
                   }
                 if(!press_a())
-                  switch_state();
+		  {
+		    Local.state= 'm';
+		    Local.previous= 'q';
+		  }
                 continue;
               case 3:
                 next_page();
@@ -125,7 +127,7 @@ int main()
             switch(quit_chosen)
               {
               case 1:
-                if(Local.previous!='m' && Local.previous!='g')
+                if(Local.previous!='m')
                   {
                     switch_state();
                     save();
@@ -133,7 +135,7 @@ int main()
                     press_a();
                   }
                 continue;
-              case 2: //delete?
+              case 2:
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

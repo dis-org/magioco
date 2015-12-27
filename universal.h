@@ -14,11 +14,11 @@ void switch_state();
 _Bool press_a();         //ferma il programma fino a che non si preme 'a'
 _Bool choice(short* chosen, short choices);
 //rende 1 se viene premuto'a', se effettua un cambiamento al valore chosed o allo stato rende 0
+void select(Choice_List_t* List, char* text, short chosen); //ritorna il testo scelto
 _Bool new_name();        //salva il nome del giocatore controllando che non sia già presente
 
 //management
 void addChoice(Choice_List_t* List, char* text);  //aggiunge una scelta ad una Choice_List
-void select(Choice_List_t* List, char* text, short chosen); //ritorna il testo scelto
 void deleteChoices(Choice_List_t* List);          //svuota una Choice_List
 void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses);
 Item_t* searchItem(Item_List_t* List, char* name);

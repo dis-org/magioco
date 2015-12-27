@@ -19,12 +19,6 @@ void save()
   fwrite(&Local,sizeof(Data_t),1,pf);
   if(Local.Bag.items)
     fwrite(&Local.Bag.First->Info,sizeof(Item_Data_t),1,pf);
-  /* for(int x= 0; x<Local.Battle.enemies; x++) */
-  /*   { */
-  /*     Enemy_t* Temp= Local.Battle.First; */
-  /*     fwrite(&Temp->Info,sizeof(Enemy_Data_t),1,pf); */
-  /*     Temp= Temp->Next; */
-  /*   } */
   puts("Partita salvata.");
   fclose(pf);
 }
@@ -44,11 +38,6 @@ void load()
   fread(&Local,sizeof(Data_t),1,pf);
   if(Local.Bag.items)
     fread(&Local.Bag.First->Info,sizeof(Item_Data_t),1,pf);
-  /* for(int x= 0; x<Local.Battle.enemies; x++) */
-  /*   { */
-  /*     addEnemy(&Local.Battle,"",0); */
-  /*     fread(&Local.Bag.Last->Info,sizeof(Enemy_Data_t),1,pf); */
-  /*   } */
   fclose(pf);
 }
 

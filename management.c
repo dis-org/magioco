@@ -21,14 +21,6 @@ void addChoice(Choice_List_t* List, char* text)
   List->choices++;
 }
 
-void select(Choice_List_t* List, char* text, short chosen)
-{
-  Choice_t* p= List->First;
-  for(int x= 1; x < chosen; x++)
-    p= p->Next;
-  strcpy(text, p->text);
-}
-
 void deleteChoices(Choice_List_t* List) //ricontrolla
 {
   Choice_t* Temp;
