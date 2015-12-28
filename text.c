@@ -29,23 +29,23 @@ void readevent(char* id, char* t){
     if (x=='*'|| x=='>'|| x=='#') break;
     if(add)
       {
-	if (x=='i'){
-	  getc(pf);
-	  f=sstring(pf,'.');
-	  n=sstring(pf,'\n');
-	  int uses=atoi(n);
-	  strcpy(id,f);
-	  free(f);
-	  free(n);
-	  isearch(uses, id);
-	}
-	if (x=='e'){
-	  getc(pf);
-	  f=sstring(pf,'\n');
-	  strcpy(id,f);
-	  free(f);
-	  esearch(id);
-	}
+        if (x=='i'){
+          getc(pf);
+          f=sstring(pf,'.');
+          n=sstring(pf,'\n');
+          int uses=atoi(n);
+          strcpy(id,f);
+          free(f);
+          free(n);
+          isearch(uses, id);
+        }
+        if (x=='e'){
+          getc(pf);
+          f=sstring(pf,'\n');
+          strcpy(id,f);
+          free(f);
+          esearch(id);
+        }
       }
   }while(x!=EOF);
   if (x=='*'){
@@ -180,13 +180,16 @@ void esearch(char* id){ //da rivedere
     fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
     exit(EXIT_FAILURE);
   }
-  short y;
+  short y, z;
   char x,*temp;
   controle(pf,'/','.', id);
-  temp=sstring(pf,'\n');
+  temp=sstring(pf,'.');
   y=atoi(temp);
   free(temp);
-  addEnemy(&Local.Battle, id, y);
+  temp=sstring(pf,'\n');
+  z=atoi(temp);
+  free(temp);
+  addEnemy(&Local.Battle, id, y, z);
   while(1){
     move('-', pf);
     temp=sstring(pf,'/');

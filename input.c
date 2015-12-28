@@ -33,7 +33,7 @@ _Bool press_a()
             break; //esce dal loop se digito 'a'
           if(in=='q')
             {
-	      quit_chosen= 1;
+              quit_chosen= 1;
               switch_state();
               break;
             }
@@ -62,7 +62,7 @@ _Bool choice(short* chosen, short choices)
           printf("\r        \r");
           if(in=='q')
             {
-	      quit_chosen= 1;
+              quit_chosen= 1;
               switch_state();
               break;
             }

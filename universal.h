@@ -24,7 +24,7 @@ void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short 
 Item_t* searchItem(Item_List_t* List, char* name);
 void deleteItem(Item_List_t* List, char* name);
 void deleteItems(Item_List_t* List);
-void addEnemy(Enemy_List_t* List, char* name, short health);
+void addEnemy(Enemy_List_t* List, char* name, unsigned short health, unsigned short defence);
 void addAction(Enemy_t* Enemy, char* text, char type, short value);
 Enemy_t* searchEnemy(Enemy_List_t* List, char* name);
 void deleteEnemy(Enemy_List_t* List, char* name);

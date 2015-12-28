@@ -37,11 +37,11 @@ int main()
           continue;
         case'm':
           print_menu();
-	  deleteChoices(&Local.Events);
           if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
               case 1:
+                deleteChoices(&Local.Events);
                 readsaves();
                 do{
                   next_page();
@@ -50,6 +50,7 @@ int main()
                 if(Local.Events.choices && Local.state!='q')
                   {
                     select(&Local.Events, Local.name, Local.chosen);
+                    deleteChoices(&Local.Events);
                     load();
                   }
                 if(Local.state=='q')
@@ -91,6 +92,7 @@ int main()
             continue;
         case't':
           strcpy(temp,Local.id);
+	  deleteChoices(&Local.Events);
           readevent(temp, &t);
           print_Items();
           if(press_a())
@@ -105,6 +107,7 @@ int main()
           if(choice(&Local.chosen, Local.Events.choices))
             {
               select(&Local.Events, Local.id, Local.chosen);
+              deleteChoices(&Local.Events);
               Local.state='t';
             }
           continue;
@@ -117,6 +120,7 @@ int main()
             on=0;
           else
             {
+              deleteItems(&Local.Bag);//danno seg fault
               Local.state='i';
               Local.chosen= 1;
             }
@@ -136,6 +140,7 @@ int main()
                   }
                 continue;
               case 2:
+                deleteItems(&Local.Bag); //*
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

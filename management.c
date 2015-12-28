@@ -21,7 +21,7 @@ void addChoice(Choice_List_t* List, char* text)
   List->choices++;
 }
 
-void deleteChoices(Choice_List_t* List) //ricontrolla
+void deleteChoices(Choice_List_t* List)
 {
   Choice_t* Temp;
   while(List->First)
@@ -118,7 +118,7 @@ void deleteItems(Item_List_t* List)
   List->items = 0;
 }
 
-void addEnemy(Enemy_List_t* List, char* name, short health)
+void addEnemy(Enemy_List_t* List, char* name, unsigned short health, unsigned short defence)
 {
   Enemy_t* Enemy = calloc(1, sizeof(Enemy_t));
 
@@ -130,6 +130,7 @@ void addEnemy(Enemy_List_t* List, char* name, short health)
 
   strcpy(Enemy->Info.name, name);
   Enemy->Info.health = health;
+  Enemy->Info.defence = defence;
 
   if(!List->First)
     List->First = List->Last = Enemy;
