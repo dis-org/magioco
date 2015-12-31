@@ -16,6 +16,7 @@ void readevent(char* id, char* t){
   }
   controle(pf,'/','\n',id);
   printtext(pf);
+  puts("");
 
   if(!Local.done)
     {
@@ -37,6 +38,7 @@ void readevent(char* id, char* t){
           strcpy(id,f);
           free(f);
           free(n);
+	  print_center(id);
           isearch(uses, id);
         }
         if (x=='e'){
@@ -44,6 +46,7 @@ void readevent(char* id, char* t){
           f=sstring(pf,'\n');
           strcpy(id,f);
           free(f);
+	  print_center(id);
           esearch(id);
         }
       }
@@ -173,7 +176,7 @@ void isearch(short uses, char* id){
   }
   fclose(pf);
 }
-void esearch(char* id){ //da rivedere
+void esearch(char* id){
   FILE* pf;
   pf=fopen("custom/enemies.txt","r");
   if (!pf){ 
@@ -192,18 +195,17 @@ void esearch(char* id){ //da rivedere
   addEnemy(&Local.Battle, id, y, z);
   while(1){
     move('-', pf);
-    temp=sstring(pf,'/');
-    if (!strcmp(temp,"#")){ 
+    x=getc(pf);
+    if (x=='#'){ 
       free(temp);
       break;
     }
-    strcpy(id,temp);
-    free(temp);
+    move('.',pf); //basterebbe un getc(pf)
     temp=sstring(pf,'.');
-    x=*temp;
+    y=atoi(temp);
     free(temp);
     temp=sstring(pf,'\n');
-    y=atoi(temp);
+    strcpy(id,temp);
     free(temp);
     addAction(Local.Battle.Last, id, x, y);
   }

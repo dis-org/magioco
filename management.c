@@ -221,7 +221,7 @@ void deleteEnemies(Enemy_List_t* List)
       deleteActions(Enemy);
       free(Enemy);
     }
-  List->Last=NULL;
+  List->First=NULL;
   List->Last=NULL;
   List->enemies = 0;
 }
@@ -235,7 +235,7 @@ void deleteActions(Enemy_t* Enemy)
       Enemy->First = Enemy->First->Next;
       free(Action);
     }
-  Enemy->Last=NULL;
+  Enemy->First=NULL;
   Enemy->Last=NULL;
   Enemy->actions= 0;
 }

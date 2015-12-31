@@ -33,9 +33,16 @@ void save()
   for(int x= 0; x<Local.Battle.enemies; x++)
     {
       fwrite(&E->Info,sizeof(Enemy_Data_t),1,pf);
+      Action_t* A= E->First;
+      for(int y= 0; y<E->actions; y++)
+	{
+	  fwrite(&A->Info,sizeof(Action_Data_t),1,pf);
+	  A= A->Next;
+	}
       E= E->Next;
     }
-  puts("Partita salvata.");
+  puts("");
+  print_center("Partita salvata");
   fclose(pf);
 }
 
@@ -71,6 +78,12 @@ void load()
     {
       addEnemy(&Local.Battle,"",0,0);
       fread(&Local.Battle.Last->Info,sizeof(Enemy_Data_t),1,pf);
+      for(int y= 0; y<Local.Battle.Last->actions; y++)
+	{
+	  addAction(Local.Battle.Last,"",'\0',0);
+	  fread(&Local.Battle.Last->Last->Info,sizeof(Action_Data_t),1,pf);
+	  Local.Battle.Last->actions-= 1;
+	}
       Local.Battle.enemies-= 1;
     }
   fclose(pf);
@@ -94,9 +107,9 @@ void readsaves()
       free(name);
     }
   if(Local.Events.choices)
-    strcpy(Local.Events.text,"Selezionare salvataggio:");
+    strcpy(Local.Events.text,"Seleziona un salvataggio");
   else
-    strcpy(Local.Events.text,"Nessun salvataggio presente.");
+    strcpy(Local.Events.text,"Nessun salvataggio presente");
   fclose(pf);
 }
 
@@ -123,5 +136,5 @@ void deletesaves()
     }
   fclose(pf);
   remove("saves/saves.txt");
-  puts("Salvataggi rimossi.");
+  print_center("Salvataggi rimossi");
 }

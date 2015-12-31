@@ -105,13 +105,7 @@ _Bool new_name()
   while(!buffered)
     {
       system("clear");
-      printf("                             Nome\n\n               ");
-      for(int x= 16-(n)/2; x>0; --x)
-        printf(" ");
-      printf("%s\n\n"
-             "                  Premere '.' per confermare.\n"
-             "                  Premere '-' per cancellare.\n"
-             , name);
+      print_name(name);
       system("/bin/stty raw");
       while((c=getchar()))
         {
@@ -130,7 +124,8 @@ _Bool new_name()
   printf("\r        \r");
   if(!n && !buffered)
     {
-      puts("Annullato.");
+      puts("");
+      print_center("Annullato");
       return 0;
     }
   strcpy(Local.name,name);
@@ -153,7 +148,8 @@ _Bool new_name()
     }
   if(existent || Local.name[0]==' ')
     {
-      puts("Nome già utilizzato.");
+      puts("");
+      print_center("Nome già utilizzato");
       return 0;
     }
   fprintf(pf, "#%s\n", Local.name);

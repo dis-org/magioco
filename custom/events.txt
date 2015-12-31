@@ -27,7 +27,7 @@ Espresso lungo senza zucchero, il suo preferito.*
   -*Il ragazzo decise di:
 /Rivolgersi al lato oscuro della matematica
 Boccuto out of nowhere!*
-	-i.La forza della disperazione.404
+	-i.la forza della disperazione.404
 	-e.Boccuto
 	->Vittoria
 /#

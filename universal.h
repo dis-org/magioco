@@ -3,10 +3,11 @@
 
 //battle
 void battle();
+void Use();
 void enemy_Use();
 void Trow();
-Enemy_t* enemy_sel();   //trova l'enemy_chosen
-Item_t* item_sel();     //trova l'item_chosen
+Enemy_t* enemy_sel();    //trova l'enemy_chosen
+Item_t* item_sel();      //trova l'item_chosen
 void Action();
 
 //input
@@ -35,13 +36,15 @@ void deleteActions(Enemy_t* Enemy);
 void next_page();       //divide graficamente le varie schermate
 void print_intro();     //stampa l'intro del gioco ********* da fare
 void print_menu();      //stampa il menù
-void print_ahah();      //stampa derisione ********** aggiungere crediti
+void print_center();    //stampa un testo centrato
+void print_imp();       //stampa impostazioni ********** aggiungere crediti
 void print_quit(short* chosen); //stampa menù quit
 void print_gameover();  //stampa messaggio Game Over
-void print_Enemies();   //stampa lista nemici con vita e difesa
-void print_Items();     //stampa la lista degli oggetti con durata/quantità
 void print_Choices(Choice_List_t* List, short chosen);//stampa le scelte
+void print_name(char* name); //stampa il nome centrato
+void print_Enemies();   //stampa lista nemici con vita e difesa
 void print_Stats();     //Nome vita e difesa giocatore
+void print_Items();     //stampa la lista degli oggetti con durata/quantità
 void print_Uses();      //Possibili utilizzi degli oggetti
 
 //save
@@ -63,5 +66,7 @@ void esearch(char*);
 
 //Memo: 
 //aggiungere eventi che fanno perdere o guadagnare vita al giocatore
-//aggiungere evnti di scelta che utilizzano oggetti dall'inventario
+//aggiungere eventi di scelta che utilizzano oggetti dall'inventario
 //aggiungere vita massima
+//aggiungere salvataggio azioni nemici
+//aggiungere impostazioni grafiche

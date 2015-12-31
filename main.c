@@ -3,9 +3,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define WIDTH_DEFAULT 80
+
 Data_t Local;
 _Bool buffered;
 short quit_chosen;
+short width;
 
 int main()
 {
@@ -13,6 +16,7 @@ int main()
   char temp[128];
   char t;
 
+  width= WIDTH_DEFAULT;
   Local.state='i';
   Local.previous='q';
   Local.chosen= 1;
@@ -24,7 +28,7 @@ int main()
       
       if(!Local.health)
         Local.state='g';
-      else if(Local.Battle.enemies)
+      else if(Local.Battle.enemies && Local.state!='q')
         Local.state='b';
 
       switch(Local.state)
@@ -76,10 +80,19 @@ int main()
 		  }
                 continue;
               case 3:
-                next_page();
-                print_ahah();
-                if(!press_a())
-                  switch_state();
+		while(1)
+		  {
+		    next_page();
+		    print_imp();
+		    if(choice(&width, 120))
+		      break;
+		    if(Local.state=='q')
+		      {
+			switch_state();
+			width= WIDTH_DEFAULT;
+			break;
+		      }
+		  }
                 continue;
               case 4:
                 next_page();
@@ -94,7 +107,6 @@ int main()
           strcpy(temp,Local.id);
 	  deleteChoices(&Local.Events);
           readevent(temp, &t);
-          print_Items();
           if(press_a())
             {
               strcpy(Local.id,temp);
@@ -120,7 +132,7 @@ int main()
             on=0;
           else
             {
-              deleteItems(&Local.Bag);//danno seg fault
+              deleteItems(&Local.Bag);
               Local.state='i';
               Local.chosen= 1;
             }
@@ -140,7 +152,8 @@ int main()
                   }
                 continue;
               case 2:
-                deleteItems(&Local.Bag); //*
+                deleteItems(&Local.Bag);
+		deleteEnemies(&Local.Battle);
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

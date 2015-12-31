@@ -1,6 +1,6 @@
-/Boccuto.6
-          -inizia uno studio di funzione/r.2
-          -applica il teorema dell'Ospital/r.3
-          -TRUCCO!/m.4
-          -scatena un evento con probabilità inferiore al 10%/r.6
-          -#
+/Boccuto.6.2
+  -r.2.inizia uno studio di funzione
+  -r.3.applica il teorema dell'Ospital
+  -m.4.TRUCCO!
+  -r.6.scatena un evento con probabilità inferiore al 10%
+  -#
