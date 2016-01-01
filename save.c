@@ -34,7 +34,7 @@ void save()
     {
       fwrite(&E->Info,sizeof(Enemy_Data_t),1,pf);
       Action_t* A= E->First;
-      for(int y= 0; y<E->actions; y++)
+      for(int y= 0; y<E->Info.actions; y++)
 	{
 	  fwrite(&A->Info,sizeof(Action_Data_t),1,pf);
 	  A= A->Next;
@@ -50,6 +50,11 @@ void load()
 {
   FILE *pf;
   char a[64]="saves/";
+  Choice_t* C;
+  Item_t* I;
+  Enemy_t* E;
+  Action_t* A;
+
   strcat(a,Local.name);
   strcat(a,".bin");
   pf=fopen(a,"rb");
@@ -64,25 +69,25 @@ void load()
   Local.Battle.First= Local.Battle.Last= NULL;
   for(int x= 0; x<Local.Events.choices; x++)
     {
-      addChoice(&Local.Events,"");
-      fread(&Local.Events.Last->text,sizeof(char),128,pf);
+      C= addChoice(&Local.Events);
+      fread(&C->text,sizeof(char),128,pf);
       Local.Events.choices-= 1;
     }
   for(int x= 0; x<Local.Bag.items; x++)
     {
-      addItem(&Local.Bag,"",'\0',0,0,0,0);
-      fread(&Local.Bag.Last->Info,sizeof(Item_Data_t),1,pf);
+      I= addItem(&Local.Bag);
+      fread(&I->Info,sizeof(Item_Data_t),1,pf);
       Local.Bag.items-= 1;
     }
   for(int x= 0; x<Local.Battle.enemies; x++)
     {
-      addEnemy(&Local.Battle,"",0,0);
-      fread(&Local.Battle.Last->Info,sizeof(Enemy_Data_t),1,pf);
-      for(int y= 0; y<Local.Battle.Last->actions; y++)
+      E= addEnemy(&Local.Battle);
+      fread(&E->Info,sizeof(Enemy_Data_t),1,pf);
+      for(int y= 0; y<Local.Battle.Last->Info.actions; y++)
 	{
-	  addAction(Local.Battle.Last,"",'\0',0);
-	  fread(&Local.Battle.Last->Last->Info,sizeof(Action_Data_t),1,pf);
-	  Local.Battle.Last->actions-= 1;
+	  A= addAction(Local.Battle.Last);
+	  fread(&A->Info,sizeof(Action_Data_t),1,pf);
+	  Local.Battle.Last->Info.actions-= 1;
 	}
       Local.Battle.enemies-= 1;
     }
@@ -93,6 +98,8 @@ void readsaves()
 {
   FILE* pf;
   char* name;
+  Choice_t* C;
+  
   pf=fopen("saves/saves.txt","a+");
   if(!pf)
     {
@@ -103,7 +110,8 @@ void readsaves()
   while(getc(pf)=='#')
     {
       name= sstring(pf,'\n');
-      addChoice(&Local.Events, name);
+      C= addChoice(&Local.Events);
+      strcpy(C->text, name);
       free(name);
     }
   if(Local.Events.choices)

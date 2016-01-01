@@ -41,11 +41,14 @@ int main()
           continue;
         case'm':
           print_menu();
+	  puts("\n");
+	  print_Choices(&Local.Events, 0);
+	  print_Items(&Local.Bag, 0);
+	  print_Enemies(&Local.Battle, 0);
           if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
               case 1:
-                deleteChoices(&Local.Events);
                 readsaves();
                 do{
                   next_page();
@@ -156,6 +159,7 @@ int main()
                   }
                 continue;
               case 2:
+		deleteChoices(&Local.Events);
                 deleteItems(&Local.Bag);
 		deleteEnemies(&Local.Battle);
                 Local.chosen= 1;

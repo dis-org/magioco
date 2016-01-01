@@ -124,6 +124,7 @@ void controle(FILE* pf,char f,char x,char* id){ // controlla 2 stringhe.. finito
 void readchoices(FILE* pf, char* id){
   char *x;
   char *temp=calloc(128,sizeof(char));
+  Choice_t* C;
   if (!temp){
     fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n");
     exit(EXIT_FAILURE);
@@ -135,79 +136,85 @@ void readchoices(FILE* pf, char* id){
     x=sstring(pf,'\n');
     strcpy(temp,x);
     free(x);
-    if (!strcmp(temp,"#"))
+    if(!strcmp(temp,"#"))
       break;
-    addChoice(&Local.Events, temp);
+    C= addChoice(&Local.Events);
+    strcpy(C->text, temp);
   }
   free(temp);
 }
 
 void isearch(short uses, char* id){
   FILE* pf;
-  char* t;
+  char type, *temp;
+  Item_t* I;
+
   pf=fopen("custom/items.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire items.txt\n");
     exit(EXIT_FAILURE);
   }
   controle(pf,'/','.',id);
-  char type=getc(pf);
+  type=getc(pf);
   getc(pf);
-  t=sstring(pf,'.');
-  int usev=atoi(t);
-  free(t);
-  t=sstring(pf,'.');
-  int trwv=atoi(t);
-  free(t);
-  t=sstring(pf,'\n');
-  int defv=atoi(t);
-  free(t);
-  Item_t* temp;
   switch(type){
   case'p':
-    temp= searchItem(&Local.Bag, id);
-    if (temp){
-      temp->Info.uses+=uses;
+    I= searchItem(&Local.Bag, id);
+    if (I){
+      I->Info.uses+=uses;
       break;
     }
   case'u':
-    addItem(&Local.Bag, id, type, usev, trwv, defv, uses);
+    I= addItem(&Local.Bag);
+    strcpy(I->Info.name, id);
+    I->Info.type=type;
+    temp=sstring(pf,'.');
+    I->Info.usevalue=atoi(temp);
+    free(temp);
+    temp=sstring(pf,'.');
+    I->Info.trowvalue=atoi(temp);
+    free(temp);
+    temp=sstring(pf,'\n');
+    I->Info.defvalue=atoi(temp);
+    free(temp);
     break;
   }
   fclose(pf);
 }
 void esearch(char* id){
   FILE* pf;
+  char x,*temp;
+  Enemy_t* E;
+  Action_t* A;
+
   pf=fopen("custom/enemies.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
     exit(EXIT_FAILURE);
   }
-  short y, z;
-  char x,*temp;
+  E= addEnemy(&Local.Battle);
   controle(pf,'/','.', id);
+  strcpy(E->Info.name, id);
   temp=sstring(pf,'.');
-  y=atoi(temp);
+  E->Info.health= atoi(temp);
   free(temp);
   temp=sstring(pf,'\n');
-  z=atoi(temp);
+  E->Info.defence= atoi(temp);
   free(temp);
-  addEnemy(&Local.Battle, id, y, z);
   while(1){
     move('-', pf);
     x=getc(pf);
-    if (x=='#'){ 
-      free(temp);
+    if (x=='#')
       break;
-    }
+    A= addAction(Local.Battle.Last);
+    A->Info.type= x;
     move('.',pf); //basterebbe un getc(pf)
     temp=sstring(pf,'.');
-    y=atoi(temp);
+    A->Info.value= atoi(temp);
     free(temp);
     temp=sstring(pf,'\n');
-    strcpy(id,temp);
+    strcpy(A->Info.text, temp);
     free(temp);
-    addAction(Local.Battle.Last, id, x, y);
   }
   fclose(pf);
 }

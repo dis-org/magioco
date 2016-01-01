@@ -27,11 +27,11 @@ typedef struct{
   char name[64];
   unsigned short health;
   unsigned short defence;
+  unsigned short actions;
 } Enemy_Data_t;
 
 typedef struct Enemy{ //ogni nemico contine una lista dinamica di azioni
   Enemy_Data_t Info;
-  unsigned short actions;
   Action_t* First;
   Action_t* Last; //quando un'azione viene compiuta va spostata in fondo alla lista
   struct Enemy* Next;
@@ -80,7 +80,9 @@ typedef struct Data{
   unsigned short health;
   unsigned short defence; //difesa (solo in combattimento)
   _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)
+  _Bool defending;
   Choice_List_t Events;
   Item_List_t Bag;
   Enemy_List_t Battle;
+  Item_Data_t Defending;
 } Data_t;

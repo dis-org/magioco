@@ -20,16 +20,16 @@ void select(Choice_List_t* List, char* text, short chosen); //ritorna il testo s
 _Bool new_name();        //salva il nome del giocatore controllando che non sia già presente
 
 //management
-void addChoice(Choice_List_t* List, char* text);  //aggiunge una scelta ad una Choice_List
+Choice_t* addChoice(Choice_List_t* List);  //aggiunge una scelta ad una Choice_List
 void deleteChoices(Choice_List_t* List);          //svuota una Choice_List
-void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses);
+Item_t* addItem(Item_List_t* List); //*************** separare allocazione e putatori :C
 Item_t* searchItem(Item_List_t* List, char* name);
 void deleteItem(Item_List_t* List, Item_t* Item);
 void deleteItems(Item_List_t* List);
-void addEnemy(Enemy_List_t* List, char* name, unsigned short health, unsigned short defence);
-void addAction(Enemy_t* Enemy, char* text, char type, short value);
+Enemy_t* addEnemy(Enemy_List_t* List);
+Action_t* addAction(Enemy_t* Enemy);
 Enemy_t* searchEnemy(Enemy_List_t* List, char* name);
-void deleteEnemy(Enemy_List_t* List, char* name);
+void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy);
 void deleteEnemies(Enemy_List_t* List);
 void deleteActions(Enemy_t* Enemy);
 

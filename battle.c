@@ -6,6 +6,7 @@ extern Data_t Local;
 void battle(void)
 {
   Item_t* Item;
+  //  Item_t* Blocking;
 
   print_Enemies();
   print_Stats();
@@ -28,6 +29,8 @@ void battle(void)
 	      Local.phase='1';
 	      break;
 	    case 2: //lancia
+	      Local.enemy_chosen= 1;
+	      Local.phase='2';
 	      break;
 	    case 3: //difenditi
 	      Local.defence= Item->Info.defvalue;
@@ -57,6 +60,7 @@ void battle(void)
       /* Action(); */
       puts("missing");
       press_a();
+      Local.ranged= 0;
       Local.phase= 'i';
       break;
     }
@@ -76,6 +80,18 @@ Item_t* item_sel()
   for(int x=1; x<Local.item_chosen; x++)
     Temp= Temp->Next;
   return Temp;
+}
+
+void value(unsigned short* health, unsigned short* defence, int usevalue)
+{
+  if(usevalue<0)
+    for(int x= 0; x > usevalue && *health; x--)
+      if(*defence)
+	*defence-= 1; //resist();
+      else
+	*health-= 1;
+  else
+    *health+= usevalue;
 }
 
 void Use(Item_t* Item)
@@ -103,47 +119,6 @@ void Use(Item_t* Item)
     }
 }
 
-void value(unsigned short* health, unsigned short* defence, int usevalue)
-{
-  if(usevalue<0)
-    for(int x= 0; x > usevalue && *health; x--)
-      if(*defence)
-	*defence-= 1;
-      else
-	*health-= 1;
-  else
-    *health+= usevalue;
-}
-
-void enemy_Use()
-{
-  //Sono decisamente convinto che non funzionerà.
-  if (choice(&Local.enemy_chosen, Local.Battle.enemies))
-    {
-      enemy_sel();
-      item_sel();
-      if (Local.Bag.First->Info.usevalue>=0) 
-        Local.Battle.First->Info.health += Local.Bag.First->Info.usevalue; 
-      else
-        {
-          if (Local.Battle.First->Info.defence)      //il nemico ha difesa (use>def)
-            Local.Battle.First->Info.defence=0;
-          else
-            {
-              if(Local.Battle.First->First->Info.type=='t')  //il nemico non ha difsa, e la sua azione sarà di trow (use<trow)
-                NULL; 
-              else
-                Local.Battle.First->Info.health += Local.Bag.First->Info.usevalue;
-            }
-        }
-    } 
-
-  if(Local.Bag.First->Info.type=='u')        //se è unitario, diminuisco la durata
-    Local.Bag.First->Info.uses--;
-  else
-    /* deleteItem(&Local.Bag, Local.Bag.First->Info.name) */;    //se è pluritatrio lo elimino (lo volevamo così, boh?)
-}
-
 void Trow()
 {
   if (choice(&Local.enemy_chosen, Local.Battle.enemies))
@@ -161,7 +136,7 @@ void Trow()
     Local.Bag.First->Info.uses-= 1;
 }
 
-void Action ()
+void Action()
 {
   if (Local.Battle.First->First->Info.type=='d')                
     Local.Battle.First->Info.defence += Local.Battle.First->First->Info.value;
