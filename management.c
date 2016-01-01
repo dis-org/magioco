@@ -30,7 +30,6 @@ void deleteChoices(Choice_List_t* List)
       List->First= List->First->Next;
       free(Temp);
     }
-  List->First=NULL;
   List->Last=NULL;
   List->choices=0;
 }
@@ -62,7 +61,7 @@ void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short 
   List->items++;
 }
 
-Item_t* searchItem(Item_List_t* List, char* name)//forse è inutile
+Item_t* searchItem(Item_List_t* List, char* name)
 {
   Item_t* Ret= List->First;
   while(Ret)
@@ -74,34 +73,33 @@ Item_t* searchItem(Item_List_t* List, char* name)//forse è inutile
   return Ret;
 }
 
-void deleteItem(Item_List_t* List, char* name)
+void deleteItem(Item_List_t* List, Item_t* Item) //da usare solo con searchItem (unire?)
 {
   Item_t* Ret= List->First;
-  if(!strcmp(Ret->Info.name, name))
+  if(Ret==Item)
     {
       List->First= Ret->Next;
-      free(Ret);
-      return;
+      free(Item);
     }
-  while(Ret)
-    {
-      if(!strcmp(Ret->Next->Info.name, name))
-        {
-          Ret->Next= Ret->Next->Next;
-          free(Ret->Next);
-          return;
-        }
-      if(Ret->Next)
-        Ret= Ret->Next;
-      else
-        break;
-    }
-  Ret= List->Last;
-  if(!strcmp(Ret->Info.name, name))
-    {
-      List->First= Ret->Next;
-      free(Ret);
-    }
+  else
+    while(Ret)
+      {
+	if(!Ret->Next)
+	  {
+	    fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n");
+	    exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+	  }
+	else
+	  if(Ret->Next== Item)
+	    {
+	      Ret->Next= Ret->Next->Next;
+	      if(!Ret->Next)
+		List->Last= Ret;
+	      free(Item);
+	      break;
+	    }
+      }
+  List->items--;
 }
 
 void deleteItems(Item_List_t* List)
@@ -113,8 +111,7 @@ void deleteItems(Item_List_t* List)
       List->First = List->First->Next;
       free(Item);
     }
-  List->First= NULL;
-  List->Last = NULL;
+  List->Last= NULL;
   List->items = 0;
 }
 
@@ -221,7 +218,6 @@ void deleteEnemies(Enemy_List_t* List)
       deleteActions(Enemy);
       free(Enemy);
     }
-  List->First=NULL;
   List->Last=NULL;
   List->enemies = 0;
 }
@@ -229,7 +225,7 @@ void deleteEnemies(Enemy_List_t* List)
 void deleteActions(Enemy_t* Enemy)
 {
   Action_t* Action;
-  while(Enemy->First)
+  for(int x= 0; x < Enemy->actions; x++)
     {
       Action = Enemy->First;
       Enemy->First = Enemy->First->Next;

@@ -3,11 +3,12 @@
 
 //battle
 void battle();
-void Use();
-void enemy_Use();
-void Trow();
 Enemy_t* enemy_sel();    //trova l'enemy_chosen
 Item_t* item_sel();      //trova l'item_chosen
+void Use();
+void value(unsigned short* health, unsigned short* defence, int usevalue);
+void enemy_Use();
+void Trow();
 void Action();
 
 //input
@@ -23,7 +24,7 @@ void addChoice(Choice_List_t* List, char* text);  //aggiunge una scelta ad una C
 void deleteChoices(Choice_List_t* List);          //svuota una Choice_List
 void addItem(Item_List_t* List, char* name, char type, int usev, unsigned short trwv, unsigned short defv, int uses);
 Item_t* searchItem(Item_List_t* List, char* name);
-void deleteItem(Item_List_t* List, char* name);
+void deleteItem(Item_List_t* List, Item_t* Item);
 void deleteItems(Item_List_t* List);
 void addEnemy(Enemy_List_t* List, char* name, unsigned short health, unsigned short defence);
 void addAction(Enemy_t* Enemy, char* text, char type, short value);
@@ -45,7 +46,8 @@ void print_name(char* name); //stampa il nome centrato
 void print_Enemies();   //stampa lista nemici con vita e difesa
 void print_Stats();     //Nome vita e difesa giocatore
 void print_Items();     //stampa la lista degli oggetti con durata/quantità
-void print_Uses();      //Possibili utilizzi degli oggetti
+void print_Uses(Item_t* Item);  //Possibili utilizzi degli oggetti
+void print_Sel(Item_t* Item);   //Utilizzo scelto
 
 //save
 void save();            //salva Date_t Local su file save.bin
@@ -67,6 +69,5 @@ void esearch(char*);
 //Memo: 
 //aggiungere eventi che fanno perdere o guadagnare vita al giocatore
 //aggiungere eventi di scelta che utilizzano oggetti dall'inventario
-//aggiungere vita massima
-//aggiungere salvataggio azioni nemici
-//aggiungere impostazioni grafiche
+//aggiungere vita massima?
+//def nemico?

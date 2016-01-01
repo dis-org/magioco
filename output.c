@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define CENTER(TEXT) for(int x= strlen(TEXT)/2; x< width/2-2; x++) printf(" "); printf("%s\n",TEXT);
-#define CHOSE(TEXT, SELECTED, WIDTH) for(int x= strlen(TEXT)/2; x< WIDTH/2-3; x++) printf(" "); printf("%c%s%c\n",SELECTED?'[':' ',TEXT,SELECTED?']':' ');
+#define CENTER(TEXT) for(int x= (strlen(TEXT)+1)/2; x< width/2-2; x++) printf(" "); printf("%s\n",TEXT);
+#define CHOSE(TEXT, SELECTED, WIDTH) for(int x= strlen(TEXT)/2; x< WIDTH/2-4; x++) printf(" "); printf("%c%s%c\n",SELECTED?'[':' ',TEXT,SELECTED?']':' ');
 
 extern Data_t Local;
 extern _Bool buffered;
@@ -28,7 +28,7 @@ void print_intro()
 
 void print_menu()
 {
-  CENTER("Menù");
+  CENTER(" Menù ");
   puts("");
   CENTER("Usare le frecce direzionali");
   CENTER("per muoversi");
@@ -61,7 +61,7 @@ void print_imp()
 
 void print_quit(short* chosen)
 {
-  CENTER("Quit");
+  CENTER("Quit Menù");
   puts("");
   CENTER("Premere 'q' per continuare");
   puts("");
@@ -111,7 +111,7 @@ void print_Enemies()
         printf("*");
       for (int z=0; z<Enemy->Info.defence; z++)
         printf(")");
-      puts("");
+      puts("\n");
       Enemy= Enemy->Next;
     }
 }
@@ -128,7 +128,7 @@ void print_Stats()
   for (int x=0; x<Local.health; x++)
     printf("*");
   printf(" HP");
-  puts("");
+  puts("\n");
 }
 
 void print_Items()      //solo nome 
@@ -154,7 +154,14 @@ void print_Uses(Item_t* Item)
 {
   printf("Scelto:");
   CHOSE(Item->Info.name,0,(width-12));
+  puts("");
   CHOSE(">> Usa <<",Local.use_chosen==1,width);
   CHOSE("<< Lancia",Local.use_chosen==2,width);
   CHOSE("(( Blocca",Local.use_chosen==3,width);
+}
+
+void print_Sel(Item_t* Item)
+{
+  printf("%s", Local.use_chosen==1? ">> Usa <<": "<< Lancia");
+  CHOSE(Item->Info.name,0,(width-16));
 }

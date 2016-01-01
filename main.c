@@ -58,7 +58,11 @@ int main()
                     load();
                   }
                 if(Local.state=='q')
-                  switch_state();
+		  {
+		    switch_state();
+		    deleteChoices(&Local.Events);
+		    Local.chosen= 1;
+		  }
                 continue;
               case 2:
                 if(new_name())

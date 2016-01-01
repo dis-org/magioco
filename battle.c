@@ -5,6 +5,8 @@ extern Data_t Local;
 
 void battle(void)
 {
+  Item_t* Item;
+
   print_Enemies();
   print_Stats();
   switch(Local.phase)
@@ -14,25 +16,27 @@ void battle(void)
       if(choice(&Local.item_chosen, Local.Bag.items))
         Local.phase='u';
       break;
-    case 'u':
-      print_Uses(item_sel());
+    case'u':
+      Item= item_sel();
+      print_Uses(Item);
       if(choice(&Local.use_chosen, 3))
 	{
 	  switch(Local.use_chosen)
 	    {
-	    case 1: //usa su di te
-	      Use();
+	    case 1: //usa
+	      Local.enemy_chosen= 1;
+	      Local.phase='1';
 	      break;
 	    case 2: //lancia
-	      Trow();
 	      break;
 	    case 3: //difenditi
-	      item_sel();
-	      Local.defence += Local.Bag.First->Info.defvalue;
-	      Local.Bag.First->Info.uses-= 1; //sia u che p ...sicuro?
+	      Local.defence= Item->Info.defvalue;
+	      Item->Info.uses-= 1; //sia u che p ...sicuro?
+	      if(!Item->Info.uses)
+		deleteItem(&Local.Bag, Item);
+	      Local.phase='a';
 	      break;
 	    }
-	  Local.phase='a';
 	  break;
 	}
       else if(Local.state=='q')
@@ -41,15 +45,24 @@ void battle(void)
 	  Local.phase='i';
 	}
       break;
+    case'1':
+      Item= item_sel();
+      print_Sel(Item);
+      Use(Item);
+      break;
+    case'2':
+      Trow(item_sel());
+      break;
     case 'a':
-      print_Items();
-      Action();
+      /* Action(); */
+      puts("missing");
+      press_a();
       Local.phase= 'i';
       break;
     }
 }
 
-Enemy_t* enemy_sel()
+ Enemy_t* enemy_sel()
 {
   Enemy_t* Temp= Local.Battle.First;
   for(int x=1; x<Local.enemy_chosen; x++)
@@ -65,12 +78,41 @@ Item_t* item_sel()
   return Temp;
 }
 
-void Use()
+void Use(Item_t* Item)
 {
   if(choice(&Local.enemy_chosen, Local.Battle.enemies+1))
     {
-      
+      if(Local.enemy_chosen== Local.Battle.enemies+1)
+	value(&Local.health, &Local.defence, Item->Info.usevalue);
+      else
+	{
+	  Enemy_t* Enemy= enemy_sel();
+	  value(&Enemy->Info.health, &Enemy->Info.defence, Item->Info.usevalue);
+	}
+      Local.phase= 'a';
+      Local.enemy_chosen= 0;
+      Item->Info.uses-= 1; //sia u che p ...sicuro?
+      if(!Item->Info.uses)
+	deleteItem(&Local.Bag, Item);
     }
+  else if(Local.state== 'q')
+    {
+      switch_state();
+      Local.enemy_chosen= 0;
+      Local.phase='u'; // chosen?
+    }
+}
+
+void value(unsigned short* health, unsigned short* defence, int usevalue)
+{
+  if(usevalue<0)
+    for(int x= 0; x > usevalue && *health; x--)
+      if(*defence)
+	*defence-= 1;
+      else
+	*health-= 1;
+  else
+    *health+= usevalue;
 }
 
 void enemy_Use()
@@ -99,7 +141,7 @@ void enemy_Use()
   if(Local.Bag.First->Info.type=='u')        //se è unitario, diminuisco la durata
     Local.Bag.First->Info.uses--;
   else
-    deleteItem(&Local.Bag, Local.Bag.First->Info.name);    //se è pluritatrio lo elimino (lo volevamo così, boh?)
+    /* deleteItem(&Local.Bag, Local.Bag.First->Info.name) */;    //se è pluritatrio lo elimino (lo volevamo così, boh?)
 }
 
 void Trow()
@@ -114,7 +156,7 @@ void Trow()
         Local.Battle.First->Info.health += Local.Bag.First->Info.trowvalue;
     }
   if (Local.Bag.First->Info.type=='u')
-    deleteItem(&Local.Bag, Local.Bag.First->Info.name);    
+    /* deleteItem(&Local.Bag, Local.Bag.First->Info.name) */;    
   else
     Local.Bag.First->Info.uses-= 1;
 }
