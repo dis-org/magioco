@@ -41,10 +41,6 @@ int main()
           continue;
         case'm':
           print_menu();
-	  puts("\n");
-	  print_Choices(&Local.Events, 0);
-	  print_Items(&Local.Bag, 0);
-	  print_Enemies(&Local.Battle, 0);
           if(choice(&Local.chosen, 4))
             switch(Local.chosen)
               {
@@ -78,6 +74,9 @@ int main()
                     Local.item_chosen= 1;
                     Local.use_chosen= 1;
                     Local.health= 3;
+		    Local.defence= 0;
+		    Local.ranged= 0;
+		    Local.defending= 0;
                     save();
                   }
                 if(!press_a())

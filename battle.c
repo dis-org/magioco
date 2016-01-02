@@ -6,10 +6,11 @@ extern Data_t Local;
 void battle(void)
 {
   Item_t* Item;
-  //  Item_t* Blocking;
+  Enemy_t* Enemy;
+  Action_t* Action;
 
   print_Enemies();
-  print_Stats();
+  print_stats();
   switch(Local.phase)
     {
     case'i':
@@ -18,8 +19,7 @@ void battle(void)
         Local.phase='u';
       break;
     case'u':
-      Item= item_sel();
-      print_Uses(Item);
+      print_Uses(item_sel());
       if(choice(&Local.use_chosen, 3))
 	{
 	  switch(Local.use_chosen)
@@ -33,10 +33,15 @@ void battle(void)
 	      Local.phase='2';
 	      break;
 	    case 3: //difenditi
+	      if(Local.defending)
+	        {
+		  Item= addItem(&Local.Bag);
+		  Item->Info= Local.Defending;
+		}
+	      Item= item_sel();
 	      Local.defence= Item->Info.defvalue;
-	      Item->Info.uses-= 1; //sia u che p ...sicuro?
-	      if(!Item->Info.uses)
-		deleteItem(&Local.Bag, Item);
+	      Local.Defending= Item->Info;
+	      Local.defending= 1;//*****
 	      Local.phase='a';
 	      break;
 	    }
@@ -50,18 +55,44 @@ void battle(void)
       break;
     case'1':
       Item= item_sel();
-      print_Sel(Item);
-      Use(Item);
+      print_sel(Item);
+      if(choice(&Local.enemy_chosen, Local.Battle.enemies+1))
+	{
+	  if(Local.enemy_chosen== Local.Battle.enemies+1)
+	    self_damage(Item->Info.damage);
+	  Local.phase='a';
+	}
+      else if(Local.state== 'q')
+	{
+	  switch_state();
+	  Local.enemy_chosen= 0;
+	  Local.phase='u';
+	}
       break;
     case'2':
-      Trow(item_sel());
+      Item= item_sel();
+      print_sel(Item);
       break;
-    case 'a':
-      /* Action(); */
-      puts("missing");
+    case'a':
+      Enemy= enemy_sel();
+      Action= Enemy->First;
+      print_Action(Enemy);
       press_a();
-      Local.ranged= 0;
-      Local.phase= 'i';
+      switch(Action->Info.type)
+	{
+	case'm':
+	  if(Local.ranged)
+	    break;
+	  //else
+	    //resist();
+
+
+	}
+      //scroll_Action(Enemy);
+      if(Enemy->Next)
+	Enemy= Enemy->Next;
+      else
+	Local.phase='i';
       break;
     }
 }
@@ -79,95 +110,26 @@ Item_t* item_sel()
   Item_t* Temp= Local.Bag.First;
   for(int x=1; x<Local.item_chosen; x++)
     Temp= Temp->Next;
+
   return Temp;
 }
 
-void value(unsigned short* health, unsigned short* defence, int usevalue)
+void enemy_damage(Enemy_t* Enemy, int damage) //**** invertire valori usevalue
 {
-  if(usevalue<0)
-    for(int x= 0; x > usevalue && *health; x--)
-      if(*defence)
-	*defence-= 1; //resist();
-      else
-	*health-= 1;
+
+}
+
+void self_damage(int damage) //***
+{
+  if(damage>=0)
+    for(int x= 0; x<damage && Local.health; x++)
+      Local.health-= 1;
   else
-    *health+= usevalue;
+    Local.health-= damage;
 }
 
-void Use(Item_t* Item)
+void resist(int damage)
 {
-  if(choice(&Local.enemy_chosen, Local.Battle.enemies+1))
-    {
-      if(Local.enemy_chosen== Local.Battle.enemies+1)
-	value(&Local.health, &Local.defence, Item->Info.usevalue);
-      else
-	{
-	  Enemy_t* Enemy= enemy_sel();
-	  value(&Enemy->Info.health, &Enemy->Info.defence, Item->Info.usevalue);
-	}
-      Local.phase= 'a';
-      Local.enemy_chosen= 0;
-      Item->Info.uses-= 1; //sia u che p ...sicuro?
-      if(!Item->Info.uses)
-	deleteItem(&Local.Bag, Item);
-    }
-  else if(Local.state== 'q')
-    {
-      switch_state();
-      Local.enemy_chosen= 0;
-      Local.phase='u'; // chosen?
-    }
+  for(int x= 0; x<damage; x++)
+    ;
 }
-
-void Trow()
-{
-  if (choice(&Local.enemy_chosen, Local.Battle.enemies))
-    {
-      enemy_sel();
-      item_sel();
-      if (Local.Battle.First->Info.defence)  //trow<def
-        NULL;
-      else              //trow>use
-        Local.Battle.First->Info.health += Local.Bag.First->Info.trowvalue;
-    }
-  if (Local.Bag.First->Info.type=='u')
-    /* deleteItem(&Local.Bag, Local.Bag.First->Info.name) */;    
-  else
-    Local.Bag.First->Info.uses-= 1;
-}
-
-void Action()
-{
-  if (Local.Battle.First->First->Info.type=='d')                
-    Local.Battle.First->Info.defence += Local.Battle.First->First->Info.value;
-  else if (Local.Battle.First->First->Info.type=='u' && Local.Battle.First->First->Info.value > 0)              //usa su se stesso, discutibile (lo vogliamo fare?)
-    Local.Battle.First->Info.health += Local.Battle.First->First->Info.value;
-  else
-    {
-      if (Local.defence)        
-        {
-          if(Local.Battle.First->First->Info.type=='u')         
-            Local.defence=0;                                                            
-          else
-            NULL;
-        }
-      else      
-        {
-          if(Local.Battle.First->First->Info.type=='u') 
-            {
-              if (Local.use_chosen==3)  //se l'ultimo item usato era di tipo trow (u vs t)
-                NULL;
-              else                                              //u vs u
-                Local.health += Local.Battle.First->First->Info.value;
-            }
-          else          //t vs t, t vs u 
-            Local.health += Local.Battle.First->First->Info.value;
-        }
-    }
-  Local.Battle.First->Last->Next = Local.Battle.First->First;
-  Local.Battle.First->First = Local.Battle.First->First->Next;
-  printf ("%s\n\nPremere 'a' continuare.\n", Local.Battle.First->First->Info.text);      //discutibile anche questo ahah
-  press_a();    
-
-}
-

@@ -168,8 +168,9 @@ void isearch(short uses, char* id){
     I= addItem(&Local.Bag);
     strcpy(I->Info.name, id);
     I->Info.type=type;
+    I->Info.uses= uses;
     temp=sstring(pf,'.');
-    I->Info.usevalue=atoi(temp);
+    I->Info.damage=atoi(temp);
     free(temp);
     temp=sstring(pf,'.');
     I->Info.trowvalue=atoi(temp);

@@ -24,6 +24,7 @@ void print_intro()
   CENTER("Magioco");
   puts("");
   CENTER("Premere 'a' per continuare");
+  CENTER("Premere 'q' per uscire");
 }
 
 void print_menu()
@@ -63,7 +64,7 @@ void print_quit(short* chosen)
 {
   CENTER("Quit Menù");
   puts("");
-  CENTER("Premere 'q' per continuare");
+  CENTER("Premere 'q' per annullare");
   puts("");
   CHOSE("Salva",*chosen==1,width);
   CHOSE("Menù",*chosen==2,width);
@@ -116,7 +117,7 @@ void print_Enemies()
     }
 }
 
-void print_Stats()
+void print_stats()
 {
   for(int x= strlen(Local.name)+2; x < width; x++)
     printf(" ");
@@ -160,8 +161,19 @@ void print_Uses(Item_t* Item)
   CHOSE("(( Blocca",Local.use_chosen==3,width);
 }
 
-void print_Sel(Item_t* Item)
+void print_sel(Item_t* Item)
 {
   printf("%s", Local.use_chosen==1? ">> Usa <<": "<< Lancia");
   CHOSE(Item->Info.name,0,(width-16));
+}
+
+void print_Action(Enemy_t* Enemy)
+{
+  Action_t* A= Enemy->First;
+  printf("%s: %s\n", Enemy->Info.name, A->Info.text);
+  if(A->Info.type=='m' && Local.ranged)
+      printf("%s è fuori portata\n", Local.name);
+  if(A->Info.type!='d' && Local.defending)
+    printf("%s blocca con %s\n", Local.name, Local.Defending.name);
+
 }
