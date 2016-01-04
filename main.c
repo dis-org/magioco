@@ -77,6 +77,7 @@ int main()
 		    Local.defence= 0;
 		    Local.ranged= 0;
 		    Local.defending= 0;
+		    Local.current_enemy= 1;
                     save();
                   }
                 if(!press_a())

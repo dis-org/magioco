@@ -1,8 +1,8 @@
 /Boccuto.6.2
-  -r.2.inizia uno studio di funzione
-  -r.3.applica il teorema dell'Ospital
-  -d.4.TRUCCO!
-  -r.6.scatena un evento con probabilità inferiore al 10%
+  -r.1.inizia uno studio di funzione
+  -r.2.applica il teorema dell'Ospital
+  -d.3.TRUCCO!
+  -r.4.scatena un evento con probabilità inferiore al 10%
   -#
 /Il gemello malvagio di Boccuto.2.6
 	-m.2."dovete entrare da sopra!"

@@ -85,15 +85,6 @@ _Bool choice(short* chosen, short choices)
     }
 }
 
-void select(Choice_List_t* List, char* text, short chosen)
-{
-  Choice_t* P= List->First;
-  for(int x= 1; x < chosen; x++)
-    P= P->Next;
-  strcpy(text, P->text);
-  deleteChoices(&Local.Events);
-}
-
 _Bool new_name()
 {
   _Bool existent= 0;

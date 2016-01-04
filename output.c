@@ -169,11 +169,41 @@ void print_sel(Item_t* Item)
 
 void print_Action(Enemy_t* Enemy)
 {
-  Action_t* A= Enemy->First;
-  printf("%s: %s\n", Enemy->Info.name, A->Info.text);
-  if(A->Info.type=='m' && Local.ranged)
-      printf("%s è fuori portata\n", Local.name);
-  if(A->Info.type!='d' && Local.defending)
-    printf("%s blocca con %s\n", Local.name, Local.Defending.name);
-
+  Action_t* Action= Enemy->First;
+  printf("%s: %s\n", Enemy->Info.name, Action->Info.text);
+  switch(Action->Info.type)
+    {
+    case'm':
+      if(Local.ranged)
+	printf("%s è fuori portata\n", Local.name);
+      else if(Local.defending)
+	printf("%s si difende con %s\n", Local.name, Local.Defending.name);
+      else
+	puts("colpo diretto\n");
+      break;
+    case'r':
+      if(Local.defending)
+	if(Local.Defending.defvalue < Action->Info.value)
+	  printf("%s non blocca il colpo\n", Local.Defending.name);
+	else
+	  printf("%s blocca il colpo\n", Local.Defending.name);
+      else
+	printf("colpo a distanza\n");
+      break;
+    }
+  if(Enemy==enemy_sel() && !Local.defending)
+  {
+    Item_t* Item= item_sel();
+    puts("");
+    if(!Local.ranged)
+      {
+	printf("%s usa %s su %s\n", Local.name, Item->Info.name, Enemy->Info.name);
+	if(Action->Info.type=='r')
+	  printf("%s è fuori portata\n", Enemy->Info.name);
+	else
+	  puts("colpo diretto\n");
+      }
+    else
+      printf("%s lancia %s contro %s\n", Local.name, Item->Info.name, Enemy->Info.name);
+  }
 }

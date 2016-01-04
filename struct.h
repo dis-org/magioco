@@ -46,11 +46,12 @@ typedef struct{
 //Items
 typedef struct{
   char name[64]; //da rivedere
-  char type; //unitario 'u' o pluritario 'p' cambia la scritta tra durata e quantità
+  char type; //unitario 'u' o pluritario 'p'
   int damage; //positivo= danno, negativo= vita
-  unsigned short trowvalue; //i danni che fa al nemico se scagliata su di esso
+  unsigned short trowvalue; 
   unsigned short defvalue; 
-  int uses; //viene modificato in modo diverso a seconda del tipo
+  int resistence;
+  int quantity;
 } Item_Data_t;
 
 typedef struct Item{
@@ -80,9 +81,10 @@ typedef struct Data{
   unsigned short defence; //difesa (solo in combattimento)
   _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)
   _Bool defending;
-  char action;
+  short current_enemy;
   Choice_List_t Events;
   Item_List_t Bag;
-  Enemy_List_t Battle;
+  Item_List_t Ground; //oggetti persi in combattimento
   Item_Data_t Defending;
+  Enemy_List_t Battle;
 } Data_t;

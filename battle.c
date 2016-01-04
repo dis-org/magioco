@@ -74,7 +74,9 @@ void battle(void)
       print_sel(Item);
       break;
     case'a':
-      Enemy= enemy_sel();
+      Enemy= Local.Battle.First;
+      for(int x=1; x<Local.current_enemy; x++)
+	Enemy= Enemy->Next;
       Action= Enemy->First;
       print_Action(Enemy);
       press_a();
@@ -83,21 +85,59 @@ void battle(void)
 	case'm':
 	  if(Local.ranged)
 	    break;
-	  //else
-	    //resist();
-
-
+	  else if(Local.defence)
+	    {
+	      resist(Action->Info.value);
+	      if(!--Local.defence && Local.defending)
+		{
+		  Item= addItem(&Local.Bag);
+		  Item->Info= Local.Defending;
+		  Local.defending= 0;
+		}
+	    }
+	  else
+	    self_damage(Action->Info.value);
+	  break;
+	case'r':
+	  if(Local.defending)
+	    if(Local.Defending.defvalue < Action->Info.value)
+	      self_damage(Action->Info.value);
+	    else
+	      resist(Action->Info.value);
+	  else
+	    self_damage(Action->Info.value);
+	  break;
 	}
-      //scroll_Action(Enemy);
+      if(Enemy==enemy_sel() && !Local.defending)
+	{
+	  Item= item_sel();
+	  if(!Local.ranged)
+	    {
+	      if(Action->Info.type=='r')
+		break;
+	      else
+		enemy_damage(Enemy, Item->Info.damage);
+	    }
+	  else
+	    enemy_damage(Enemy, Item->Info.trowvalue);
+	}
+      
+      Enemy->Last->Next= Action;
+      Enemy->First= Action->Next;
+      Enemy->Last= Action;
+      Action->Next= NULL;
       if(Enemy->Next)
-	Enemy= Enemy->Next;
+	Local.current_enemy++;
       else
-	Local.phase='i';
+	{
+	  Local.current_enemy= 1;
+	  Local.phase='i';
+	}
       break;
     }
 }
 
- Enemy_t* enemy_sel()
+Enemy_t* enemy_sel()
 {
   Enemy_t* Temp= Local.Battle.First;
   for(int x=1; x<Local.enemy_chosen; x++)
@@ -110,16 +150,15 @@ Item_t* item_sel()
   Item_t* Temp= Local.Bag.First;
   for(int x=1; x<Local.item_chosen; x++)
     Temp= Temp->Next;
-
   return Temp;
 }
 
-void enemy_damage(Enemy_t* Enemy, int damage) //**** invertire valori usevalue
+void enemy_damage(Enemy_t* Enemy, int damage) //danno al nemico (compreesa difesa)
 {
 
 }
 
-void self_damage(int damage) //***
+void self_damage(int damage) //danno diretto alla vita del giocatore
 {
   if(damage>=0)
     for(int x= 0; x<damage && Local.health; x++)
@@ -128,8 +167,13 @@ void self_damage(int damage) //***
     Local.health-= damage;
 }
 
-void resist(int damage)
+void resist(int damage) //danno al gicatore difeso
 {
   for(int x= 0; x<damage; x++)
-    ;
+    {
+      if(Local.Defending.type=='u')
+	if(!--Local.Defending.uses)
+	  Local.defending= 0;
+      //else?
+    }
 }

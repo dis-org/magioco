@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+//-----------------------------------------Choices
 Choice_t* addChoice(Choice_List_t* List)
 {
   Choice_t* C= calloc(1,sizeof(Choice_t));
@@ -21,6 +22,15 @@ Choice_t* addChoice(Choice_List_t* List)
   return C;
 }
 
+void select(Choice_List_t* List, char* text, short chosen)
+{
+  Choice_t* P= List->First;
+  for(int x= 1; x < chosen; x++)
+    P= P->Next;
+  strcpy(text, P->text);
+  deleteChoices(List);
+}
+
 void deleteChoices(Choice_List_t* List)
 {
   Choice_t* Temp;
@@ -33,7 +43,7 @@ void deleteChoices(Choice_List_t* List)
   List->Last=NULL;
   List->choices=0;
 }
-
+//-----------------------------------------Items
 Item_t* addItem(Item_List_t* List)
 {
   Item_t *Item = calloc(1, sizeof(Item_t));
@@ -64,6 +74,11 @@ Item_t* searchItem(Item_List_t* List, char* name)
       Ret= Ret->Next;
     }
   return Ret;
+}
+
+void move_Item_top()
+{
+
 }
 
 void deleteItem(Item_List_t* List, Item_t* Item) //da usare solo con searchItem (unire?)
@@ -107,7 +122,7 @@ void deleteItems(Item_List_t* List)
   List->Last= NULL;
   List->items = 0;
 }
-
+//-----------------------------------------Enemies
 Enemy_t* addEnemy(Enemy_List_t* List)
 {
   Enemy_t* Enemy = calloc(1, sizeof(Enemy_t));
@@ -128,6 +143,72 @@ Enemy_t* addEnemy(Enemy_List_t* List)
   return Enemy;
 }
 
+Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
+{
+  Enemy_t* Ret = List->First;
+  while(Ret)
+    {
+      if(!strcmp(Ret->Info.name, name))
+        break;
+      Ret = Ret->Next;
+    }
+  return Ret;
+}
+
+void moveEnemy_bot(Enemy_List_t* List, Enemy_t* Enemy)
+{
+  if(Enemy==List->First)
+    {
+      List->First= Enemy->Next;
+      List->Last= Enemy;
+      Enemy->Next= NULL;
+    }
+  //else
+}
+
+void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
+{
+  Enemy_t* Ret= List->First;
+  if(Ret==Enemy)
+    {
+      List->First= Ret->Next;
+      free(Enemy);
+    }
+  else
+    while(Ret)
+      {
+  if(!Ret->Next)
+    {
+      fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n");
+      exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+    }
+  else
+    if(Ret->Next== Enemy)
+      {
+        Ret->Next= Ret->Next->Next;
+        if(!Ret->Next)
+    List->Last= Ret;
+        free(Enemy);
+        break;
+      }
+      }
+  List->enemies--;
+}
+
+void deleteEnemies(Enemy_List_t* List)
+{
+  Enemy_t* Enemy;
+  while(List->First)
+    {
+      Enemy = List->First;
+      List->First = List->First->Next;
+      deleteActions(Enemy);
+      free(Enemy);
+    }
+  List->Last=NULL;
+  List->enemies = 0;
+}
+//-----------------------------------------Actions
 Action_t* addAction(Enemy_t* Enemy)
 {
   Action_t* Action = calloc(1, sizeof(Action_t));
@@ -146,61 +227,6 @@ Action_t* addAction(Enemy_t* Enemy)
     }
   Enemy->Info.actions++;
   return Action;
-}
-
-Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
-{
-  Enemy_t* Ret = List->First;
-  while(Ret)
-    {
-      if(!strcmp(Ret->Info.name, name))
-        break;
-      Ret = Ret->Next;
-    }
-  return Ret;
-}
-
-void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
-{
-  Enemy_t* Ret= List->First;
-  if(Ret==Enemy)
-    {
-      List->First= Ret->Next;
-      free(Enemy);
-    }
-  else
-    while(Ret)
-      {
-	if(!Ret->Next)
-	  {
-	    fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n");
-	    exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
-	  }
-	else
-	  if(Ret->Next== Enemy)
-	    {
-	      Ret->Next= Ret->Next->Next;
-	      if(!Ret->Next)
-		List->Last= Ret;
-	      free(Enemy);
-	      break;
-	    }
-      }
-  List->enemies--;
-}
-
-void deleteEnemies(Enemy_List_t* List)
-{
-  Enemy_t* Enemy;
-  while(List->First)
-    {
-      Enemy = List->First;
-      List->First = List->First->Next;
-      deleteActions(Enemy);
-      free(Enemy);
-    }
-  List->Last=NULL;
-  List->enemies = 0;
 }
 
 void deleteActions(Enemy_t* Enemy)
