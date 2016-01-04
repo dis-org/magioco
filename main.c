@@ -1,7 +1,6 @@
 #include "universal.h"
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 #define WIDTH_DEFAULT 80
 
@@ -139,8 +138,10 @@ int main()
             on=0;
           else
             {
+	      deleteEnemies(&Local.Battle);
               deleteItems(&Local.Bag);
               Local.state='i';
+	      Local.health= 3;
               Local.chosen= 1;
             }
           continue;

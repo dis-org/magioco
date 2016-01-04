@@ -29,6 +29,12 @@ void save()
       fwrite(&I->Info,sizeof(Item_Data_t),1,pf);
       I= I->Next;
     }
+  I= Local.Ground.First;
+  for(int x= 0; x<Local.Ground.items; x++)
+    {
+      fwrite(&I->Info,sizeof(Item_Data_t),1,pf);
+      I= I->Next;
+    }
   Enemy_t* E= Local.Battle.First;
   for(int x= 0; x<Local.Battle.enemies; x++)
     {
@@ -78,6 +84,12 @@ void load()
       I= addItem(&Local.Bag);
       fread(&I->Info,sizeof(Item_Data_t),1,pf);
       Local.Bag.items-= 1;
+    }
+  for(int x= 0; x<Local.Ground.items; x++)
+    {
+      I= addItem(&Local.Ground);
+      fread(&I->Info,sizeof(Item_Data_t),1,pf);
+      Local.Ground.items-= 1;
     }
   for(int x= 0; x<Local.Battle.enemies; x++)
     {

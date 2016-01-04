@@ -1,5 +1,4 @@
 #include "universal.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -132,22 +131,40 @@ void print_stats()
   puts("\n");
 }
 
-void print_Items()      //solo nome 
+void print_Items()
 { 
   Item_t* Tmp= Local.Bag.First;
-  puts("Scegli:");
-  for(int x= 1; x <= Local.Bag.items; x++)
+  if(!Local.Bag.items && !Local.defending)
+    puts("Non hai oggetti");
+  else
     {
-      for(int x= strlen(Tmp->Info.name)/2; x< width/2-7; x++) 
-	printf(" "); 
-      printf("%c%s%c  %s: %d\n"
-	     , Local.item_chosen==x?'[':' '
-	     , Tmp->Info.name
-	     , Local.item_chosen==x?']':' '
-	     , Tmp->Info.type=='u' ? "res" : "qnt"
-	     , Tmp->Info.uses
-	     );
-      Tmp= Tmp->Next;
+      puts("Scegli:");
+      for(int x= 1; x <= Local.Bag.items; x++)
+	{
+	  for(int x= strlen(Tmp->Info.name)/2; x< width/2-7; x++) 
+	    printf(" "); 
+	  printf("%c%s%c  %s: %d\n"
+		 , Local.item_chosen==x?'[':' '
+		 , Tmp->Info.name
+		 , Local.item_chosen==x?']':' '
+		 , Tmp->Info.type=='u' ? "res" : "qnt"
+		 , Tmp->Info.uses
+		 );
+	  Tmp= Tmp->Next;
+	}
+      if(Local.defending)
+	{
+	  for(int x= strlen(Local.Defending.name)/2; x< width/2-7; x++) 
+	    printf(" ");
+	  printf("%c%s%c  %s: %d"
+		 , Local.item_chosen==Local.Bag.items+1?'[':' '
+		 , Local.Defending.name
+		 , Local.item_chosen==Local.Bag.items+1?']':' '
+		 , Local.Defending.type=='u' ? "res" : "qnt"
+		 , Local.Defending.uses
+		 );
+	  printf("  ((difesa))\n");
+	}
     }
 }
 
@@ -177,33 +194,45 @@ void print_Action(Enemy_t* Enemy)
       if(Local.ranged)
 	printf("%s è fuori portata\n", Local.name);
       else if(Local.defending)
-	printf("%s si difende con %s\n", Local.name, Local.Defending.name);
-      else
-	puts("colpo diretto\n");
+	{
+	  printf("%s si difende con %s\n", Local.name, Local.Defending.name);
+	  if(Local.Defending.type=='p')
+	    printf("%s distrutti\n", Local.Defending.name);
+	}
       break;
     case'r':
       if(Local.defending)
-	if(Local.Defending.defvalue < Action->Info.value)
-	  printf("%s non blocca il colpo\n", Local.Defending.name);
-	else
-	  printf("%s blocca il colpo\n", Local.Defending.name);
-      else
-	printf("colpo a distanza\n");
+	{
+	  if(Local.Defending.defvalue < Action->Info.value)
+	    printf("%s non basta a fermare il colpo\n", Local.Defending.name);
+	  else
+	    {
+	      printf("%s ferma il colpo\n", Local.Defending.name);
+	      if(Local.Defending.type=='p')
+		printf("%s distrutti\n", Local.Defending.name);
+	    }
+	}
       break;
     }
+
   if(Enemy==enemy_sel() && !Local.defending)
-  {
-    Item_t* Item= item_sel();
-    puts("");
-    if(!Local.ranged)
-      {
-	printf("%s usa %s su %s\n", Local.name, Item->Info.name, Enemy->Info.name);
-	if(Action->Info.type=='r')
-	  printf("%s è fuori portata\n", Enemy->Info.name);
-	else
-	  puts("colpo diretto\n");
-      }
-    else
-      printf("%s lancia %s contro %s\n", Local.name, Item->Info.name, Enemy->Info.name);
-  }
+    {
+      Item_t* Item;
+      Item= item_sel();
+      puts("");
+      if(!Local.ranged)
+	{
+	  printf("%s usa %s su %s\n", Local.name, Item->Info.name, Enemy->Info.name);
+	  if(Action->Info.type=='r')
+	    printf("%s è fuori portata\n", Enemy->Info.name);
+	}
+      else
+	{
+	  if(!Item)
+	    Item= Local.Ground.Last;
+	  printf("%s lancia %s contro %s\n", Local.name, Item->Info.name, Enemy->Info.name);
+	  if(Enemy->Info.defence)
+	    puts("Il nemico è difeso");
+	}
+    }
 }

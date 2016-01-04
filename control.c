@@ -1,8 +1,9 @@
-#include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include"universal.h"
+
 extern Data_t Local;
+
 void test_story(){
   char *temp=&Local.id;
   FILE *pf;

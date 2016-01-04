@@ -78,3 +78,4 @@ void esearch(char*);
 //testo con riepilogo della partita
 //impostazioni per tasti
 //risistemare tutti i type :C
+//oggetti che colpiscono tutti i nemici 

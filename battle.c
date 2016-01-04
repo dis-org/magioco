@@ -1,13 +1,27 @@
 #include "universal.h"
-#include <stdio.h>
 
 extern Data_t Local;
 
 void battle(void)
 {
-  Item_t* Item;
+  Item_t *Item, *G;
   Enemy_t* Enemy;
   Action_t* Action;
+
+  if(!Local.Battle.enemies)
+    {
+      G= Local.Ground.First;
+      for(int x= 0; x<Local.Ground.items; x++)
+	{
+	  Item= addItem(&Local.Bag);
+	  Item->Info= G->Info;
+	  G= G->Next;
+	}
+      deleteItems(&Local.Ground);
+      Local.state='t';
+      return;
+      //****
+    }
 
   print_Enemies();
   print_stats();
@@ -15,8 +29,22 @@ void battle(void)
     {
     case'i':
       print_Items();
-      if(choice(&Local.item_chosen, Local.Bag.items))
-        Local.phase='u';
+      if(!Local.Bag.items && !Local.defending)
+	{
+	  press_a();
+	  Local.phase='a';
+	}
+      else if(choice(&Local.item_chosen, Local.Bag.items+Local.defending))
+	{
+	  if(Local.item_chosen==Local.Bag.items+1)
+	    {
+	      Local.defending= 0;
+	      Local.defence= 0;
+	      Item= addItem(&Local.Bag);
+	      Item->Info= Local.Defending;
+	    }
+	  Local.phase='u';
+	}
       break;
     case'u':
       print_Uses(item_sel());
@@ -41,7 +69,8 @@ void battle(void)
 	      Item= item_sel();
 	      Local.defence= Item->Info.defvalue;
 	      Local.Defending= Item->Info;
-	      Local.defending= 1;//*****
+	      deleteItem(&Local.Bag, Item);
+	      Local.defending= 1;
 	      Local.phase='a';
 	      break;
 	    }
@@ -59,7 +88,12 @@ void battle(void)
       if(choice(&Local.enemy_chosen, Local.Battle.enemies+1))
 	{
 	  if(Local.enemy_chosen== Local.Battle.enemies+1)
-	    self_damage(Item->Info.damage);
+	    {
+	      Local.enemy_chosen= 0;
+	      self_damage(Item->Info.damage);
+	    }
+	  if(!--Item->Info.uses)
+	    deleteItem(&Local.Bag, Item);
 	  Local.phase='a';
 	}
       else if(Local.state== 'q')
@@ -72,6 +106,31 @@ void battle(void)
     case'2':
       Item= item_sel();
       print_sel(Item);
+      if(choice(&Local.enemy_chosen, Local.Battle.enemies))
+	{
+	  if(Item->Info.type=='u')
+	    {
+	      G= addItem(&Local.Ground);
+	      G->Info= Item->Info;
+	      deleteItem(&Local.Bag, Item);
+	    }
+	  else if(!--Item->Info.uses)
+	    deleteItem(&Local.Bag, Item);
+	  if(Local.defending)
+	    {
+	      Item= addItem(&Local.Bag);
+	      Item->Info= Local.Defending;
+	      Local.defending= 0;
+	    }
+	  Local.ranged= 1;
+	  Local.phase='a';
+	}
+      else if(Local.state== 'q')
+	{
+	  switch_state();
+	  Local.enemy_chosen= 0;
+	  Local.phase='u';
+	}
       break;
     case'a':
       Enemy= Local.Battle.First;
@@ -80,6 +139,8 @@ void battle(void)
       Action= Enemy->First;
       print_Action(Enemy);
       press_a();
+
+      //azione nemica
       switch(Action->Info.type)
 	{
 	case'm':
@@ -99,7 +160,7 @@ void battle(void)
 	    self_damage(Action->Info.value);
 	  break;
 	case'r':
-	  if(Local.defending)
+	  if(Local.defence)
 	    if(Local.Defending.defvalue < Action->Info.value)
 	      self_damage(Action->Info.value);
 	    else
@@ -107,18 +168,20 @@ void battle(void)
 	  else
 	    self_damage(Action->Info.value);
 	  break;
+	case'd':
+	  Enemy->Info.defence= Action->Info.value;
 	}
+
+      //attacco del giocatore (solo se il nemico attuale è il bersaglio dell'attacco
       if(Enemy==enemy_sel() && !Local.defending)
 	{
 	  Item= item_sel();
 	  if(!Local.ranged)
 	    {
-	      if(Action->Info.type=='r')
-		break;
-	      else
+	      if(Action->Info.type!='r')
 		enemy_damage(Enemy, Item->Info.damage);
 	    }
-	  else
+	  else if(!Enemy->Info.defence)
 	    enemy_damage(Enemy, Item->Info.trowvalue);
 	}
       
@@ -130,7 +193,11 @@ void battle(void)
 	Local.current_enemy++;
       else
 	{
+	  Local.use_chosen= 1;
+	  Local.item_chosen= 1;
+	  Local.enemy_chosen= 0;
 	  Local.current_enemy= 1;
+	  Local.ranged= 0;
 	  Local.phase='i';
 	}
       break;
@@ -139,6 +206,8 @@ void battle(void)
 
 Enemy_t* enemy_sel()
 {
+  if(!Local.enemy_chosen)
+    return NULL;
   Enemy_t* Temp= Local.Battle.First;
   for(int x=1; x<Local.enemy_chosen; x++)
     Temp= Temp->Next;
@@ -147,15 +216,28 @@ Enemy_t* enemy_sel()
 
 Item_t* item_sel()
 {
+  if(!Local.item_chosen)
+    return NULL;
   Item_t* Temp= Local.Bag.First;
   for(int x=1; x<Local.item_chosen; x++)
     Temp= Temp->Next;
   return Temp;
 }
 
-void enemy_damage(Enemy_t* Enemy, int damage) //danno al nemico (compreesa difesa)
+void enemy_damage(Enemy_t* Enemy, int damage) //danno al nemico (compresa difesa)
 {
-
+  if(damage>=0)
+    {
+      while(damage--)
+	if(Enemy->Info.defence)
+	  Enemy->Info.defence-= 1;
+	else if(Enemy->Info.health)
+	  Enemy->Info.health-= 1;
+      if(!Enemy->Info.health)
+	deleteEnemy(&Local.Battle, Enemy);
+    }
+  else
+    Enemy->Info.health-= damage;
 }
 
 void self_damage(int damage) //danno diretto alla vita del giocatore
@@ -169,11 +251,15 @@ void self_damage(int damage) //danno diretto alla vita del giocatore
 
 void resist(int damage) //danno al gicatore difeso
 {
-  for(int x= 0; x<damage; x++)
-    {
-      if(Local.Defending.type=='u')
+  if(!Local.Defending.type=='p') //da decidere se si perde del tutto o no
+    Local.defending=0;
+  else
+    for(int x= 0; x<damage; x++)
+      {
 	if(!--Local.Defending.uses)
-	  Local.defending= 0;
-      //else?
+	  {
+	    Local.defending= 0;
+	    break;
+	  }
     }
 }
