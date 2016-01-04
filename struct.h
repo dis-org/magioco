@@ -50,8 +50,7 @@ typedef struct{
   int damage; //positivo= danno, negativo= vita
   unsigned short trowvalue; 
   unsigned short defvalue; 
-  int resistence;
-  int quantity;
+  int uses;
 } Item_Data_t;
 
 typedef struct Item{
