@@ -41,10 +41,10 @@ void save()
       fwrite(&E->Info,sizeof(Enemy_Data_t),1,pf);
       Action_t* A= E->First;
       for(int y= 0; y<E->Info.actions; y++)
-	{
-	  fwrite(&A->Info,sizeof(Action_Data_t),1,pf);
-	  A= A->Next;
-	}
+        {
+          fwrite(&A->Info,sizeof(Action_Data_t),1,pf);
+          A= A->Next;
+        }
       E= E->Next;
     }
   puts("");
@@ -96,11 +96,11 @@ void load()
       E= addEnemy(&Local.Battle);
       fread(&E->Info,sizeof(Enemy_Data_t),1,pf);
       for(int y= 0; y<Local.Battle.Last->Info.actions; y++)
-	{
-	  A= addAction(Local.Battle.Last);
-	  fread(&A->Info,sizeof(Action_Data_t),1,pf);
-	  Local.Battle.Last->Info.actions-= 1;
-	}
+        {
+          A= addAction(Local.Battle.Last);
+          fread(&A->Info,sizeof(Action_Data_t),1,pf);
+          Local.Battle.Last->Info.actions-= 1;
+        }
       Local.Battle.enemies-= 1;
     }
   fclose(pf);

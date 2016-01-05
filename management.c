@@ -92,20 +92,20 @@ void deleteItem(Item_List_t* List, Item_t* Item) //da usare solo con searchItem 
   else
     while(Ret)
       {
-	if(!Ret->Next)
-	  {
-	    fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n");
-	    exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
-	  }
-	else
-	  if(Ret->Next== Item)
-	    {
-	      Ret->Next= Ret->Next->Next;
-	      if(!Ret->Next)
-		List->Last= Ret;
-	      free(Item);
-	      break;
-	    }
+        if(!Ret->Next)
+          {
+            fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n");
+            exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+          }
+        else
+          if(Ret->Next== Item)
+            {
+              Ret->Next= Ret->Next->Next;
+              if(!Ret->Next)
+                List->Last= Ret;
+              free(Item);
+              break;
+            }
       }
   List->items--;
 }
@@ -157,9 +157,12 @@ Enemy_t* searchEnemy(Enemy_List_t* List, char* name)
 
 void moveEnemy_bot(Enemy_List_t* List, Enemy_t* Enemy)
 {
+  if(Enemy==List->Last)
+    return;
   if(Enemy==List->First)
     {
       List->First= Enemy->Next;
+      List->Last->Next= Enemy;
       List->Last= Enemy;
       Enemy->Next= NULL;
     }
@@ -177,20 +180,20 @@ void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
   else
     while(Ret)
       {
-	if(!Ret->Next)
-	  {
-	    fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n");
-	    exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
-	  }
-	else
-	  if(Ret->Next== Enemy)
-	    {
-	      Ret->Next= Ret->Next->Next;
-	      if(!Ret->Next)
-		List->Last= Ret;
-	      free(Enemy);
-	      break;
-	    }
+        if(!Ret->Next)
+          {
+            fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n");
+            exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+          }
+        else
+          if(Ret->Next== Enemy)
+            {
+              Ret->Next= Ret->Next->Next;
+              if(!Ret->Next)
+                List->Last= Ret;
+              free(Enemy);
+              break;
+            }
       }
   List->enemies--;
 }

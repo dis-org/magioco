@@ -11,6 +11,9 @@ short width;
 
 int main(int argc, char* argv[])
 {
+  if(argc>1 && !strcmp(argv[1],"test"))
+    test_story();
+
   _Bool on= 1;
   char temp[128];
   char t;
@@ -19,7 +22,7 @@ int main(int argc, char* argv[])
   Local.state='i';
   Local.previous='q';
   Local.chosen= 1;
-  Local.health= 3;
+  Local.health= 1;
 
   while(on)
     {
@@ -56,11 +59,11 @@ int main(int argc, char* argv[])
                     load();
                   }
                 if(Local.state=='q')
-		  {
-		    switch_state();
-		    deleteChoices(&Local.Events);
-		    Local.chosen= 1;
-		  }
+                  {
+                    switch_state();
+                    deleteChoices(&Local.Events);
+                    Local.chosen= 1;
+                  }
                 continue;
               case 2:
                 if(new_name())
@@ -73,32 +76,32 @@ int main(int argc, char* argv[])
                     Local.item_chosen= 1;
                     Local.use_chosen= 1;
                     Local.health= 3;
-		    Local.defence= 0;
-		    Local.ranged= 0;
-		    Local.defending= 0;
-		    Local.current_enemy= 1;
+                    Local.defence= 0;
+                    Local.ranged= 0;
+                    Local.defending= 0;
+                    Local.current_enemy= 1;
                     save();
                   }
                 if(!press_a())
-		  {
-		    Local.state= 'm';
-		    Local.previous= 'q';
-		  }
+                  {
+                    Local.state= 'm';
+                    Local.previous= 'q';
+                  }
                 continue;
               case 3:
-		while(1)
-		  {
-		    next_page();
-		    print_imp();
-		    if(choice(&width, 120))
-		      break;
-		    if(Local.state=='q')
-		      {
-			switch_state();
-			width= WIDTH_DEFAULT;
-			break;
-		      }
-		  }
+                while(1)
+                  {
+                    next_page();
+                    print_imp();
+                    if(choice(&width, 120))
+                      break;
+                    if(Local.state=='q')
+                      {
+                        switch_state();
+                        width= WIDTH_DEFAULT;
+                        break;
+                      }
+                  }
                 continue;
               case 4:
                 next_page();
@@ -111,7 +114,7 @@ int main(int argc, char* argv[])
             continue;
         case't':
           strcpy(temp,Local.id);
-	  deleteChoices(&Local.Events);
+          deleteChoices(&Local.Events);
           readevent(temp, &t);
           if(press_a())
             {
@@ -138,10 +141,10 @@ int main(int argc, char* argv[])
             on=0;
           else
             {
-	      deleteEnemies(&Local.Battle);
+              deleteEnemies(&Local.Battle);
               deleteItems(&Local.Bag);
               Local.state='i';
-	      Local.health= 3;
+              Local.health= 1;
               Local.chosen= 1;
             }
           continue;
@@ -160,9 +163,9 @@ int main(int argc, char* argv[])
                   }
                 continue;
               case 2:
-		deleteChoices(&Local.Events);
+                deleteChoices(&Local.Events);
                 deleteItems(&Local.Bag);
-		deleteEnemies(&Local.Battle);
+                deleteEnemies(&Local.Battle);
                 Local.chosen= 1;
                 Local.state='m';
                 Local.previous='q';

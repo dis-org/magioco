@@ -37,7 +37,7 @@ void readevent(char* id, char* t){
           strcpy(id,f);
           free(f);
           free(n);
-	  print_center(id);
+          print_center(id);
           isearch(uses, id);
         }
         if (x=='e'){
@@ -45,7 +45,7 @@ void readevent(char* id, char* t){
           f=sstring(pf,'\n');
           strcpy(id,f);
           free(f);
-	  print_center(id);
+          print_center(id);
           esearch(id);
         }
       }

@@ -11,10 +11,10 @@ void resist();
 
 //input
 void switch_state();
-_Bool press_a();         //ferma il programma fino a che non si preme 'a'
+_Bool press_a();  //ferma il programma fino a che non si preme 'a'
 _Bool choice(short* chosen, short choices);
 //rende 1 se viene premuto'a', se effettua un cambiamento al valore chosed o allo stato rende 0
-_Bool new_name();        //salva il nome del giocatore controllando che non sia già presente
+_Bool new_name(); //salva il nome del giocatore controllando che non sia già presente
 
 //management
 Choice_t* addChoice(Choice_List_t* List);  //aggiunge una scelta ad una Choice_List
@@ -61,7 +61,7 @@ void loadChoice(Choice_List_t* List, FILE* pf); //carica una scelta
 void readsaves();       //genera una Choice_List per i file di salvataggio
 void deletesaves();     //cancella tutti i salvataggi
 
-//text *********** aggiungere descrizione funzioni
+//text
 void readevent();
 void printtext(FILE*);
 void move(char,FILE*);
@@ -71,12 +71,21 @@ void readchoices();
 void isearch(short,char*);
 void esearch(char*);
 
+//control
+void test_story();
+void test_event(FILE*,char*);
+void test_choice(FILE*,char*);
+void test_item(char*);
+void test_enemy(char*);
+int number(char*);
+
 //Memo:
+//scrivere descrizioni funzioni
 //aggiungere eventi che fanno perdere o guadagnare vita al giocatore
 //ridurre memoria azioni
 //aggiungere eventi di scelta che utilizzano oggetti dall'inventario
-//testo con riepilogo della partita
-//impostazioni per tasti
+//testo con riepilogo della partita ?
+//impostazioni per tasti ?
 //risistemare tutti i type :C
-//oggetti che colpiscono tutti i nemici 
-//aggiungere bestiario con descrizioni?
+//oggetti che colpiscono tutti i nemici ?
+//aggiungere bestiario con descrizioni ?
