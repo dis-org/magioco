@@ -1,9 +1,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include"universal.h"
-
 extern Data_t Local;
-
 void test_story(){
   char *temp=&Local.id;
   FILE *pf;
@@ -69,6 +67,75 @@ void test_choice(FILE* PF,char* id){
         if(strcmp(temp,'#')) return;
         test_event(pf,temp);
       }
+      printf(stderr,"errore nell' evento scelta (%s)",id);
+      return;
     }
   }
+}
+void test_item(char* id){
+FILE* pf;
+char *temp;
+pf = fopen("custom/items.txt","r");
+if (!pf){ 
+    fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+    exit(EXIT_FAILURE);
+  }
+  while (feof(pf)){
+  move(pf,'/');
+  temp=sstring(pf,'.');
+  if (!strcmp(id,temp)){
+                    free(temp);
+                    temp=sstring(pf,'.');
+                    if ( *temp!='p' || *temp!='u' ){
+                                            printf(stderr,"errore nell' ogetto (%d)",id);
+                                            return;
+                                           }
+                    free(temp);
+                    temp=sstring(pf,'.');
+                    if (stdigit(temp)){
+                                            printf(stderr,"errore nell' ogetto (%s)",id);
+                                            return;
+                                           }
+                    free(temp);
+                    temp=sstring(pf,'.');
+                    if (stdigit(temp)){
+                                            printf(stderr,"errore nell' ogetto (%s)",id);
+                                            return;
+                                           }
+                    free(temp);
+                    temp=sstring(pf,'\n');
+                    if (stdigit(temp)){
+                                            printf(stderr,"errore nell' ogetto (%s)",id);
+                                            return;
+                                           }
+                    free(temp);
+                    
+                   }
+  }
+ return; 
+}
+void test_enemy(char* id){
+
+}
+void test_enemy(char* id){
+FILE* pf;
+char *temp;
+pf = fopen("custom/enemies.txt","r");
+if (!pf){ 
+    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
+    exit(EXIT_FAILURE);
+  }
+  while (feof(pf)){
+  move(pf,'/');
+  temp=sstring(pf,'.');
+  if (!strcmp(id,temp)){
+  free(temp);
+                    temp=sstring(pf,'\n');
+                   if  (stdigit(temp)){
+                   printf(stderr,"errore nel nemico (%s)",id);
+                   }
+  
+  }
+
+
 }
