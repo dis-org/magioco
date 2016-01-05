@@ -191,6 +191,7 @@ void print_Action(Enemy_t* Enemy)
   switch(Action->Info.type)
     {
     case'm':
+      puts("Attacco ravvicinato");
       if(Local.ranged)
 	printf("%s è fuori portata\n", Local.name);
       else if(Local.defending)
@@ -201,6 +202,7 @@ void print_Action(Enemy_t* Enemy)
 	}
       break;
     case'r':
+      puts("Attacco a distanza");
       if(Local.defending)
 	{
 	  if(Local.Defending.defvalue < Action->Info.value)
@@ -213,8 +215,11 @@ void print_Action(Enemy_t* Enemy)
 	    }
 	}
       break;
+    case'd':
+      puts("Si difende");
     }
 
+   
   if(Enemy==enemy_sel() && !Local.defending)
     {
       Item_t* Item;
