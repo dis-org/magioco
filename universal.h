@@ -79,3 +79,4 @@ void esearch(char*);
 //impostazioni per tasti
 //risistemare tutti i type :C
 //oggetti che colpiscono tutti i nemici 
+//aggiungere bestiario con descrizioni?

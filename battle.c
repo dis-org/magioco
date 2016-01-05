@@ -121,6 +121,7 @@ void battle(void)
 	      Item= addItem(&Local.Bag);
 	      Item->Info= Local.Defending;
 	      Local.defending= 0;
+	      Local.defence= 0;
 	    }
 	  Local.ranged= 1;
 	  Local.phase='a';
@@ -146,14 +147,21 @@ void battle(void)
 	case'm':
 	  if(Local.ranged)
 	    break;
-	  else if(Local.defence)
+	  else if(Local.defending)
 	    {
-	      resist(Action->Info.value);
-	      if(!--Local.defence && Local.defending)
+	      if(Local.Defending.type=='p') //da decidere se si perde del tutto o no
+		Local.defending=0;
+	      else if(Local.defence)
+		resist(Action->Info.value);
+	      if(Local.defence)
 		{
-		  Item= addItem(&Local.Bag);
-		  Item->Info= Local.Defending;
-		  Local.defending= 0;
+		  Local.defence--;
+		  if(!Local.defence)
+		    {
+		      Item= addItem(&Local.Bag);
+		      Item->Info= Local.Defending;
+		      Local.defending= 0;
+		    }
 		}
 	    }
 	  else
@@ -182,7 +190,11 @@ void battle(void)
 		enemy_damage(Enemy, Item->Info.damage);
 	    }
 	  else if(!Enemy->Info.defence)
-	    enemy_damage(Enemy, Item->Info.trowvalue);
+	    {
+	      if(!Item)
+		Item= Local.Ground.Last;
+	      enemy_damage(Enemy, Item->Info.trowvalue);
+	    }
 	}
       
       Enemy->Last->Next= Action;
@@ -236,7 +248,7 @@ void enemy_damage(Enemy_t* Enemy, int damage) //danno al nemico (compresa difesa
       if(!Enemy->Info.health)
 	deleteEnemy(&Local.Battle, Enemy);
     }
-  else
+  else if(damage)
     Enemy->Info.health-= damage;
 }
 
@@ -251,15 +263,12 @@ void self_damage(int damage) //danno diretto alla vita del giocatore
 
 void resist(int damage) //danno al gicatore difeso
 {
-  if(!Local.Defending.type=='p') //da decidere se si perde del tutto o no
-    Local.defending=0;
-  else
-    for(int x= 0; x<damage; x++)
-      {
-	if(!--Local.Defending.uses)
-	  {
-	    Local.defending= 0;
-	    break;
-	  }
+  for(int x= 0; x<damage; x++)
+    {
+      if(!--Local.Defending.uses)
+	{
+	  Local.defending= 0;
+	  break;
+	}
     }
 }

@@ -195,7 +195,7 @@ void print_Action(Enemy_t* Enemy)
 	printf("%s è fuori portata\n", Local.name);
       else if(Local.defending)
 	{
-	  printf("%s si difende con %s\n", Local.name, Local.Defending.name);
+	  printf("%s: si difende con %s\n", Local.name, Local.Defending.name);
 	  if(Local.Defending.type=='p')
 	    printf("%s distrutti\n", Local.Defending.name);
 	}
@@ -222,7 +222,7 @@ void print_Action(Enemy_t* Enemy)
       puts("");
       if(!Local.ranged)
 	{
-	  printf("%s usa %s su %s\n", Local.name, Item->Info.name, Enemy->Info.name);
+	  printf("%s: usa %s su %s\n", Local.name, Item->Info.name, Enemy->Info.name);
 	  if(Action->Info.type=='r')
 	    printf("%s è fuori portata\n", Enemy->Info.name);
 	}
@@ -230,9 +230,9 @@ void print_Action(Enemy_t* Enemy)
 	{
 	  if(!Item)
 	    Item= Local.Ground.Last;
-	  printf("%s lancia %s contro %s\n", Local.name, Item->Info.name, Enemy->Info.name);
+	  printf("%s: lancia %s contro %s\n", Local.name, Item->Info.name, Enemy->Info.name);
 	  if(Enemy->Info.defence)
-	    puts("Il nemico è difeso");
+	    printf("%s è difeso", Enemy->Info.name);
 	}
     }
 }

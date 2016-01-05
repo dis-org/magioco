@@ -9,7 +9,7 @@ _Bool buffered;
 short quit_chosen;
 short width;
 
-int main()
+int main(int argc, char* argv[])
 {
   _Bool on= 1;
   char temp[128];
