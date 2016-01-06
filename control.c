@@ -5,19 +5,36 @@
 
 extern Data_t Local;
 
+void check_folders()
+{
+  FILE *pf, *t1, *t2, *t3;
+  pf=fopen("saves/check.tmp","w");
+  t1=fopen("custom/events.txt","r");
+  t2=fopen("custom/enemies.txt","r");
+  t3=fopen("custom/items.txt","r");
+  if(!pf || !t1 || !t2 || !t3)
+    folders_error();
+  fclose(pf);
+  fclose(t1); 
+  fclose(t2);
+  fclose(t3);
+  remove("saves/check.tmp");
+}
+
 void test_story(){
   char temp[128]= "Start";
   FILE *pf;
-  pf = fopen("custom/events.txt","r");
+  int line= 0;
+  pf= fopen("custom/events.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire events.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire events.txt\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
-  test_event(pf,temp);
+  test_event(pf,temp,&line);
   fclose(pf);
 }
 
-void test_event(FILE* pf, char* id){
+void test_event(FILE* pf, char* id, int* line){
   rewind(pf);
   char *temp,*semp;
   char x='i';
@@ -34,27 +51,27 @@ void test_event(FILE* pf, char* id){
           temp=sstring(pf,'.');
           x=getc(pf);
           semp=sstring(pf,'\n');
-	  if (number(semp)){
-	    fprintf(stderr,"errore in evento lineare %s\n",temp);
-	    exit(EXIT_FAILURE);
-	    return;
-	  }
-          test_item(temp);
+          if (number(semp)){
+            fprintf(stderr,"errore in evento lineare %s\n",temp); //OUTPUT
+            exit(EXIT_FAILURE);
+            return;
+          }
+          test_item(temp,line);
         }
         if (x=='e'){
           x=getc(pf);
           temp=sstring(pf,'\n');
-          test_enemy(temp);
+          test_enemy(temp,line);
         }
       }
       if (x=='*'){
         id=sstring(pf,'\n');
-        test_choice(pf,id);
+        test_choice(pf,id,line);
         return;
       }
       if (x=='>'){
         id=sstring(pf,'\n');
-        test_event(pf,id);
+        test_event(pf,id,line);
         return;
       }
       if (x=='#'){
@@ -64,12 +81,12 @@ void test_event(FILE* pf, char* id){
     if(feof(pf))
       break;
   }
-  fprintf(stderr,"errore in evento lineare %s\n",id);
+  fprintf(stderr,"errore in evento lineare %s\n",id); //OUTPUT
   exit(EXIT_FAILURE);
   return;
 }
 
-void test_choice(FILE* pf,char* id){
+void test_choice(FILE* pf,char* id,int* line){
   rewind(pf);
   char *temp;
   while (feof(pf)){
@@ -80,21 +97,21 @@ void test_choice(FILE* pf,char* id){
         move('/',pf);
         temp=sstring(pf,'\n');
         if(!strcmp(temp,"#")) return;
-        test_event(pf,temp);
+        test_event(pf,temp,line);
       }
-      fprintf(stderr,"errore nell' evento scelta (%s)\n",id);
+      fprintf(stderr,"errore nell' evento scelta (%s)\n",id); //OUTPUT
       exit(EXIT_FAILURE);
       return;
     }
   }
 }
 
-void test_item(char* id){
+void test_item(char* id, int* line){
   FILE* pf;
   char *temp;
   pf = fopen("custom/items.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire items.txt\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
   while (feof(pf)){
@@ -104,29 +121,29 @@ void test_item(char* id){
       free(temp);
       temp=sstring(pf,'.');
       if ( *temp!='p' && *temp!='u' ){
-        fprintf(stderr,"errore nell' oggetto (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nell' oggetto (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       free(temp);
       temp=sstring(pf,'.');
       if (number(temp)){
-        fprintf(stderr,"errore nell' oggetto (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nell' oggetto (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       free(temp);
       temp=sstring(pf,'.');
       if (number(temp)){
-        fprintf(stderr,"errore nell' oggetto (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nell' oggetto (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       free(temp);
       temp=sstring(pf,'\n');
       if (number(temp)){
-        fprintf(stderr,"errore nell' oggetto (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nell' oggetto (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       free(temp);
@@ -136,13 +153,13 @@ void test_item(char* id){
   return; 
 }
 
-void test_enemy(char* id){
+void test_enemy(char* id, int *line){
   FILE* pf;
   char *temp;
   char x;
   pf = fopen("custom/enemies.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
   while (feof(pf)){
@@ -152,22 +169,22 @@ void test_enemy(char* id){
       free(temp);
       temp=sstring(pf,'.');
       if  (number(temp)){
-        fprintf(stderr,"errore nel nemico (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nel nemico (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       temp=sstring(pf,'\n');
       if  (number(temp)){
-        fprintf(stderr,"errore nel nemico (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nel nemico (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       move('-',pf);
       x=getc(pf);
       getc(pf);
       if (x!='r' && x!='m' && x!='d' && x!='#'){
-        fprintf(stderr,"errore nel nemico (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nel nemico (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
       if (x=='#'){
@@ -175,14 +192,14 @@ void test_enemy(char* id){
       }
       x=getc(pf);
       if (isdigit(x)){
-        fprintf(stderr,"errore nel nemico (%s)\n",id);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"errore nel nemico (%s)\n",id); //OUTPUT
+        exit(EXIT_FAILURE);
         return;
       }
     }
 
   }
-  fprintf(stderr,"errore nel nemico (%s)\n",id);
+  fprintf(stderr,"errore nel nemico (%s)\n",id); //OUTPUT
   exit(EXIT_FAILURE);
   return;
     }

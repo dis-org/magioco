@@ -72,20 +72,14 @@ void isearch(short,char*);
 void esearch(char*);
 
 //control
+void check_folders();
 void test_story();
-void test_event(FILE*,char*);
-void test_choice(FILE*,char*);
-void test_item(char*);
-void test_enemy(char*);
+void test_event(FILE*,char*,int*);
+void test_choice(FILE*,char*,int*);
+void test_item(char*,int*);
+void test_enemy(char*,int*);
 int number(char*);
 
-//Memo:
-//scrivere descrizioni funzioni
-//aggiungere eventi che fanno perdere o guadagnare vita al giocatore
-//ridurre memoria azioni
-//aggiungere eventi di scelta che utilizzano oggetti dall'inventario
-//testo con riepilogo della partita ?
-//impostazioni per tasti ?
-//risistemare tutti i type :C
-//oggetti che colpiscono tutti i nemici ?
-//aggiungere bestiario con descrizioni ?
+//error
+void arg_error(int n); //stampa messaggio per immissione specifiche
+void folders_error();

@@ -13,7 +13,7 @@ void save()
   pf=fopen(a,"wb");
   if(!pf)
     {
-      fprintf(stderr,"Errore: impossibile aprire %s\n",a);
+      fprintf(stderr,"Errore: impossibile aprire %s\n",a); //OUTPUT
       exit(EXIT_FAILURE);
     }
   fwrite(&Local,sizeof(Data_t),1,pf);
@@ -48,7 +48,7 @@ void save()
       E= E->Next;
     }
   puts("");
-  print_center("Partita salvata");
+  print_center("Partita salvata"); //OUTPUT
   fclose(pf);
 }
 
@@ -66,7 +66,7 @@ void load()
   pf=fopen(a,"rb");
   if (!pf)
     { 
-      fprintf(stderr,"Errore: impossibile aprire %s\n",a);
+      fprintf(stderr,"Errore: impossibile aprire %s\n",a); //OUTPUT
       exit(EXIT_FAILURE);
     }
   fread(&Local,sizeof(Data_t),1,pf);
@@ -115,7 +115,7 @@ void readsaves()
   pf=fopen("saves/saves.txt","a+");
   if(!pf)
     {
-      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n");
+      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n"); //OUTPUT
       exit(EXIT_FAILURE);
     }
   rewind(pf);
@@ -141,7 +141,7 @@ void deletesaves()
   pf=fopen("saves/saves.txt","a+");
   if(!pf)
     {
-      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n");
+      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n"); //OUTPUT
       exit(EXIT_FAILURE);
     }
   rewind(pf);
@@ -156,5 +156,5 @@ void deletesaves()
     }
   fclose(pf);
   remove("saves/saves.txt");
-  print_center("Salvataggi rimossi");
+  print_center("Salvataggi rimossi");  //OUTPUT
 }

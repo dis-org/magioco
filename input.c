@@ -115,7 +115,7 @@ _Bool new_name()
   if(!n && !buffered)
     {
       puts("");
-      print_center("Annullato");
+      print_center("Annullato"); //OUTPUT
       return 0;
     }
   strcpy(Local.name,name);
@@ -123,7 +123,7 @@ _Bool new_name()
   pf= fopen("saves/saves.txt","a+");
   if(!pf)
     {
-      fprintf(stderr,"Errore: impossibile aprire saves.txt (new_name)\n");
+      fprintf(stderr,"Errore: impossibile aprire saves.txt (new_name)\n"); //OUTPUT
       exit(EXIT_FAILURE);
     }
   while(getc(pf)!=EOF)
@@ -139,7 +139,7 @@ _Bool new_name()
   if(existent || Local.name[0]==' ')
     {
       puts("");
-      print_center("Nome già utilizzato");
+      print_center("Nome già utilizzato"); //OUTPUT
       return 0;
     }
   fprintf(pf, "#%s\n", Local.name);

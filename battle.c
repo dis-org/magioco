@@ -30,15 +30,15 @@ void battle(void)
     case'i':
       print_Items();
       if(!Local.Bag.items && !Local.defending)
-        {
-          press_a();
-          Local.phase='a';
-        }
+	{
+	  if(press_a())
+	    Local.phase='a';
+	}
       else if(choice(&Local.item_chosen, Local.Bag.items+Local.defending))
-        {
-          if(Local.item_chosen==Local.Bag.items+1)
-            {
-              Local.defending= 0;
+	{
+	  if(Local.item_chosen==Local.Bag.items+1)
+	    {
+	      Local.defending= 0;
               Local.defence= 0;
               Item= addItem(&Local.Bag);
               Item->Info= Local.Defending;

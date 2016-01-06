@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #define WIDTH_DEFAULT 80
+#define WIDTH_MAX 130
 
 Data_t Local;
 _Bool buffered;
@@ -11,8 +12,18 @@ short width;
 
 int main(int argc, char* argv[])
 {
-  if(argc>1 && !strcmp(argv[1],"test"))
-    test_story();
+  if(argc==2)
+    if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test")))
+      test_story();
+    else 
+      if((argv[1][0]=='h') && (argv[1][1]=='\0' || !strcmp(argv[1],"help")))
+	arg_error(0);
+      else
+	arg_error(1);
+  else if(argc>2)
+    arg_error(2);
+
+  check_folders();
 
   _Bool on= 1;
   char temp[128];
@@ -30,7 +41,7 @@ int main(int argc, char* argv[])
       
       if(!Local.health)
         Local.state='g';
-      else if(Local.Battle.enemies && Local.state!='q')
+      else if(Local.Battle.enemies && !Local.done && Local.state!='q')
         Local.state='b';
 
       switch(Local.state)
@@ -93,7 +104,7 @@ int main(int argc, char* argv[])
                   {
                     next_page();
                     print_imp();
-                    if(choice(&width, 120))
+                    if(choice(&width, WIDTH_MAX))
                       break;
                     if(Local.state=='q')
                       {

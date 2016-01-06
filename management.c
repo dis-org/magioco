@@ -8,7 +8,7 @@ Choice_t* addChoice(Choice_List_t* List)
   Choice_t* C= calloc(1,sizeof(Choice_t));
   if(!C)
     {
-      fprintf(stderr,"Errore: allocazione non riuscita (addChoice)\n");
+      fprintf(stderr,"Errore: allocazione non riuscita (addChoice)\n"); //OUTPUT
       exit(EXIT_FAILURE);
     }
   if(!List->Last)
@@ -50,7 +50,7 @@ Item_t* addItem(Item_List_t* List)
 
   if (!Item)
     {
-      fprintf(stderr,"Errore: allocazione non riuscita (addItem)\n");
+      fprintf(stderr,"Errore: allocazione non riuscita (addItem)\n"); //OUTPUT
       exit(EXIT_FAILURE);
     }
   if(!List->First)
@@ -94,7 +94,7 @@ void deleteItem(Item_List_t* List, Item_t* Item) //da usare solo con searchItem 
       {
         if(!Ret->Next)
           {
-            fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n");
+            fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n"); //OUTPUT
             exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
           }
         else
@@ -129,7 +129,7 @@ Enemy_t* addEnemy(Enemy_List_t* List)
 
   if(!Enemy)
     {
-      fprintf(stderr,"Errore: allocazione non riuscita (addEnemy)\n");
+      fprintf(stderr,"Errore: allocazione non riuscita (addEnemy)\n"); //OUTPUT
       exit(EXIT_FAILURE); 
     }
   if(!List->First)
@@ -182,8 +182,8 @@ void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
       {
         if(!Ret->Next)
           {
-            fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n");
-            exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+            fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n"); //OUTPUT
+            exit(EXIT_FAILURE);
           }
         else
           if(Ret->Next== Enemy)
@@ -218,7 +218,7 @@ Action_t* addAction(Enemy_t* Enemy)
 
   if(!Action)
     {
-      fprintf(stderr,"Errore: allocazione non riuscita (addAction)\n");
+      fprintf(stderr,"Errore: allocazione non riuscita (addAction)\n"); //OUTPUT
       exit(EXIT_FAILURE);
     }
   if(!Enemy->First)

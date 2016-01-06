@@ -97,7 +97,7 @@ char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
   int i= 0;
   char *x=calloc(128,sizeof(char));
   if (!x){
-    fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n");
+    fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
   do{
@@ -125,7 +125,7 @@ void readchoices(FILE* pf, char* id){
   char *temp=calloc(128,sizeof(char));
   Choice_t* C;
   if (!temp){
-    fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n");
+    fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
   controle(pf,'+','\n',id);
@@ -150,7 +150,7 @@ void isearch(short uses, char* id){
 
   pf=fopen("custom/items.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire items.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire items.txt\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
   controle(pf,'/','.',id);
@@ -189,7 +189,7 @@ void esearch(char* id){
 
   pf=fopen("custom/enemies.txt","r");
   if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n");
+    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n"); //OUTPUT
     exit(EXIT_FAILURE);
   }
   E= addEnemy(&Local.Battle);
