@@ -264,11 +264,9 @@ void self_damage(int damage) //danno diretto alla vita del giocatore
 void resist(int damage) //danno al gicatore difeso
 {
   for(int x= 0; x<damage; x++)
-    {
-      if(!--Local.Defending.uses)
-        {
-          Local.defending= 0;
-          break;
-        }
-    }
+    if(!--Local.Defending.uses)
+      {
+	Local.defending= 0;
+	break;
+      }
 }

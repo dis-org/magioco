@@ -129,6 +129,9 @@ int main(int argc, char* argv[])
           readevent(temp, &t);
           if(press_a())
             {
+	      printf("%d\n", Local.damage);
+	      self_damage(Local.damage);
+	      Local.damage=0;
               strcpy(Local.id,temp);
               Local.state= t;
               Local.done= 0;

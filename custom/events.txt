@@ -4,34 +4,52 @@ Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core du
   -*Il ragazzo decise di:
   
 +Il ragazzo decise di:
+
 /Tirare il computer dalla finestra
 Era il suo unico computer e non aveva soldi per comprarne altri.*
   -#
+
 /Sostituire "*chosen++" con "*chosen+= 1"
 Compilò tutto e...*
   ->Incredibile
+
 /Cambiare il nome a tutte le variabili
 Stranamente ciò non lo portò da nessuna parte.*
   -*Il ragazzo decise di:
+  
 /Eliminare cose inutili
 Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non erano affatto inutili e dovette riscrivere tutto.*
   -*Il ragazzo decise di:
+  
 /Andare a dormire
 Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
 
                             Buonanotte*
   -#
+  
 /Prendersi un caffè
 Espresso lungo senza zucchero, il suo preferito.*
   -i.caffè.1
   -*Il ragazzo decise di:
+ 
+/?
+caffè.
+Bere il caffè
+	
 /Rivolgersi al lato oscuro della matematica
 Boccuto out of nowhere!*
 	-i.la forza della disperazione.404
 	-e.Boccuto
 	-e.Il gemello più malvagio di Boccuto
 	->Vittoria
+	
 /#
+
+/Bere il caffè
+Il ragazzo si accorse di aver perso il conto dei caffè bevuti, ma ormai erano l'unica cosa che lo faceva andare avanti*
+	-i.caffè.-1
+	-d.-3
+	-*Il ragazzo decise di:
 
 /Incredibile
 Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*

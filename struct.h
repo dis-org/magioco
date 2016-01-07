@@ -76,6 +76,7 @@ typedef struct Data{
   short enemy_chosen;
   short item_chosen;
   short use_chosen;
+  int damage;
   unsigned short health;
   unsigned short defence; //difesa (solo in combattimento)
   _Bool ranged; //se corpo a corpo o a distanza (0= corpo a corpo)

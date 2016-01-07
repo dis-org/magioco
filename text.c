@@ -8,6 +8,8 @@ void readevent(char* id, char* t){
   char x=0,*f,*n;
   FILE *pf;
   _Bool add= 0;
+  int num;
+
   pf = fopen("custom/events.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
@@ -30,24 +32,32 @@ void readevent(char* id, char* t){
     if(add)
       {
         if (x=='i'){
-          getc(pf);
+          move('.', pf);
           f=sstring(pf,'.');
           n=sstring(pf,'\n');
-          int uses=atoi(n);
+          num= atoi(n);
           strcpy(id,f);
           free(f);
           free(n);
           print_center(id);
-          isearch(uses, id);
+          isearch(num, id);
         }
         if (x=='e'){
-          getc(pf);
+          move('.',pf);
           f=sstring(pf,'\n');
           strcpy(id,f);
           free(f);
           print_center(id);
           esearch(id);
         }
+	if (x=='d'){
+	  move('.',pf);
+	  n= sstring(pf,'\n');
+	  num= atoi(n);
+	  free(n);
+	  //output?
+	  Local.damage= num;
+	}
       }
   }while(x!=EOF);
   if (x=='*'){
@@ -124,6 +134,8 @@ void readchoices(FILE* pf, char* id){
   char *x;
   char *temp=calloc(128,sizeof(char));
   Choice_t* C;
+  Item_t* I;
+
   if (!temp){
     fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n"); //OUTPUT
     exit(EXIT_FAILURE);
@@ -135,8 +147,31 @@ void readchoices(FILE* pf, char* id){
     x=sstring(pf,'\n');
     strcpy(temp,x);
     free(x);
-    if(!strcmp(temp,"#"))
+    if(temp[0]=='#')
       break;
+    if(temp[0]=='?')
+      {
+	x= sstring(pf,'.');
+	strcpy(temp, x);
+	free(x);
+	I= searchItem(&Local.Bag, temp);
+	if(I)
+	  {
+	    x= sstring(pf, '\n');
+	    if(I->Info.uses < atoi(x))
+	      {
+		free(x);
+		continue;
+	      }
+	    else
+	      free(x);
+	    x=sstring(pf,'\n');
+	    strcpy(temp, x);
+	    free(x);
+	  }
+	else
+	  continue;
+      }
     C= addChoice(&Local.Events);
     strcpy(C->text, temp);
   }
@@ -155,7 +190,16 @@ void isearch(short uses, char* id){
   }
   controle(pf,'/','.',id);
   type=getc(pf);
-  getc(pf);
+  move('.',pf);
+  if(uses < 0)
+    {
+      I=searchItem(&Local.Bag, id);
+      if(I->Info.uses+uses >0)
+	I->Info.uses+= uses;
+      else
+	deleteItem(&Local.Bag, I);
+      return;
+    }
   switch(type){
   case'p':
     I= searchItem(&Local.Bag, id);
