@@ -4,56 +4,34 @@
 #include <ctype.h>
 
 extern Data_t Local;
-
-void check_folders()
-{
-  FILE *pf, *t1, *t2, *t3;
-  pf=fopen("saves/check.tmp","w");
-  t1=fopen("custom/events.txt","r");
-  t2=fopen("custom/enemies.txt","r");
-  t3=fopen("custom/items.txt","r");
-  if(!pf || !t1 || !t2 || !t3)
-    folders_error();
-  fclose(pf);
-  fclose(t1); 
-  fclose(t2);
-  fclose(t3);
-  remove("saves/check.tmp");
-}
+int line=0;
 
 void test_story(){
   char temp[128]= "Start";
-  FILE *pf;
-  int line= 0;
-  pf= fopen("custom/events.txt","r");
-  if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire events.txt\n"); //OUTPUT
-    exit(EXIT_FAILURE);
-  }
-  test_event(pf,temp,&line);
-  fclose(pf);
+  FILE *t1, *t2, *t3;
+  t1=fopen("custom/events.txt","r");
+  t2=fopen("custom/enemies.txt","r");
+  t3=fopen("custom/items.txt","r");
+  if(!t1 || !t2 || !t3)
+    folders_error();
+    
+  test_event(t1,t2,t3,temp);
+  
+  fclose(t1); 
+  fclose(t2);
+  fclose(t3);
 }
 
-void test_event(FILE* pf, char* id, int* line){
-  rewind(pf);
-  char *temp,*semp;
-  char x='i';
-  while (1){
-    move('/', pf);
-    temp=sstring(pf,'\n');
-    if (!strcpy(id,temp)){
-      move('*',pf);
-      while(x=='*' || x=='>' || x=='#'){
-        move('-',pf);
-        x=getc(pf);
+void test_event(FILE* eventi, FILE* nemici, FILE* oggetti, char* id){
+  rewind(eventi);
+  
         if (x=='i'){
           x=getc(pf);
-          temp=sstring(pf,'.');
+          temp=test_string(pf,'.');
           x=getc(pf);
-          semp=sstring(pf,'\n');
+          semp=test_string(pf,'\n');
           if (number(semp)){
-            fprintf(stderr,"errore in evento lineare %s\n",temp); //OUTPUT
-            exit(EXIT_FAILURE);
+            //fprintf(stderr,"errore in evento lineare %s\n",temp); //OUTPUT
             return;
           }
           test_item(temp,line);
@@ -212,7 +190,56 @@ int number(char *num){
       x='s';
       continue;
     }
-    if(!isdigit(num[i])) return 3;
+    if(num[i]<'0' || num[i]>'9') return 3;
   }
   return 0;
+}
+void test_move( char a, FILE* pf){
+  char c;
+  do{
+    c=getc(pf);
+    if (c == a) return;
+  }while(c!=EOF);
+  // errore
+}void controlt(FILE* pf,char f,char x,char* id){ .
+  char *temp;char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
+  char a;
+  int i= 0;
+  char *x=calloc(128,sizeof(char));
+  if (!x){
+    fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n"); //OUTPUT
+    exit(EXIT_FAILURE);
+  }
+  do{
+    a=getc(pf);
+    if(a==m){
+      return x;
+    }
+    *(x+i)=a;
+    i++;
+  }while(a!=EOF);
+  return NULL;
+}
+  do{
+    test_move(f,pf);
+    temp = test_string(pf,x);
+  }while (strcmp(temp,id));// da aggiungere parametro 
+  free(temp);
+}char* test_string(FILE *pf,char m){
+  char a;
+  int i= 0;
+  char *x=calloc(128,sizeof(char));
+  if (!x){
+    //fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n"); //OUTPUT
+  }
+  do{
+    a=getc(pf);
+    if(a==m){
+      return x;
+    }
+    *(x+i)=a;
+    i++;
+  }while(a!=EOF);
+  //errore
+  return NULL;
 }
