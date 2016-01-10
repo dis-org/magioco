@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 {
   if(argc==2)
     if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test")))
-      test_story();
+      test_story(1);
     else 
       if((argv[1][0]=='h') && (argv[1][1]=='\0' || !strcmp(argv[1],"help")))
 	arg_error(0);
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
   else if(argc>2)
     arg_error(2);
 
-  check_folders();
+  test_story(0);
 
   _Bool on= 1;
   char temp[128];
@@ -129,7 +129,6 @@ int main(int argc, char* argv[])
           readevent(temp, &t);
           if(press_a())
             {
-	      printf("%d\n", Local.damage);
 	      self_damage(Local.damage);
 	      Local.damage=0;
               strcpy(Local.id,temp);

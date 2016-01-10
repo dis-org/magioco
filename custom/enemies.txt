@@ -1,0 +1,9 @@
+/Boccuto.4.2
+  -r.1.inizia uno studio di funzione
+  -r.2.applica il teorema dell'Ospital
+  -d.2.TRUCCO!
+  -r.4.scatena un evento con probabilità inferiore al 10%
+  -#
+/Il gemello più malvagio di Boccuto.2.4
+	-m.2."dovete entrare da sopra!"
+	-#

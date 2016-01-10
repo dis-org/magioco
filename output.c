@@ -211,7 +211,7 @@ void print_Action(Enemy_t* Enemy)
             {
               printf("%s ferma il colpo\n", Local.Defending.name);
               if(Local.Defending.type=='p')
-                printf("%s distrutti\n", Local.Defending.name);
+                printf("%s persi\n", Local.Defending.name);
             }
         }
       break;

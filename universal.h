@@ -72,14 +72,17 @@ void isearch(short,char*);
 void esearch(char*);
 
 //control
-void check_folders();
-void test_story();
-void test_event(FILE*,char*,int*);
-void test_choice(FILE*,char*,int*);
-void test_item(char*,int*);
-void test_enemy(char*,int*);
+void test_story(_Bool);
+void test_event(FILE*,FILE*,FILE*,char*,int*);
+void test_choice(FILE*,FILE*,FILE*,char*,int*);
+void test_item(FILE*,char*,int*);
+void test_enemy(FILE*,char*,int*);
 int number(char*);
+void test_move(char,FILE*);
+char* controlt(FILE*,char,char,char*);
+char* test_string(FILE*,char);
 
 //error
 void arg_error(int n); //stampa messaggio per immissione specifiche
-void folders_error();
+void folders_error();  //stampa errore cartelle o file mancanti
+void alloc_error(char* func); //stampa errore di allocazione

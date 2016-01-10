@@ -4,59 +4,69 @@
 #include <ctype.h>
 
 extern Data_t Local;
-int line=0;
 
-void test_story(){
+void test_story(_Bool all){
   char temp[128]= "Start";
   FILE *t1, *t2, *t3;
+  int line= 0;
   t1=fopen("custom/events.txt","r");
   t2=fopen("custom/enemies.txt","r");
   t3=fopen("custom/items.txt","r");
   if(!t1 || !t2 || !t3)
     folders_error();
-    
-  test_event(t1,t2,t3,temp);
-  
+  if(all)
+    test_event(t1,t2,t3,temp,&line);
   fclose(t1); 
   fclose(t2);
   fclose(t3);
 }
 
-void test_event(FILE* eventi, FILE* nemici, FILE* oggetti, char* id){
-  rewind(eventi);
-  
-        if (x=='i'){
-          x=getc(pf);
-          temp=test_string(pf,'.');
-          x=getc(pf);
-          semp=test_string(pf,'\n');
-          if (number(semp)){
-            //fprintf(stderr,"errore in evento lineare %s\n",temp); //OUTPUT
-            return;
-          }
-          test_item(temp,line);
-        }
-        if (x=='e'){
-          x=getc(pf);
-          temp=sstring(pf,'\n');
-          test_enemy(temp,line);
-        }
+void test_event(FILE* events, FILE* enemies, FILE* items, char* id,int* line){
+  rewind(events);
+  char *temp,*semp;
+  char x='i';
+
+  while (1){
+    move('/', events);
+    temp=sstring(events,'\n');
+    if (!strcpy(id,temp)){
+      move('*',events);
+      while(x=='*' || x=='>' || x=='#'){
+	move('-',events);
+	x=getc(events);
+	if (x=='i'){
+	  x=getc(events);
+	  temp=test_string(events,'.');
+	  x=getc(events);
+	  semp=test_string(events,'\n');
+	  if (number(semp)){
+	    //fprintf(stderr,"errore in evento lineare %s\n",temp); //OUTPUT
+	    return;
+	  }
+	  test_item(items,temp,line);
+	}
+	if (x=='e'){
+	  x=getc(events);
+	  temp=sstring(events,'\n');
+	  test_enemy(enemies,temp,line);
+	}
       }
       if (x=='*'){
-        id=sstring(pf,'\n');
-        test_choice(pf,id,line);
-        return;
+	id=sstring(events,'\n');
+	test_choice(events, enemies, items, id, line);
+	return;
       }
       if (x=='>'){
-        id=sstring(pf,'\n');
-        test_event(pf,id,line);
-        return;
+	id=sstring(events,'\n');
+	test_event(events,items,enemies,id,line);
+	free(id);
+	return;
       }
       if (x=='#'){
-        return;
+	return;
       }
     }
-    if(feof(pf))
+    if(feof(events))
       break;
   }
   fprintf(stderr,"errore in evento lineare %s\n",id); //OUTPUT
@@ -64,18 +74,18 @@ void test_event(FILE* eventi, FILE* nemici, FILE* oggetti, char* id){
   return;
 }
 
-void test_choice(FILE* pf,char* id,int* line){
-  rewind(pf);
+void test_choice(FILE* events,FILE* enemies,FILE* items,char* id,int* line){
   char *temp;
-  while (feof(pf)){
-    move('+',pf);
-    temp=sstring(pf,'\n');
+  rewind(events);
+  while (feof(events)){
+    move('+', events);
+    temp=sstring(events,'\n');
     if (!strcmp(id,temp)){
       while(1){
-        move('/',pf);
-        temp=sstring(pf,'\n');
+        move('/', events);
+        temp=sstring(events,'\n');
         if(!strcmp(temp,"#")) return;
-        test_event(pf,temp,line);
+        test_event(events, enemies, items, temp, line);
       }
       fprintf(stderr,"errore nell' evento scelta (%s)\n",id); //OUTPUT
       exit(EXIT_FAILURE);
@@ -84,9 +94,9 @@ void test_choice(FILE* pf,char* id,int* line){
   }
 }
 
-void test_item(char* id, int* line){
-  FILE* pf;
+void test_item(FILE* pf, char* id, int* line){
   char *temp;
+
   pf = fopen("custom/items.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire items.txt\n"); //OUTPUT
@@ -131,10 +141,10 @@ void test_item(char* id, int* line){
   return; 
 }
 
-void test_enemy(char* id, int *line){
-  FILE* pf;
+void test_enemy(FILE* pf,char* id, int *line){
   char *temp;
   char x;
+
   pf = fopen("custom/enemies.txt","r");
   if (!pf){ 
     fprintf(stderr,"Errore: impossibile aprire enemies.txt\n"); //OUTPUT
@@ -175,16 +185,16 @@ void test_enemy(char* id, int *line){
         return;
       }
     }
-
   }
   fprintf(stderr,"errore nel nemico (%s)\n",id); //OUTPUT
   exit(EXIT_FAILURE);
   return;
-    }
+}
 
 int number(char *num){
   char x='n';
   int i=0;
+
   while (x=='n'){
     if (num[i]=='\0'){
       x='s';
@@ -194,44 +204,45 @@ int number(char *num){
   }
   return 0;
 }
+
 void test_move( char a, FILE* pf){
   char c;
   do{
     c=getc(pf);
     if (c == a) return;
   }while(c!=EOF);
-  // errore
-}void controlt(FILE* pf,char f,char x,char* id){ .
-  char *temp;char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
-  char a;
-  int i= 0;
-  char *x=calloc(128,sizeof(char));
-  if (!x){
-    fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n"); //OUTPUT
-    exit(EXIT_FAILURE);
-  }
-  do{
-    a=getc(pf);
-    if(a==m){
-      return x;
-    }
-    *(x+i)=a;
-    i++;
-  }while(a!=EOF);
-  return NULL;
+  // errore end of file
 }
-  do{
-    test_move(f,pf);
-    temp = test_string(pf,x);
-  }while (strcmp(temp,id));// da aggiungere parametro 
-  free(temp);
-}char* test_string(FILE *pf,char m){
+
+/* char* controlt(FILE* pf,char f,char m,char* id){ */
+/*   char a; */
+/*   int i= 0; */
+/*   char *x=calloc(128,sizeof(char)); */
+/*   if (!x) */
+/*     alloc_error(__func__);   */
+/*   do{ */
+/*     a=getc(pf); */
+/*     if(a==m){ */
+/*       return x; */
+/*     } */
+/*     *(x+i)=a; */
+/*     i++; */
+/*   }while(a!=EOF); */
+/*   return NULL; */
+/* } */
+/* do{ */
+/*   test_move(f,pf); */
+/*   temp = test_string(pf,x); */
+/*  }while (strcmp(temp,id));// da aggiungere parametro  */
+/* free(temp); */
+/* } */
+
+char* test_string(FILE *pf,char m){
   char a;
   int i= 0;
   char *x=calloc(128,sizeof(char));
-  if (!x){
-    //fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n"); //OUTPUT
-  }
+  if (!x)
+    alloc_error(__func__);
   do{
     a=getc(pf);
     if(a==m){

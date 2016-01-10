@@ -36,3 +36,9 @@ void folders_error()
 	  );
   exit(EXIT_FAILURE);
 }
+
+void alloc_error(char* func)
+{
+  fprintf(stderr,"Errore: allocazione non riuscita in %s\n", func); //OUTPUT
+  exit(EXIT_FAILURE);
+}
