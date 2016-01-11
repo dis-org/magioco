@@ -1,9 +1,7 @@
 /Start
 C'era una volta in un paese in collina, un ragazzo seduto nella penombra della sua casetta a programmare.
 Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core dumped)" quando finalmente...*
-        -i.la forza della disperazione.404
-	-e.Boccuto
-        -#
+        -*Il ragazzo decise di:
   
 +Il ragazzo decise di:
 
@@ -14,6 +12,7 @@ Era il suo unico computer e non aveva soldi per comprarne altri.*
 /Sostituire "*chosen++" con "*chosen+= 1"
 Compilò tutto e...*
   ->Incredibile
+  
 
 /Cambiare il nome a tutte le variabili
 Stranamente ciò non lo portò da nessuna parte.*
@@ -22,6 +21,7 @@ Stranamente ciò non lo portò da nessuna parte.*
 /Eliminare cose inutili
 Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non erano affatto inutili e dovette riscrivere tutto.*
   -*Il ragazzo decise di:
+  
   
 /Andare a dormire
 Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.

@@ -15,6 +15,7 @@ void test_story(_Bool all){
   if(!t1 || !t2 || !t3)
     folders_error();
   if(all)
+     puts("evento");
     test_event(t1,t2,t3,temp);
   fclose(t1); 
   fclose(t2);
@@ -32,9 +33,10 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
     if (x == '-')  puts("errore2");// errore ;
     if (x =='\n') line++;
   }while(x!='*');
-      while(x =='*' || x =='>' || x =='#' ){
-	test_move('-',events);
+      do{
+         test_move('-',events);
 	x=getc(events);
+	if (x =='*' || x =='>' || x =='#' ) break;
 	if (x=='i'){
 	  x=getc(events);
 	  temp=test_string(events,'.');
@@ -45,25 +47,31 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
 	  }
 	  //test_item(items,temp);
 	  puts("oggetto");
+	  free(temp);
+	  free(semp);
 	}
 	if (x=='e'){
 	  x=getc(events);
-	  temp=sstring(events,'\n');
+	  temp=test_string(events,'\n');
 	  //test_enemy(enemies,temp);
 	  puts("nemico");
+	  free(temp);
 	}
-      }
+      }while(1);
       if (x=='*'){
-	id=sstring(events,'\n');
-	//test_choice(events, enemies, items,id);
+	id=test_string(events,'\n');
 	puts("scelta");
+	test_choice(events, enemies, items,id);
+	free(id);
+	
 	return;
       }
       if (x=='>'){
-	id=sstring(events,'\n');
+	id=test_string(events,'\n');
+	puts("evento");
 	test_event(events,items,enemies,id);
 	free(id);
-	puts("evento");
+	
 	return;
       }
       if (x=='#'){
@@ -76,25 +84,21 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
 
 
 
-/*void test_choice(FILE* events,FILE* enemies,FILE* items,char* id){*/
-/*  char *temp;*/
-/*  rewind(events);*/
-/*  while (feof(events)){*/
-/*    move('+', events);*/
-/*    temp=sstring(events,'\n');*/
-/*    if (!strcmp(id,temp)){*/
-/*      while(1){*/
-/*        move('/', events);*/
-/*        temp=sstring(events,'\n');*/
-/*        if(!strcmp(temp,"#")) return;*/
-/*        test_event(events, enemies, items, temp, line);*/
-/*      }*/
-/*      fprintf(stderr,"errore nell' evento scelta (%s)\n",id); //OUTPUT*/
-/*      exit(EXIT_FAILURE);*/
-/*      return;*/
-/*    }*/
-/*    // errore*/
-/*  }*/
+void test_choice(FILE* events,FILE* enemies,FILE* items,char* id){
+  rewind(events);
+  char *temp;
+      controlt(events,'+','\n',id);
+      while(1){
+        move('/', events);
+        temp=test_string(events,'\n');
+        if(temp[0]=='#') return;
+        puts("evento");
+        test_event(events, enemies, items, temp);
+        free(temp);
+      }
+      puts ("errore scelta");
+    }
+  
 
 
 /*void test_item(FILE* pf, char* id){*/
@@ -231,19 +235,21 @@ void controlt(FILE* pf,char f,char m,char* id){ //fine
 
 char* test_string(FILE *pf,char m){// fine
   char a;
-  int i= 0;
+  
   char *x=calloc(128,sizeof(char));
   if (!x)
      puts("errorea");//alloc_error(__func__);
-  do{
+
+   for (int i=0;i<=128;i++){
     a=getc(pf);
     if(a==m){
+    printf("\n");
       return x;
     }
     *(x+i)=a;
-    i++;
-  }while(i<= 128);
-   puts("erroree");
+    printf("%d  ",i);
+  }
+   puts("erroree qio");
   //errore
   return NULL;
 }
