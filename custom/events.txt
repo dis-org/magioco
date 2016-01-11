@@ -16,7 +16,8 @@ Compilò tutto e...*
 
 /Cambiare il nome a tutte le variabili
 Stranamente ciò non lo portò da nessuna parte.*
-  -*Il ragazzo decise di:
+  -i.ciao.345
+  -*Il ragazzo decise di: 
   
 /Eliminare cose inutili
 Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non erano affatto inutili e dovette riscrivere tutto.*

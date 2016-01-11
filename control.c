@@ -5,7 +5,6 @@
 
 extern Data_t Local;
 int line= 0;
-
 void test_story(_Bool all){
   char temp[128]= "Start";
   FILE *t1, *t2, *t3;
@@ -26,6 +25,7 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
   rewind(events);
   char *temp,*semp;
   char x;
+  char *choice=calloc(128,sizeof(char));
       controlt(events,'/','\n',id);
       do{
     x=getc(events);
@@ -60,6 +60,8 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
       }while(1);
       if (x=='*'){
 	id=test_string(events,'\n');
+	if (!strcmp(id,choice)) return;
+	strcpy(choice,id);
 	puts("scelta");
 	test_choice(events, enemies, items,id);
 	free(id);
@@ -243,11 +245,11 @@ char* test_string(FILE *pf,char m){// fine
    for (int i=0;i<=128;i++){
     a=getc(pf);
     if(a==m){
-    printf("\n");
+   // printf("\n");
       return x;
     }
     *(x+i)=a;
-    printf("%d  ",i);
+    //printf("%d  ",i);
   }
    puts("erroree qio");
   //errore
