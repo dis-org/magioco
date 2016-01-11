@@ -15,56 +15,62 @@ void test_story(_Bool all){
   if(!t1 || !t2 || !t3)
     folders_error();
   if(all)
-    test_event(t1,t2,t3,temp,&line);
+    test_event(t1,t2,t3,temp);
   fclose(t1); 
   fclose(t2);
   fclose(t3);
 }
 
-void test_event(FILE* events, FILE* enemies, FILE* items, char* id,int* line){
+void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
   rewind(events);
   char *temp,*semp;
   char x;
       controlt(events,'/','\n',id);
       do{
     x=getc(events);
-    if (c == EOF) //errore;
-    if ( c == '-') // errore ;
-    if (c=='\n') line++;
-  }while(c!='*');
-      while(x=='*' || x=='>' || x=='#'){
+    if (x == EOF)  puts("errore1");//errore;
+    if (x == '-')  puts("errore2");// errore ;
+    if (x =='\n') line++;
+  }while(x!='*');
+      while(x =='*' || x =='>' || x =='#' ){
 	test_move('-',events);
 	x=getc(events);
 	if (x=='i'){
-	  
-	  temp=test_string(events,'.');
 	  x=getc(events);
+	  temp=test_string(events,'.');
 	  semp=test_string(events,'\n');
 	  if (number(semp)){
 	    // errore
+	    puts("errore3");
 	  }
-	  test_item(items,temp);
+	  //test_item(items,temp);
+	  puts("oggetto");
 	}
 	if (x=='e'){
 	  x=getc(events);
 	  temp=sstring(events,'\n');
-	  test_enemy(enemies,temp);
+	  //test_enemy(enemies,temp);
+	  puts("nemico");
 	}
       }
       if (x=='*'){
 	id=sstring(events,'\n');
-	test_choice(events, enemies, items,id);
+	//test_choice(events, enemies, items,id);
+	puts("scelta");
 	return;
       }
       if (x=='>'){
 	id=sstring(events,'\n');
 	test_event(events,items,enemies,id);
 	free(id);
+	puts("evento");
 	return;
       }
       if (x=='#'){
+      puts("fine");
 	return;
       }
+      puts("errore4");
       // errore
     }
 
@@ -210,13 +216,12 @@ void test_move( char a, FILE* pf){// fine
     if (c == a) return;
     if (c=='\n') line++;
   }while(c!=EOF);
+   puts("errorem");
   // errore end of file
 }
 
- controlt(FILE* pf,char f,char m,char* id){ //fine 
+void controlt(FILE* pf,char f,char m,char* id){ //fine 
    char *temp;
-   if (!x) 
-     alloc_error(__func__);
  do{ 
    test_move(f,pf); 
    temp = test_string(pf,m); 
@@ -229,7 +234,7 @@ char* test_string(FILE *pf,char m){// fine
   int i= 0;
   char *x=calloc(128,sizeof(char));
   if (!x)
-    alloc_error(__func__);
+     puts("errorea");//alloc_error(__func__);
   do{
     a=getc(pf);
     if(a==m){
@@ -238,6 +243,7 @@ char* test_string(FILE *pf,char m){// fine
     *(x+i)=a;
     i++;
   }while(i<= 128);
+   puts("erroree");
   //errore
   return NULL;
 }

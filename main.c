@@ -13,8 +13,9 @@ short width;
 int main(int argc, char* argv[])
 {
   if(argc==2)
-    if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test")))
+    if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test"))){
       test_story(1);
+      }
     else 
       if((argv[1][0]=='h') && (argv[1][1]=='\0' || !strcmp(argv[1],"help")))
 	arg_error(0);
