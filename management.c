@@ -7,10 +7,7 @@ Choice_t* addChoice(Choice_List_t* List)
 {
   Choice_t* C= calloc(1,sizeof(Choice_t));
   if(!C)
-    {
-      fprintf(stderr,"Errore: allocazione non riuscita (addChoice)\n"); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    alloc_error(__func__);
   if(!List->Last)
     List->Last= List->First= C;
   else
@@ -49,10 +46,7 @@ Item_t* addItem(Item_List_t* List)
   Item_t *Item = calloc(1, sizeof(Item_t));
 
   if (!Item)
-    {
-      fprintf(stderr,"Errore: allocazione non riuscita (addItem)\n"); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    alloc_error(__func__);
   if(!List->First)
     List->First = List->Last = Item;
   else
@@ -128,10 +122,7 @@ Enemy_t* addEnemy(Enemy_List_t* List)
   Enemy_t* Enemy = calloc(1, sizeof(Enemy_t));
 
   if(!Enemy)
-    {
-      fprintf(stderr,"Errore: allocazione non riuscita (addEnemy)\n"); //OUTPUT
-      exit(EXIT_FAILURE); 
-    }
+    alloc_error(__func__);
   if(!List->First)
     List->First = List->Last = Enemy;
   else
@@ -217,10 +208,7 @@ Action_t* addAction(Enemy_t* Enemy)
   Action_t* Action = calloc(1, sizeof(Action_t));
 
   if(!Action)
-    {
-      fprintf(stderr,"Errore: allocazione non riuscita (addAction)\n"); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    alloc_error(__func__);
   if(!Enemy->First)
     Enemy->First = Enemy->Last = Action;
   else

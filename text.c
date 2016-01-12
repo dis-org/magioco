@@ -11,10 +11,8 @@ void readevent(char* id, char* t){
   int num;
 
   pf = fopen("custom/events.txt","r");
-  if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire events.txt (readevent)\n");
-    exit(EXIT_FAILURE);
-  }
+  if (!pf)
+    fopen_error(__func__);
   controle(pf,'/','\n',id);
   printtext(pf);
   puts("");
@@ -50,14 +48,14 @@ void readevent(char* id, char* t){
           print_center(id);
           esearch(id);
         }
-	if (x=='d'){
-	  move('.',pf);
-	  n= sstring(pf,'\n');
-	  num= atoi(n);
-	  free(n);
-	  //output?
-	  Local.damage= num;
-	}
+        if (x=='d'){
+          move('.',pf);
+          n= sstring(pf,'\n');
+          num= atoi(n);
+          free(n);
+          //output?
+          Local.damage= num;
+        }
       }
   }while(x!=EOF);
   if (x=='*'){
@@ -106,10 +104,8 @@ char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
   char a;
   int i= 0;
   char *x=calloc(128,sizeof(char));
-  if (!x){
-    fprintf(stderr,"Errore: allocazione non riuscita (sstring)\n"); //OUTPUT
-    exit(EXIT_FAILURE);
-  }
+  if (!x)
+    alloc_error(__func__);
   do{
     a=getc(pf);
     if(a==m){
@@ -136,10 +132,8 @@ void readchoices(FILE* pf, char* id){
   Choice_t* C;
   Item_t* I;
 
-  if (!temp){
-    fprintf(stderr,"Errore: allocazione non riuscita (readchoices)\n"); //OUTPUT
-    exit(EXIT_FAILURE);
-  }
+  if (!temp)
+    alloc_error(__func__);
   controle(pf,'+','\n',id);
   strcpy(Local.Events.text,id);
   while(1){
@@ -151,26 +145,26 @@ void readchoices(FILE* pf, char* id){
       break;
     if(temp[0]=='?')
       {
-	x= sstring(pf,'.');
-	strcpy(temp, x);
-	free(x);
-	I= searchItem(&Local.Bag, temp);
-	if(I)
-	  {
-	    x= sstring(pf, '\n');
-	    if(I->Info.uses < atoi(x))
-	      {
-		free(x);
-		continue;
-	      }
-	    else
-	      free(x);
-	    x=sstring(pf,'\n');
-	    strcpy(temp, x);
-	    free(x);
-	  }
-	else
-	  continue;
+        x= sstring(pf,'.');
+        strcpy(temp, x);
+        free(x);
+        I= searchItem(&Local.Bag, temp);
+        if(I)
+          {
+            x= sstring(pf, '\n');
+            if(I->Info.uses < atoi(x))
+              {
+                free(x);
+                continue;
+              }
+            else
+              free(x);
+            x=sstring(pf,'\n');
+            strcpy(temp, x);
+            free(x);
+          }
+        else
+          continue;
       }
     C= addChoice(&Local.Events);
     strcpy(C->text, temp);
@@ -184,10 +178,8 @@ void isearch(short uses, char* id){
   Item_t* I;
 
   pf=fopen("custom/items.txt","r");
-  if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire items.txt\n"); //OUTPUT
-    exit(EXIT_FAILURE);
-  }
+  if (!pf)
+    fopen_error(__func__);
   controle(pf,'/','.',id);
   type=getc(pf);
   move('.',pf);
@@ -195,9 +187,9 @@ void isearch(short uses, char* id){
     {
       I=searchItem(&Local.Bag, id);
       if(I->Info.uses+uses >0)
-	I->Info.uses+= uses;
+        I->Info.uses+= uses;
       else
-	deleteItem(&Local.Bag, I);
+        deleteItem(&Local.Bag, I);
       return;
     }
   switch(type){
@@ -232,10 +224,8 @@ void esearch(char* id){
   Action_t* A;
 
   pf=fopen("custom/enemies.txt","r");
-  if (!pf){ 
-    fprintf(stderr,"Errore: impossibile aprire enemies.txt\n"); //OUTPUT
-    exit(EXIT_FAILURE);
-  }
+  if (!pf)
+    fopen_error(__func__);
   E= addEnemy(&Local.Battle);
   controle(pf,'/','.', id);
   strcpy(E->Info.name, id);

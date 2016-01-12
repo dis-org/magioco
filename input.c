@@ -122,10 +122,7 @@ _Bool new_name()
   free(name);
   pf= fopen("saves/saves.txt","a+");
   if(!pf)
-    {
-      fprintf(stderr,"Errore: impossibile aprire saves.txt (new_name)\n"); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    alloc_error(__func__);
   while(getc(pf)!=EOF)
     {
       txt= sstring(pf,'\n');

@@ -14,7 +14,6 @@ void test_story(_Bool all){
   if(!t1 || !t2 || !t3)
     folders_error();
   if(all)
-     puts("evento");
     test_event(t1,t2,t3,temp);
   fclose(t1); 
   fclose(t2);
@@ -84,8 +83,6 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
       // errore
     }
 
-
-
 void test_choice(FILE* events,FILE* enemies,FILE* items,char* id){
   rewind(events);
   char *temp;
@@ -100,8 +97,6 @@ void test_choice(FILE* events,FILE* enemies,FILE* items,char* id){
       }
       puts ("errore scelta");
     }
-  
-
 
 /*void test_item(FILE* pf, char* id){*/
 /*  char *temp;*/

@@ -12,10 +12,7 @@ void save()
   strcat(a,".bin");
   pf=fopen(a,"wb");
   if(!pf)
-    {
-      fprintf(stderr,"Errore: impossibile aprire %s\n",a); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    fopen_error(__func__);
   fwrite(&Local,sizeof(Data_t),1,pf);
   Choice_t* C= Local.Events.First;
   for(int x= 0; x<Local.Events.choices; x++)
@@ -65,10 +62,7 @@ void load()
   strcat(a,".bin");
   pf=fopen(a,"rb");
   if (!pf)
-    { 
-      fprintf(stderr,"Errore: impossibile aprire %s\n",a); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    fopen_error(__func__);
   fread(&Local,sizeof(Data_t),1,pf);
   Local.Events.First= Local.Events.Last= NULL;
   Local.Bag.First= Local.Bag.Last= NULL;
@@ -114,10 +108,7 @@ void readsaves()
   
   pf=fopen("saves/saves.txt","a+");
   if(!pf)
-    {
-      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n"); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    fopen_error(__func__);
   rewind(pf);
   while(getc(pf)=='#')
     {
@@ -127,7 +118,7 @@ void readsaves()
       free(name);
     }
   if(Local.Events.choices)
-    strcpy(Local.Events.text,"Seleziona un salvataggio");
+    strcpy(Local.Events.text,"Seleziona un salvataggio"); //TIPO OUTPUT
   else
     strcpy(Local.Events.text,"Nessun salvataggio presente");
   fclose(pf);
@@ -140,10 +131,7 @@ void deletesaves()
   char a[64];
   pf=fopen("saves/saves.txt","a+");
   if(!pf)
-    {
-      fprintf(stderr,"Errore: impossibile aprire la cartella \"saves\"\n"); //OUTPUT
-      exit(EXIT_FAILURE);
-    }
+    fopen_error(__func__);
   rewind(pf);
   while(getc(pf)=='#')
     {

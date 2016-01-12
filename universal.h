@@ -18,7 +18,7 @@ _Bool new_name(); //salva il nome del giocatore controllando che non sia già pr
 
 //management
 Choice_t* addChoice(Choice_List_t* List);  //aggiunge una scelta ad una Choice_List
-void select(Choice_List_t* List, char* text, short chosen); //ritorna il testo scelto
+void select(Choice_List_t* List, char* text, short chosen); //ritorna il testo scelto****
 void deleteChoices(Choice_List_t* List);   //svuota una Choice_List
 
 Item_t* addItem(Item_List_t* List);
@@ -73,16 +73,17 @@ void esearch(char*);
 
 //control
 void test_story(_Bool);
-void test_event(FILE*,FILE*,FILE*,char*);
-void test_choice(FILE*,FILE*,FILE*,char*);
-//void test_item(FILE*,char*,int*);
-//void test_enemy(FILE*,char*,int*);
+void test_event(FILE*,FILE*,FILE*,char*,int*);
+void test_choice(FILE*,FILE*,FILE*,char*,int*);
+/* void test_item(FILE*,char*,int*); */
+/* void test_enemy(FILE*,char*,int*); */
 int number(char*);
 void test_move(char,FILE*);
-void controlt(FILE*,char,char,char*);
+char* controlt(FILE*,char,char,char*);
 char* test_string(FILE*,char);
 
 //error
 void arg_error(int n); //stampa messaggio per immissione specifiche
 void folders_error();  //stampa errore cartelle o file mancanti
-void alloc_error(char* func); //stampa errore di allocazione
+void alloc_error(const char* func); //stampa errore di allocazione
+void fopen_error(const char* func); //stampa errore apertura file

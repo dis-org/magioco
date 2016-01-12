@@ -6,25 +6,24 @@
 #define WIDTH_MAX 130
 
 Data_t Local;
-_Bool buffered;
+_Bool buffered; //*******
 short quit_chosen;
 short width;
 
 int main(int argc, char* argv[])
 {
-  if(argc==2)
-    if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test"))){
-      test_story(1);
-      }
-    else 
-      if((argv[1][0]=='h') && (argv[1][1]=='\0' || !strcmp(argv[1],"help")))
-	arg_error(0);
+  if(argc>1)
+    if(argc==2)
+      if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test")))
+        test_story(1);
+      else if((argv[1][0]=='h') && (argv[1][1]=='\0' || !strcmp(argv[1],"help")))
+        arg_error(0);
       else
-	arg_error(1);
-  else if(argc>2)
-    arg_error(2);
-
-  test_story(0);
+        arg_error(1);
+    else
+      arg_error(2);
+  else
+    test_story(0);
 
   _Bool on= 1;
   char temp[128];
@@ -130,8 +129,8 @@ int main(int argc, char* argv[])
           readevent(temp, &t);
           if(press_a())
             {
-	      self_damage(Local.damage);
-	      Local.damage=0;
+              self_damage(Local.damage);
+              Local.damage=0;
               strcpy(Local.id,temp);
               Local.state= t;
               Local.done= 0;
