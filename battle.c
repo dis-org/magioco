@@ -8,21 +8,6 @@ void battle(void)
   Enemy_t* Enemy;
   Action_t* Action;
 
-  if(!Local.Battle.enemies)
-    {
-      G= Local.Ground.First;
-      for(int x= 0; x<Local.Ground.items; x++)
-        {
-          Item= addItem(&Local.Bag);
-          Item->Info= G->Info;
-          G= G->Next;
-        }
-      deleteItems(&Local.Ground);
-      Local.state='t';
-      return;
-      //****
-    }
-
   print_Enemies();
   print_stats();
   switch(Local.phase)
@@ -112,7 +97,6 @@ void battle(void)
             {
               G= addItem(&Local.Ground);
               G->Info= Item->Info;
-              deleteItem(&Local.Bag, Item);
             }
           else if(!--Item->Info.uses)
             deleteItem(&Local.Bag, Item);
@@ -181,7 +165,7 @@ void battle(void)
         }
 
       //attacco del giocatore (solo se il nemico attuale è il bersaglio dell'attacco
-      if(Enemy==enemy_sel() && !Local.defending)
+      if(Enemy==enemy_sel())
         {
           Item= item_sel();
           if(!Local.ranged)
@@ -191,27 +175,57 @@ void battle(void)
             }
           else if(!Enemy->Info.defence)
             {
-              if(!Item)
-                Item= Local.Ground.Last;
               enemy_damage(Enemy, Item->Info.trowvalue);
+              if(Item->Info.type=='u')
+		{
+		  deleteItem(&Local.Bag, Item);
+		  Local.item_chosen--;
+		}
             }
         }
-      
-      Enemy->Last->Next= Action;
-      Enemy->First= Action->Next;
-      Enemy->Last= Action;
-      Action->Next= NULL;
-      if(Enemy->Next)
-        Local.current_enemy++;
+
+      if(Enemy==enemy_sel()) //controlla che il nemico non sia stato rimosso
+	{
+	  Enemy->Last->Next= Action;
+	  Enemy->First= Action->Next;
+	  Enemy->Last= Action;
+	  Action->Next= NULL;
+	}
       else
-        {
-          Local.use_chosen= 1;
-          Local.item_chosen= 1;
-          Local.enemy_chosen= 0;
-          Local.current_enemy= 1;
-          Local.ranged= 0;
-          Local.phase='i';
-        }
+	Local.enemy_chosen--;
+
+      if(!Local.Battle.enemies || Enemy==Local.Battle.Last)
+	{
+	  Local.use_chosen= 1;
+	  Local.item_chosen= 1;
+	  Local.enemy_chosen= 0;
+	  Local.current_enemy= 1;
+	  Local.ranged= 0;
+	  Local.phase='i';
+	}
+      else
+	Local.current_enemy++;
+
+      if(!Local.Battle.enemies)
+	{
+	  G= Local.Ground.First;
+	  for(int x= 0; x<Local.Ground.items; x++)
+	    {
+	      Item= addItem(&Local.Bag);
+	      Item->Info= G->Info;
+	      G= G->Next;
+	    }
+	  deleteItems(&Local.Ground);
+	  if(Local.defending)
+	    {
+	      Item= addItem(&Local.Bag);
+	      Item->Info= Local.Defending;
+	    }
+	  Local.defending=0;
+	  Local.state='t';
+	  return;
+	}
+
       break;
     }
 }
@@ -246,7 +260,10 @@ void enemy_damage(Enemy_t* Enemy, int damage) //danno al nemico (compresa difesa
         else if(Enemy->Info.health)
           Enemy->Info.health-= 1;
       if(!Enemy->Info.health)
-        deleteEnemy(&Local.Battle, Enemy);
+	{
+	  deleteEnemy(&Local.Battle, Enemy);
+	  Local.current_enemy--;
+	}
     }
   else if(damage)
     Enemy->Info.health-= damage;
@@ -267,6 +284,7 @@ void resist(int damage) //danno al gicatore difeso
     if(!--Local.Defending.uses)
       {
 	Local.defending= 0;
+	Local.defence=0;
 	break;
       }
 }

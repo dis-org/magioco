@@ -1,63 +1,114 @@
 /Start
-C'era una volta in un paese in collina, un ragazzo seduto nella penombra della sua casetta a programmare.
-Lo schermo del computer mostrava l'ennesima scritta "Segmentation fault (core dumped)" quando finalmente...*
-        -*Il ragazzo decise di:
-  
-+Il ragazzo decise di:
+Questa è la storia di un programmatore alle prime armi
+che cerca di farsi strada tra errori di compilazione e segfault.*
+	-d.-3
+  ->Hello World
 
-/Tirare il computer dalla finestra
-Era il suo unico computer e non aveva soldi per comprarne altri.*
-  -#
+/Hello World
+E' la prima lezione pratica in C e non sai neanche cosa sia un main.
+Per poterti definire un programmatore devi superare il rito di iniziazione:
+Stampare "Hello World" sulla riga di comando.*
+	->Vuoto
 
-/Sostituire "*chosen++" con "*chosen+= 1"
-Compilò tutto e...*
-  ->Incredibile
-  
+/Vuoto
+Hai davanti a te il file di testo vuoto e non sai da dove cominciare.*
+	-*Provi a scrivere qualcosa:
 
-/Cambiare il nome a tutte le variabili
-Stranamente ciò non lo portò da nessuna parte.*
-  -i.ciao.345
-  -*Il ragazzo decise di: 
-  
-/Eliminare cose inutili
-Il ragazzo si rese conto troppo tardi che le cose da lui appena eliminate non erano affatto inutili e dovette riscrivere tutto.*
-  -*Il ragazzo decise di:
-  
-  
-/Andare a dormire
-Il ragazzo si rese conto di essere stanco, spense il computer e si infilò sotto le coperte.
++Provi a scrivere qualcosa:
 
-                            Buonanotte*
-  -#
-  
-/Prendersi un caffè
-Espresso lungo senza zucchero, il suo preferito.*
-  -i.caffè.1
-  -*Il ragazzo decise di:
- 
-/?
-caffè.
-Bere il caffè
-	
-/Rivolgersi al lato oscuro della matematica
-Boccuto out of nowhere!*
-	-i.la forza della disperazione.404
-	-e.Boccuto
-	-e.Il gemello più malvagio di Boccuto
-	->Vittoria
-	
+/ qualcosa 
+Ahahahahahahaha, no.*
+	-*Provi a scrivere qualcosa:
+
+/ #include <stdio.h> 
+Ovvio.*
+  -*Adesso...
+
+/ int main(){ 
+Si comincia sempre dal main, giusto?*
+  ->Nope
+
 /#
 
-/Bere il caffè
-Il ragazzo si accorse di aver perso il conto dei caffè bevuti, ma ormai erano l'unica cosa che lo faceva andare avanti*
-	-i.caffè.-1
-	-d.-3
-	-*Il ragazzo decise di:
+/Nope
+Il compilatore non è d'accordo...*
+	-*Provi a scrivere qualcosa:
 
-/Incredibile
-Incredibile! Il programma funzionava e il ragazzo andò a dormire soddisfatto.*
-  -#
-  
-/Vittoria
-Dopo il feroce scontro il ragazzo uscì a prendere una boccuto d'aria, ora tutti i suoi problemi non avevano più importanza e la vita risplendeva di luce nuova.*
-	-#
++Adesso...
+
+/ printf("Hello World"\n); 
+Neanche il compilatore sa da dove cominciare*
+ -*Adesso...
+
+/ int main() { 
+Ci siamo quasi...*
+	-*Manca solo:
+
+/#
+
++Manca solo:
+
+/ printf("Hello World.\n") } 
+error: expected ‘;’ before ‘}’ token
+}
+^*
+  -*Manca solo:
+
+/ printf("Hello World.\n"); } 
+                           "Hello World"*
+  ->Gioia
+
+/#
+
+/Gioia
+                   Ora ha inizio la tua avventura.*
+  ->Atto II
+
+/Atto II
+E' passata una settimana,
+ormai hai appreso le basi ma hai ancora molti ostacoli da superare.*
+	->Seconda lezione
+
+/Seconda lezione
+Il primo esercizio da affrontare è sulle conversioni di tipo,
+devi trovare qualcosa che ti difenda dalla noia.*
+	-e.Conversioni
+	-i.type-cast.10
+	-i.un int di nome pippo.100
+	->Prossimo
+	
+/Prossimo
+Questa volta è andata bene, ma non sarà sempre così facile.*
+	->Pausa
+
+/Pausa
+Approfitti dei 10 minuti di pausa per prenderti un caffè.*
+	-i.caffè.1
+	-d.-3
+	->Esercizio
+
+/Esercizio
+C'era fila alle macchinette e la lezione stà per ricominciare,
+non fai neanche in tempo a bere il caffè appena fatto
+che ti ritrovi a dover affrontare altri esercizi.
+Ricordati di compilare lanciando gcc.*
+	-e.Ancora conversioni
+	-e.Trianglolo di altezza 2n-1
+	-i.gcc.1000
+	->Triangolo
+	
+/Triangolo
+>
+>>
+>>>
+>>>>
+>>>
+>>
+>*
+-#
+
+
+
+
+
+

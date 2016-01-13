@@ -5,6 +5,7 @@
 
 extern Data_t Local;
 int line= 0;
+
 void test_story(_Bool all){
   char temp[128]= "Start";
   FILE *t1, *t2, *t3;
@@ -25,78 +26,80 @@ void test_event(FILE* events, FILE* enemies, FILE* items, char* id){
   char *temp,*semp;
   char x;
   char *choice=calloc(128,sizeof(char));
-      controlt(events,'/','\n',id);
-      do{
+  controlt(events,'/','\n',id);
+  do{
     x=getc(events);
-    if (x == EOF)  puts("errore1");//errore;
-    if (x == '-')  puts("errore2");// errore ;
-    if (x =='\n') line++;
+    if (x == EOF)
+      puts("errore1"); //errore eof
+    if (x == '-')
+      puts("errore2"); //errore evento lineare **passare linea
+    if (x =='\n') 
+      line++;
   }while(x!='*');
-      do{
-         test_move('-',events);
-	x=getc(events);
-	if (x =='*' || x =='>' || x =='#' ) break;
-	if (x=='i'){
-	  x=getc(events);
-	  temp=test_string(events,'.');
-	  semp=test_string(events,'\n');
-	  if (number(semp)){
-	    // errore
-	    puts("errore3");
-	  }
-	  //test_item(items,temp);
-	  puts("oggetto");
-	  free(temp);
-	  free(semp);
-	}
-	if (x=='e'){
-	  x=getc(events);
-	  temp=test_string(events,'\n');
-	  //test_enemy(enemies,temp);
-	  puts("nemico");
-	  free(temp);
-	}
-      }while(1);
-      if (x=='*'){
-	id=test_string(events,'\n');
-	if (!strcmp(id,choice)) return;
-	strcpy(choice,id);
-	puts("scelta");
-	test_choice(events, enemies, items,id);
-	free(id);
-	
-	return;
+  do{
+    test_move('-',events);
+    x=getc(events);
+    if (x =='*' || x =='>' || x =='#' ) break;
+    if (x=='i'){
+      x=getc(events);
+      temp=test_string(events,'.');
+      semp=test_string(events,'\n');
+      if (number(semp)){
+	// errore
+	puts("errore3");
       }
-      if (x=='>'){
-	id=test_string(events,'\n');
-	puts("evento");
-	test_event(events,items,enemies,id);
-	free(id);
-	
-	return;
-      }
-      if (x=='#'){
-      puts("fine");
-	return;
-      }
-      puts("errore4");
-      // errore
+      //test_item(items,temp);
+      puts("oggetto");
+      free(temp);
+      free(semp);
     }
+    if (x=='e'){
+      x=getc(events);
+      temp=test_string(events,'\n');
+      //test_enemy(enemies,temp);
+      puts("nemico");
+      free(temp);
+    }
+  }while(1);
+  if (x=='*'){
+    id=test_string(events,'\n');
+    if (!strcmp(id,choice)) return;
+    strcpy(choice,id);
+    puts("scelta");
+    test_choice(events, enemies, items,id);
+    free(id);
+	
+    return;
+  }
+  if (x=='>'){
+    id=test_string(events,'\n');
+    puts("evento");
+    test_event(events,items,enemies,id);
+    free(id);	
+    return;
+  }
+  if (x=='#'){
+    puts("fine");
+    return;
+  }
+  puts("errore4");
+  // errore
+}
 
 void test_choice(FILE* events,FILE* enemies,FILE* items,char* id){
   rewind(events);
   char *temp;
-      controlt(events,'+','\n',id);
-      while(1){
-        move('/', events);
-        temp=test_string(events,'\n');
-        if(temp[0]=='#') return;
-        puts("evento");
-        test_event(events, enemies, items, temp);
-        free(temp);
-      }
-      puts ("errore scelta");
-    }
+  controlt(events,'+','\n',id);
+  while(1){
+    move('/', events);
+    temp=test_string(events,'\n');
+    if(temp[0]=='#') return;
+    puts("evento");
+    test_event(events, enemies, items, temp);
+    free(temp);
+  }
+  puts ("errore scelta");
+}
 
 /*void test_item(FILE* pf, char* id){*/
 /*  char *temp;*/
@@ -210,43 +213,42 @@ int number(char *num){ // fine
   return 0;
 }
 
-void test_move( char a, FILE* pf){// fine
+void test_move(char a, FILE* pf){// fine
   char c;
   do{
     c=getc(pf);
     if (c == a) return;
     if (c=='\n') line++;
   }while(c!=EOF);
-   puts("errorem");
+  puts("errorem");
   // errore end of file
 }
 
 void controlt(FILE* pf,char f,char m,char* id){ //fine 
-   char *temp;
- do{ 
-   test_move(f,pf); 
-   temp = test_string(pf,m); 
+  char *temp;
+  do{ 
+    test_move(f,pf); 
+    temp = test_string(pf,m);
   }while (strcmp(temp,id));
- free(temp); 
- } 
+  free(temp); 
+} 
 
 char* test_string(FILE *pf,char m){// fine
   char a;
-  
   char *x=calloc(128,sizeof(char));
-  if (!x)
-     puts("errorea");//alloc_error(__func__);
+  if(!x)
+    alloc_error(__func__);
 
-   for (int i=0;i<=128;i++){
+  for (int i=0;i<=128;i++){
     a=getc(pf);
     if(a==m){
-   // printf("\n");
+      // printf("\n");
       return x;
     }
     *(x+i)=a;
     //printf("%d  ",i);
   }
-   puts("erroree qio");
+  puts("erroree qio");
   //errore
   return NULL;
 }

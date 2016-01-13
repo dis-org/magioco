@@ -40,6 +40,7 @@ void deleteChoices(Choice_List_t* List)
   List->Last=NULL;
   List->choices=0;
 }
+
 //-----------------------------------------Items
 Item_t* addItem(Item_List_t* List)
 {
@@ -82,24 +83,26 @@ void deleteItem(Item_List_t* List, Item_t* Item) //da usare solo con searchItem 
     {
       List->First= Ret->Next;
       free(Item);
+      if(!List->First)
+	List->Last= NULL;
     }
   else
-    while(Ret)
-      {
-        if(!Ret->Next)
-          {
-            fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n"); //OUTPUT
-            exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
-          }
-        else
-          if(Ret->Next== Item)
-            {
-              Ret->Next= Ret->Next->Next;
-              if(!Ret->Next)
-                List->Last= Ret;
-              free(Item);
-              break;
-            }
+    while(1)
+      {  
+	if(!Ret->Next)
+	  {
+	    fprintf(stderr,"Errore: oggetto non in lista (deleteItem)\n"); //OUTPUT
+	    exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+	  }
+	if(Ret->Next==Item)
+	  {
+	    Ret->Next= Ret->Next->Next;
+	    if(!Ret->Next)
+	      List->Last= Ret;
+	    free(Item);
+	    break;
+	  }
+	Ret= Ret->Next;
       }
   List->items--;
 }
@@ -116,6 +119,7 @@ void deleteItems(Item_List_t* List)
   List->Last= NULL;
   List->items = 0;
 }
+
 //-----------------------------------------Enemies
 Enemy_t* addEnemy(Enemy_List_t* List)
 {
@@ -166,28 +170,33 @@ void deleteEnemy(Enemy_List_t* List, Enemy_t* Enemy)
   if(Ret==Enemy)
     {
       List->First= Ret->Next;
+      deleteActions(Enemy);
       free(Enemy);
+      if(!List->First)
+	List->Last= NULL;
     }
   else
-    while(Ret)
-      {
-        if(!Ret->Next)
-          {
-            fprintf(stderr,"Errore: nemico non in lista (deleteEnemy)\n"); //OUTPUT
-            exit(EXIT_FAILURE);
-          }
-        else
-          if(Ret->Next== Enemy)
-            {
-              Ret->Next= Ret->Next->Next;
-              if(!Ret->Next)
-                List->Last= Ret;
-              free(Enemy);
-              break;
-            }
+    while(1)
+      {  
+	if(!Ret->Next)
+	  {
+	    fprintf(stderr,"Errore: nemico  non in lista (deleteEnemy)\n"); //OUTPUT
+	    exit(EXIT_FAILURE); // non dovrebbe accadere se Item è reso da searchItem
+	  }
+	if(Ret->Next==Enemy)
+	  {
+	    Ret->Next= Ret->Next->Next;
+	    if(!Ret->Next)
+	      List->Last= Ret;
+	    deleteActions(Enemy);
+	    free(Enemy);
+	    break;
+	  }
+	Ret= Ret->Next;
       }
   List->enemies--;
 }
+
 
 void deleteEnemies(Enemy_List_t* List)
 {
@@ -202,6 +211,7 @@ void deleteEnemies(Enemy_List_t* List)
   List->Last=NULL;
   List->enemies = 0;
 }
+
 //-----------------------------------------Actions
 Action_t* addAction(Enemy_t* Enemy)
 {

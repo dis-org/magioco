@@ -219,8 +219,7 @@ void print_Action(Enemy_t* Enemy)
       puts("Si difende");
     }
 
-   
-  if(Enemy==enemy_sel() && !Local.defending)
+  if(Enemy==enemy_sel())
     {
       Item_t* Item;
       Item= item_sel();
@@ -233,8 +232,6 @@ void print_Action(Enemy_t* Enemy)
         }
       else
         {
-          if(!Item)
-            Item= Local.Ground.Last;
           printf("%s: lancia %s contro %s\n", Local.name, Item->Info.name, Enemy->Info.name);
           if(Enemy->Info.defence)
             printf("%s è difeso", Enemy->Info.name);

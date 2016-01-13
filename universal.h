@@ -73,13 +73,13 @@ void esearch(char*);
 
 //control
 void test_story(_Bool);
-void test_event(FILE*,FILE*,FILE*,char*,int*);
-void test_choice(FILE*,FILE*,FILE*,char*,int*);
+void test_event(FILE*,FILE*,FILE*,char*);
+void test_choice(FILE*,FILE*,FILE*,char*);
 /* void test_item(FILE*,char*,int*); */
 /* void test_enemy(FILE*,char*,int*); */
 int number(char*);
 void test_move(char,FILE*);
-char* controlt(FILE*,char,char,char*);
+void controlt(FILE*,char,char,char*);
 char* test_string(FILE*,char);
 
 //error
@@ -87,3 +87,4 @@ void arg_error(int n); //stampa messaggio per immissione specifiche
 void folders_error();  //stampa errore cartelle o file mancanti
 void alloc_error(const char* func); //stampa errore di allocazione
 void fopen_error(const char* func); //stampa errore apertura file
+void eof_error(const char* func, char c); //errore lettura file

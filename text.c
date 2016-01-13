@@ -83,21 +83,24 @@ void move( char a, FILE* pf){ //muove il puntatore fino al simbolo...finito.
   char c;
   do{
     c=getc(pf);
-    if (c==EOF) break;
+    if (c==EOF)
+      eof_error(__func__,a);
   }while(c != a);
 }
 
 void printtext(FILE*pf){// stampa il testo fino al simbolo...finito.
   char a;
-  do{
-    a=getc(pf);
-    if (a=='*'){ 
-      putc('\n',stdout);
-      return;
+  while(1)
+    {
+      a=getc(pf);
+      if(a==EOF)
+	eof_error(__func__,'*');
+      if (a=='*'){ 
+	putc('\n',stdout);
+	return;
+      }
+      putc(a,stdout);        
     }
-    putc(a,stdout);
-               
-  }while(a != EOF);
 }
 
 char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
@@ -106,14 +109,17 @@ char* sstring(FILE *pf,char m){// rimanda una stringa..finito.
   char *x=calloc(128,sizeof(char));
   if (!x)
     alloc_error(__func__);
-  do{
-    a=getc(pf);
-    if(a==m){
-      return x;
+  while(1)
+    {
+      a=getc(pf);
+      if(a==EOF)
+	eof_error(__func__,m);
+      if(a==m){
+	return x;
+      }
+      *(x+i)=a;
+      i++;
     }
-    *(x+i)=a;
-    i++;
-  }while(a!=EOF);
   return NULL;
 }
 

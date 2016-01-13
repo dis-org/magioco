@@ -48,3 +48,9 @@ void fopen_error(const char* func)
   fprintf(stderr,"Errore: apertura file non riuscita in %s\n", func);
   exit(EXIT_FAILURE);
 }
+
+void eof_error(const char* func, char c)
+{
+  fprintf(stderr,"Errore: raggiunto EOF in %s, %c mancante\n", func, c);
+  exit(EXIT_FAILURE);
+}

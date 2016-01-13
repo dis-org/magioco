@@ -1,9 +1,12 @@
-/Boccuto.4.2
-  -r.1.inizia uno studio di funzione
-  -r.2.applica il teorema dell'Ospital
-  -d.2.TRUCCO!
-  -r.4.scatena un evento con probabilità inferiore al 10%
-  -#
-/Il gemello più malvagio di Boccuto.2.4
-	-m.2."dovete entrare da sopra!"
+/Conversioni.6.0
+	-m.1.double mean
+	-m.2.rvalue!
+	-#
+	
+/Ancora conversioni.3.1
+	-m.1.conversione implicita
+	-#
+	
+/Trianglolo di altezza 2n-1.4.0
+	-r.2.errore nei for annidati
 	-#
