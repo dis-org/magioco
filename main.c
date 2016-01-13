@@ -6,7 +6,6 @@
 #define WIDTH_MAX 130
 
 Data_t Local;
-_Bool buffered; //*******
 short quit_chosen;
 short width;
 

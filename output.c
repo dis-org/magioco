@@ -11,11 +11,7 @@ extern short width;
 
 void next_page()
 {
-  if(buffered)
-    {
-    }
-  else
-    system("clear");
+  system("clear");
 }
 
 void print_intro()

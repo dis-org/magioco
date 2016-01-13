@@ -1,6 +1,6 @@
 /Conversioni.6.0
 	-m.1.double mean
-	-m.2.rvalue!
+	-m.1.rvalue!
 	-#
 	
 /Ancora conversioni.3.1

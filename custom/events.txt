@@ -55,13 +55,13 @@ error: expected ‘;’ before ‘}’ token
   -*Manca solo:
 
 / printf("Hello World.\n"); } 
-                           "Hello World"*
-  ->Gioia
+"Hello World"*
+  ->Begin
 
 /#
 
-/Gioia
-                   Ora ha inizio la tua avventura.*
+/Begin
+Ora ha inizio la tua avventura.*
   ->Atto II
 
 /Atto II
@@ -70,8 +70,9 @@ ormai hai appreso le basi ma hai ancora molti ostacoli da superare.*
 	->Seconda lezione
 
 /Seconda lezione
-Il primo esercizio da affrontare è sulle conversioni di tipo,
-devi trovare qualcosa che ti difenda dalla noia.*
+Il primo esercizio da affrontare è sulle conversioni di tipo.
+Devi trovare qualcosa che ti difenda dalla noia.
+Premi 'q' per salvare.*
 	-e.Conversioni
 	-i.type-cast.10
 	-i.un int di nome pippo.100
@@ -104,7 +105,8 @@ Ricordati di compilare lanciando gcc.*
 >>>>
 >>>
 >>
->*
+>
+*
 -#
 
 

@@ -75,8 +75,6 @@ void esearch(char*);
 void test_story(_Bool);
 void test_event(FILE*,FILE*,FILE*,char*);
 void test_choice(FILE*,FILE*,FILE*,char*);
-/* void test_item(FILE*,char*,int*); */
-/* void test_enemy(FILE*,char*,int*); */
 int number(char*);
 void test_move(char,FILE*);
 void controlt(FILE*,char,char,char*);

@@ -15,73 +15,63 @@ void switch_state()
 
 _Bool press_a() 
 {
-  if(buffered)
+
+  _Bool ret;
+  char in;
+  system("/bin/stty raw");
+  while(1) //loop infinito
     {
-      return 0;
+      in= getchar();
+      printf("\r        \r");
+      if(in=='a')
+	break; //esce dal loop se digito 'a'
+      if(in=='q')
+	{
+	  quit_chosen= 1;
+	  switch_state();
+	  break;
+	}
     }
-  else
-    {
-      _Bool ret;
-      char in;
-      system("/bin/stty raw");
-      while(1) //loop infinito
-        {
-          in= getchar();
-          printf("\r        \r");
-          if(in=='a')
-            break; //esce dal loop se digito 'a'
-          if(in=='q')
-            {
-              quit_chosen= 1;
-              switch_state();
-              break;
-            }
-        }
-      system("/bin/stty cooked");
-      ret= in=='a'? 1: 0;
-      return ret;
-    }
+  system("/bin/stty cooked");
+  ret= in=='a'? 1: 0;
+  return ret;
+
 }
 //dovrebbe essere l'ultima funzione chiamata prima di rivalutare il loop
 
 _Bool choice(short* chosen, short choices)
 {
-  if(buffered)
+
+  _Bool ret;
+  char in;
+  system("/bin/stty raw");
+  while(1)
     {
-      return 0;
+      in= getchar();
+      printf("\r        \r");
+      if(in=='q')
+	{
+	  quit_chosen= 1;
+	  switch_state();
+	  break;
+	}
+      if(in=='a')
+	break;
+      if(in=='A' && *chosen>1)
+	{
+	  *chosen-= 1;
+	  break;
+	}
+      if(in=='B' && *chosen<choices)
+	{
+	  *chosen+= 1;
+	  break;
+	}
     }
-  else
-    {
-      _Bool ret;
-      char in;
-      system("/bin/stty raw");
-      while(1)
-        {
-          in= getchar();
-          printf("\r        \r");
-          if(in=='q')
-            {
-              quit_chosen= 1;
-              switch_state();
-              break;
-            }
-          if(in=='a')
-            break;
-          if(in=='A' && *chosen>1)
-            {
-              *chosen-= 1;
-              break;
-            }
-          if(in=='B' && *chosen<choices)
-            {
-              *chosen+= 1;
-              break;
-            }
-        }
-      system("/bin/stty cooked");
-      ret= in=='a'? 1: 0;
-      return ret;
-    }
+  system("/bin/stty cooked");
+  ret= in=='a'? 1: 0;
+  return ret;
+
 }
 
 _Bool new_name()
@@ -92,7 +82,7 @@ _Bool new_name()
   char* name= calloc(32,sizeof(char));
   int n= 0;
   char c;
-  while(!buffered)
+  while(1)
     {
       system("clear");
       print_name(name);
@@ -112,7 +102,7 @@ _Bool new_name()
       continue;
     }
   printf("\r        \r");
-  if(!n && !buffered)
+  if(!n)
     {
       puts("");
       print_center("Annullato"); //OUTPUT
