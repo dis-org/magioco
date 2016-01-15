@@ -107,10 +107,13 @@ Ricordati di compilare lanciando gcc.*
 >>
 >
 *
--#
+->Triforse?
 
+/Triforse?
+Vedere quel triangolo stampato dopo ore di tentativi falliti ti riempe di motivazione.*
+	-d.-4
+	->Atto III
 
-
-
-
+/Atto III
+Sei sopravvissuto anche a questa settimana ma hai ancora molto da imparare.
 

@@ -10,3 +10,5 @@
 /Trianglolo di altezza 2n-1.4.0
 	-r.2.errore nei for annidati
 	-#
+	
+/

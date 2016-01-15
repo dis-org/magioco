@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #define WIDTH_DEFAULT 80
-#define WIDTH_MAX 130
+#define WIDTH_MAX 1000
 
 Data_t Local;
 short quit_chosen;

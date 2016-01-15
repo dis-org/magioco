@@ -1,5 +1,17 @@
+azioni per risolvere gli esercizi
 /type-cast.p.1.0.0
-/un int di nome pippo.u.0.0.4
-/caffè.p.-4.0.0
-/gcc.p.0.3.0
 
+oggetti che difendono dalla noia
+/un int di nome pippo.u.0.0.4
+/10,000 Monkeys.u.0.0.3
+
+oggetti che rimettono in forze
+/caffè.p.-4.0.0
+/fiducia in se stesso.-3.0.0
+
+programmi da lanciare
+/gcc.p.0.3.0
+/man.p.
+/gdb.p.
+
+/ore di studio.p.0.0.0
