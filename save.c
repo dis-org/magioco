@@ -4,6 +4,22 @@
 
 extern Data_t Local;
 
+void check_folders()
+{
+  FILE *pf, *t1, *t2, *t3;
+  pf=fopen("saves/check.tmp","w");
+  t1=fopen("custom/events.txt","r");
+  t2=fopen("custom/enemies.txt","r");
+  t3=fopen("custom/items.txt","r");
+  if(!pf || !t1 || !t2 || !t3)
+    folders_error();
+  fclose(pf);
+  fclose(t1); 
+  fclose(t2);
+  fclose(t3);
+  remove("saves/check.tmp");
+}
+
 void save()
 {
   FILE *pf;
