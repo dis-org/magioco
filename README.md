@@ -113,8 +113,9 @@ Gli eventi lineari sono composti da:
     ->ID_EVENTO rimanda ad un' evento lineare
     -*ID_SCELTA rimanda ad una scelta
     -# termina la sessione di gioco (schermata di game over)
+    -? termina la sessione di gioco rimandando direttamente all'intro
     
-I primi 4 comandi possono essere ripetuti (anche se ha senso solo per i primi due), mentre degli altri 3 (>,*,#) deve essercene sempre solo uno (il programma di lettura si ferma al primo che trova).
+I primi 4 comandi possono essere ripetuti (anche se ha senso solo per i primi due), mentre degli altri 4 (>,*,#,?) deve essercene sempre solo uno (il programma di lettura si ferma al primo che trova).
 
 Ogni evento deve essere definito (ovvero deve comprendere il testo da stampare ed i comandi) la prima volta che nel file vine utilizzato il il suo ID dopo il simbolo '/', sia se fa parte di una scelta sia se è un evento singolo.
 
