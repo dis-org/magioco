@@ -173,7 +173,7 @@ impari a lanciare gdb nelle situazioni critiche.#
 	-i.ore a disposizione.-3
 	-i.operatore freccia.4
 	-i.operatore punto.4
-	-i.gdb.1000
+	-i.gdb.1024
 	-*Con il tempo ancora a disposizione decidi di:
 
 /Leggere "C in a Nutshell"

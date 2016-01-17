@@ -8,12 +8,15 @@ int line= 0;
 
 void test_story(_Bool all){
   char temp[128]= "Start";
-  FILE *t1, *t2, *t3;
+  FILE *pf, *t1, *t2, *t3;
+  pf=fopen("saves/check.tmp","w");
   t1=fopen("custom/events.txt","r");
   t2=fopen("custom/enemies.txt","r");
   t3=fopen("custom/items.txt","r");
   if(!t1 || !t2 || !t3)
     folders_error();
+  fclose(pf);
+  remove("saves/check.tmp");
   if(all)
     test_event(t1,t2,t3,temp);
   fclose(t1); 

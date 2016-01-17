@@ -5,8 +5,8 @@ extern Data_t Local;
 void battle(void)
 {
   Item_t *Item, *G;
-  Enemy_t* Enemy;
-  Action_t* Action;
+  Enemy_t *Enemy, *Temp;
+  Action_t *Action;
 
   print_Enemies();
   print_stats();
@@ -133,7 +133,7 @@ void battle(void)
             break;
           else if(Local.defending)
             {
-              if(Local.Defending.type=='p') //da decidere se si perde del tutto o no
+              if(Local.Defending.type=='p')
                 Local.defending=0;
               else if(Local.defence)
                 resist(Action->Info.value);
@@ -184,17 +184,24 @@ void battle(void)
             }
         }
 
-      if(Enemy==enemy_sel()) //controlla che il nemico non sia stato rimosso
+      if(!Enemy->Info.health) //se un nemico deve essere rimosso
+	{
+	  Temp= Enemy;
+	  if(Enemy->Next)
+	    Enemy= Enemy->Next;
+	  deleteEnemy(&Local.Battle, Temp);
+	  Local.current_enemy--;
+	  Local.enemy_chosen--;
+	}
+      else
 	{
 	  Enemy->Last->Next= Action;
 	  Enemy->First= Action->Next;
 	  Enemy->Last= Action;
 	  Action->Next= NULL;
 	}
-      else
-	Local.enemy_chosen--;
 
-      if(!Local.Battle.enemies || Enemy==Local.Battle.Last)
+      if(!Local.Battle.enemies || !Enemy->Next)//fine dello scontro
 	{
 	  Local.use_chosen= 1;
 	  Local.item_chosen= 1;
@@ -206,7 +213,7 @@ void battle(void)
       else
 	Local.current_enemy++;
 
-      if(!Local.Battle.enemies)
+      if(!Local.Battle.enemies) //fine del combattimento
 	{
 	  G= Local.Ground.First;
 	  for(int x= 0; x<Local.Ground.items; x++)
@@ -225,8 +232,6 @@ void battle(void)
 	  Local.state='t';
 	  return;
 	}
-
-      break;
     }
 }
 
@@ -259,11 +264,6 @@ void enemy_damage(Enemy_t* Enemy, int damage) //danno al nemico (compresa difesa
           Enemy->Info.defence-= 1;
         else if(Enemy->Info.health)
           Enemy->Info.health-= 1;
-      if(!Enemy->Info.health)
-	{
-	  deleteEnemy(&Local.Battle, Enemy);
-	  Local.current_enemy--;
-	}
     }
   else if(damage)
     Enemy->Info.health-= damage;

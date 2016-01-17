@@ -85,7 +85,13 @@ void readevent(char* id, char* t){
 	*t='g';
       else
 	if (x=='?')
-	  *t= 'i';
+	  {
+	    deleteEnemies(&Local.Battle);
+	    deleteItems(&Local.Bag);
+	    *t='i';
+	    Local.health= 1;
+	    Local.chosen= 1;
+	  }
 
   fclose(pf);
 }
