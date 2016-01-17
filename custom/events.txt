@@ -1,27 +1,27 @@
 /Start
 Questa è la storia di un programmatore alle prime armi
-che cerca di farsi strada tra errori di compilazione e segfault.*
+che cerca di farsi strada tra errori di compilazione e segfault.#
 	-d.-3
   ->Hello World
 
 /Hello World
 E' la prima lezione pratica in C e non sai neanche cosa sia un main.
 Per poterti definire un programmatore devi superare il rito di iniziazione:
-Stampare "Hello World" sulla riga di comando.*
+Stampare "Hello World" sulla riga di comando.#
 	->Vuoto
 
 /Vuoto
-Hai davanti a te il file di testo vuoto e non sai da dove cominciare.*
+Hai davanti a te il file di testo vuoto e non sai da dove cominciare.#
 	-*Provi a scrivere qualcosa:
 
 +Provi a scrivere qualcosa:
 
 / qualcosa 
-Ahahahahahahaha, no.*
+Ahahahahahahaha, no.#
 	-*Provi a scrivere qualcosa:
 
 / #include <stdio.h> 
-Ovvio.*
+Ovvio.#
   -*Adesso...
 
 / int main(){ 
@@ -31,17 +31,17 @@ Si comincia sempre dal main, giusto?*
 /#
 
 /Nope
-Il compilatore non è d'accordo...*
+Il compilatore non è d'accordo...#
 	-*Provi a scrivere qualcosa:
 
 +Adesso...
 
 / printf("Hello World"\n); 
-Neanche il compilatore sa da dove cominciare*
+Neanche il compilatore sa da dove cominciare#
  -*Adesso...
 
 / int main() { 
-Ci siamo quasi...*
+Ci siamo quasi...#
 	-*Manca solo:
 
 /#
@@ -51,39 +51,39 @@ Ci siamo quasi...*
 / printf("Hello World.\n") } 
 error: expected ‘;’ before ‘}’ token
 }
-^*
+^#
   -*Manca solo:
 
 / printf("Hello World.\n"); } 
-"Hello World"*
+"Hello World"#
   ->Begin
 
 /#
 
 /Begin
-Ora ha inizio la tua avventura.*
+Ora ha inizio la tua avventura.#
+	-s
   ->Atto II
 
 /Atto II
 E' passata una settimana,
-ormai hai appreso le basi ma hai ancora molti ostacoli da superare.*
+ormai hai appreso le basi ma hai ancora molti ostacoli da superare.#
 	->Seconda lezione
 
 /Seconda lezione
 Il primo esercizio da affrontare è sulle conversioni di tipo.
-Devi trovare qualcosa che ti difenda dalla noia.
-Premi 'q' per salvare.*
+Devi trovare qualcosa che ti difenda dalla noia.#
 	-e.Conversioni
-	-i.type-cast.10
-	-i.un int di nome pippo.100
+	-i.type-cast.8
+	-i.un int di nome pippo.16
 	->Prossimo
 	
 /Prossimo
-Questa volta è andata bene, ma non sarà sempre così facile.*
+Questa volta è andata bene, ma non sarà sempre così facile.#
 	->Pausa
 
 /Pausa
-Approfitti dei 10 minuti di pausa per prenderti un caffè.*
+Approfitti dei 10 minuti di pausa per prenderti un caffè.#
 	-i.caffè.1
 	-d.-3
 	->Esercizio
@@ -92,28 +92,140 @@ Approfitti dei 10 minuti di pausa per prenderti un caffè.*
 C'era fila alle macchinette e la lezione stà per ricominciare,
 non fai neanche in tempo a bere il caffè appena fatto
 che ti ritrovi a dover affrontare altri esercizi.
-Ricordati di compilare lanciando gcc.*
+Ricordati di compilare lanciando gcc.#
 	-e.Ancora conversioni
 	-e.Trianglolo di altezza 2n-1
-	-i.gcc.1000
+	-i.for().8
+	-i.while().8
+	-i.gcc.1024
 	->Triangolo
 	
 /Triangolo
->
->>
->>>
->>>>
->>>
->>
->
 *
+**
+***
+****
+***
+**
+*
+#
 ->Triforse?
 
 /Triforse?
-Vedere quel triangolo stampato dopo ore di tentativi falliti ti riempe di motivazione.*
+Vedere quel triangolo stampato dopo ore di tentativi falliti ti riempe di motivazione.#
 	-d.-4
+	-s
 	->Atto III
 
 /Atto III
 Sei sopravvissuto anche a questa settimana ma hai ancora molto da imparare.
+In quanto universitario stà a te organizzarti per studiare e fare pratica con la programmazione.#
+	-i.ore a disposizione.10
+	-*Con il tempo ancora a disposizione decidi di:
+
++Con il tempo ancora a disposizione decidi di:
+
+/?
+ore a disposizione.3
+Fare esercizi di programmazione
+
+/?
+ore a disposizione.3
+Studiare sulle dispense
+
+/?
+ore a disposizione.5
+Leggere "C in a Nutshell"
+
+/?
+ore a disposizione.6
+Leggere "Becoming a Better Programmer"
+
+/?
+ore a disposizione.2
+Fare una passeggiata
+
+/Iniziare il progetto
+Questa è la prova finale, devi dimostrare che questi mesi di università sono serviti a qualcosa.#
+	-e.Progetto Esame
+	->FINE
+
+/#
+
+/Fare esercizi di programmazione
+Tra gli esercizi di oggi ne trovi uno che sembra più interessanet degli altri.#
+	-e.Triangolo equilatero
+	-e.Triangolo isoscele
+	-e.Triangolo scaleno
+	-e.Triangolo rettangolo
+	-i.ore a disposizione.-3
+	->Fiducia
+
+/Fiducia
+Ormai hai acquisito la tecnica, questa esperienza ti tornerà utile in futuro.#
+	-d.-3
+	-i.fiducia in te stesso.16
+	-*Con il tempo ancora a disposizione decidi di:
+
+/Studiare sulle dispense
+Apprendi velocemente i concetti base, in più, seguendo i consigli del prof,
+impari a lanciare gdb nelle situazioni critiche.#
+	-i.ore a disposizione.-3
+	-i.operatore freccia.4
+	-i.operatore punto.4
+	-i.gdb.1000
+	-*Con il tempo ancora a disposizione decidi di:
+
+/Leggere "C in a Nutshell"
+Trovi quello che stavi cercando, ma ti accorgi di aver passato troppo tempo a sfogliare pagine.#
+	-i.ore a disposizione.-5
+	-i.operatore freccia.4
+	-i.operatore punto.4
+	-*Con il tempo ancora a disposizione decidi di:
+	
+/Leggere "Becoming a Better Programmer"
+Impari solo a prenderti più cura del tuo codice e ad un certo punto ti metti a leggere 
+tutte le vignette, magari ti aiuteranno a difenderti dalla noia.#
+	-i.ore a disposizione.-6
+	-i.Monkeys.10000
+	-*Con il tempo ancora a disposizione decidi di:
+
+/Fare una passeggiata
+E' una bellissima giornata, l'inverno quest'anno non sembra voler arrivare.
+L'aria fresca ti rimette in sesto.#
+	-d.-2
+	-i.ore a disposizione.-2
+	-*Con il tempo ancora a disposizione decidi di:
+	
+/FINE
+E' finito. Forse non sarà perfetto ma è il tuo progetto, e funziona.
+Non ti sembra vero.#
+	-s
+	-*...
+	
++...
+
+/Esegui il programma
+Non avresti mai creduto che qualche carattere sulla inea di comando
+potesse darti tanta soddisfazione.#
+	-?
+	
+/?
+caffè.
+Bevi quel caffè che ti porti dietro da tre mesi
+
+/?
+ore a disposizione.10
+Achievement sbloccato
+
+/#
+
+/Bevi quel caffè che ti porti dietro da tre mesi
+E' freddo.#
+	-#
+	
+/Achievement sbloccato
+Complimenti, sei riuscito a finire il progetto senza intaccare il tuo tempo libero.
+	-i.ore a disposizione.-10
+	-*...
 

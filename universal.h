@@ -39,10 +39,10 @@ void deleteActions(Enemy_t* Enemy);
 
 //output
 void next_page();       //divide graficamente le varie schermate
-void print_intro();     //stampa l'intro del gioco ********* da fare
+void print_intro();     //stampa l'intro del gioco
 void print_menu();      //stampa il menù
 void print_center();    //stampa un testo centrato
-void print_imp();       //stampa impostazioni ********** aggiungere crediti
+void print_imp();       //stampa impostazioni
 void print_quit(short* chosen); //stampa menù quit
 void print_gameover();  //stampa messaggio Game Over
 void print_Choices(Choice_List_t* List, short chosen);//stampa le scelte

@@ -26,7 +26,7 @@ void readevent(char* id, char* t){
   do{
     move('-',pf);
     x=getc(pf);
-    if (x=='*'|| x=='>'|| x=='#') break;
+    if (x=='*'|| x=='>'|| x=='#' || x=='?') break;
     if(add)
       {
         if (x=='i'){
@@ -40,22 +40,28 @@ void readevent(char* id, char* t){
           print_center(id);
           isearch(num, id);
         }
-        if (x=='e'){
-          move('.',pf);
-          f=sstring(pf,'\n');
-          strcpy(id,f);
-          free(f);
-          print_center(id);
-          esearch(id);
-        }
-        if (x=='d'){
-          move('.',pf);
-          n= sstring(pf,'\n');
-          num= atoi(n);
-          free(n);
-          //output?
-          Local.damage= num;
-        }
+	else
+	  if (x=='e'){
+	    move('.',pf);
+	    f=sstring(pf,'\n');
+	    strcpy(id,f);
+	    free(f);
+	    print_center(id);
+	    esearch(id);
+	  }
+	  else
+	    if (x=='d'){
+	      move('.',pf);
+	      n= sstring(pf,'\n');
+	      num= atoi(n);
+	      free(n);
+	      //output?
+	      Local.damage= num;
+	    }
+	    else
+	      if (x=='s')
+		save();
+	
       }
   }while(x!=EOF);
   if (x=='*'){
@@ -67,14 +73,19 @@ void readevent(char* id, char* t){
     readchoices(pf, id);
     Local.chosen= 1;
   }
-  if (x=='>'){
-    *t='t';
-    f=sstring(pf,'\n');
-    strcpy(id,f);
-    free(f);
-  }
-  if (x=='#')
-    *t='g';
+  else
+    if (x=='>'){
+      *t='t';
+      f=sstring(pf,'\n');
+      strcpy(id,f);
+      free(f);
+    }
+    else
+      if (x=='#')
+	*t='g';
+      else
+	if (x=='?')
+	  *t= 'i';
 
   fclose(pf);
 }
@@ -94,8 +105,8 @@ void printtext(FILE*pf){// stampa il testo fino al simbolo...finito.
     {
       a=getc(pf);
       if(a==EOF)
-	eof_error(__func__,'*');
-      if (a=='*'){ 
+	eof_error(__func__,'#');
+      if (a=='#'){ 
 	putc('\n',stdout);
 	return;
       }

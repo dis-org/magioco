@@ -1,17 +1,21 @@
 azioni per risolvere gli esercizi
 /type-cast.p.1.0.0
+/for().u.2.0.0
+/while().u.2.0.0
+/operatore freccia.u.3.5.0
+/operatore punto.u.3.0.0
 
 oggetti che difendono dalla noia
 /un int di nome pippo.u.0.0.4
-/10,000 Monkeys.u.0.0.3
+/Monkeys.u.0.0.3
 
 oggetti che rimettono in forze
 /caffè.p.-4.0.0
-/fiducia in se stesso.-3.0.0
+/fiducia in te stesso.u.-3.0.0
 
 programmi da lanciare
 /gcc.p.0.3.0
-/man.p.
-/gdb.p.
+/gdb.p.0.5.0
 
-/ore di studio.p.0.0.0
+/ore a disposizione.p.0.0.0
+
