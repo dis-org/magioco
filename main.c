@@ -11,7 +11,18 @@ short width;
 
 int main(int argc, char* argv[])
 {
-  check_folders();
+  if(argc>1)
+    if(argc==2)
+      if((argv[1][0]=='t') && (argv[1][1]=='\0' || !strcmp(argv[1],"test")))
+        test_story(1);
+      else if((argv[1][0]=='h') && (argv[1][1]=='\0' || !strcmp(argv[1],"help")))
+        arg_error(0);
+      else
+        arg_error(1);
+    else
+      arg_error(2);
+  else
+    test_story(0);
 
   _Bool on= 1;
   char temp[128];

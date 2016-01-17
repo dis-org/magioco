@@ -55,7 +55,6 @@ void print_sel(Item_t* Item);   //Utilizzo scelto
 void print_Action(Enemy_t* Enemy);
 
 //save
-void check_folders();   //controlla la presenza delle cartelle e dei .txt
 void save();            //salva Date_t Local su file save.bin
 void load();            //carica i salvataggi (se esistono) e stampa relativo messaggio
 void loadChoice(Choice_List_t* List, FILE* pf); //carica una scelta
@@ -71,6 +70,15 @@ void controle(FILE*,char,char,char*);
 void readchoices();
 void isearch(short,char*);
 void esearch(char*);
+
+//control
+void test_story(_Bool);
+void test_event(FILE*,FILE*,FILE*,char*);
+void test_choice(FILE*,FILE*,FILE*,char*);
+int number(char*);
+void test_move(char,FILE*);
+void controlt(FILE*,char,char,char*);
+char* test_string(FILE*,char);
 
 //error
 void arg_error(int n); //stampa messaggio per immissione specifiche
