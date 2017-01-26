@@ -13,7 +13,7 @@ void test_story(_Bool all){
   t1=fopen("custom/events.txt","r");
   t2=fopen("custom/enemies.txt","r");
   t3=fopen("custom/items.txt","r");
-  if(!t1 || !t2 || !t3)
+  if(!t1 || !t2 || !t3 || !pf)
     folders_error();
   fclose(pf);
   remove("saves/check.tmp");
