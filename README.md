@@ -5,15 +5,14 @@
      \ \_\ \ \ \ \__/\_\ \__/\ \ \_\ \____/ \___\ \____/
       \/_/  \/_/\/_/\/_/\/\____/\/_/\/___/ \/___/\/___/ 
                          \/___/                         
-
-------------------------------------------------------------------------
+.
 
     CREDITS TO:
     Filippo Mariani   FilMar
     Giorgio Mazza     Shizen39
-    Claudio Pannacci  Kappanneo
+    Claudio Pannacci  kappanneo
     Lorenzo Santagà   santiasd
-
+    
 ------------------------------------------------------------------------
 
 1. INTRODUZIONE
@@ -140,7 +139,6 @@ L'unica eccezione è quella delgi eventi condizionati, che non presentano dirett
 
 ESEMPIO:
 
-    __________________________________________________________________________________
     
     /Start
     Testo iniziale#
@@ -178,7 +176,7 @@ ESEMPIO:
     /FINE
     Testo finale#
       -# -game over-
-    __________________________________________________________________________________
+
 
 2) enemies.txt
 
@@ -186,13 +184,11 @@ Per una descrizione dettagliata dei nemici e delle loro azioni, si rimanda al ca
 
 ESEMPIO:
 
-    __________________________________________________________________________________
       
     /NEMICO.(vita).(difesa)
     -(tipo di azione).(valore azione).TESTO AZIONE
     [...]
     -#
-    __________________________________________________________________________________
     
 
 Il nome del nemico (in caps) è anche il suo ID quindi va copiato negli eventi che lo utilizzano
@@ -210,10 +206,8 @@ Per una descrizione dettagliata dei vari tipi di oggetti e dei loro usi, si rima
 
 ESEMPIO:
 
-    __________________________________________________________________________________
     
     /OGGETTO.(tipo).(danno).(danno a distanza).(valore di difensa)
-    __________________________________________________________________________________
  
 
 Il nome dell'oggetto (in caps) è anche il suo ID quindi va copiato negli eventi che lo utilizzano
